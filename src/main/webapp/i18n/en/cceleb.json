@@ -4,6 +4,7 @@
             "home": {
                 "title": "Ccelebs",
                 "createLabel": "Create a new Cceleb",
+                "myLabel": "My Community Celebs",
                 "createOrEditLabel": "Create or edit a Cceleb",
                 "search": "Search for Cceleb"
             },

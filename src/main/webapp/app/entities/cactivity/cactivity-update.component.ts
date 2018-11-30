@@ -38,11 +38,11 @@ export class CactivityUpdateComponent implements OnInit {
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
-            this.myUserActivities(this.currentAccount);
+            this.myCommunityCactivities(this.currentAccount);
         });
     }
 
-    private myUserActivities(currentAccount) {
+    private myCommunityCactivities(currentAccount) {
         const query = {};
         if (this.currentAccount.id != null) {
             query['userId.equals'] = this.currentAccount.id;
