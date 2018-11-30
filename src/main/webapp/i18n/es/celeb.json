@@ -5,6 +5,7 @@
                 "title": "Celebs",
                 "createLabel": "Crear nuevo Celeb",
                 "createOrEditLabel": "Crear o editar Celeb",
+                "myLabel": "Mi Celebs",
                 "search": "Search for Celeb"
             },
             "created": "Un nuevo Celeb ha sido creado con el identificador {{ param }}",
@@ -17,7 +18,8 @@
                 "title": "Celeb"
             },
             "celebName": "Celeb Name",
-            "uprofile": "Uprofile"
+            "community": "Community",
+            "uprofile": "Perfil"
         }
     }
 }

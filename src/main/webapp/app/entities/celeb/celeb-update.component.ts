@@ -9,6 +9,8 @@ import { CelebService } from './celeb.service';
 import { IUprofile } from 'app/shared/model/uprofile.model';
 import { UprofileService } from 'app/entities/uprofile';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-celeb-update',
     templateUrl: './celeb-update.component.html'
@@ -19,10 +21,13 @@ export class CelebUpdateComponent implements OnInit {
 
     uprofiles: IUprofile[];
 
+    currentAccount: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private celebService: CelebService,
         private uprofileService: UprofileService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -31,9 +36,21 @@ export class CelebUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ celeb }) => {
             this.celeb = celeb;
         });
-        this.uprofileService.query().subscribe(
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.myUserCelebs(this.currentAccount);
+        });
+    }
+
+    private myUserCelebs(currentAccount) {
+        const query = {};
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.uprofileService.query(query).subscribe(
             (res: HttpResponse<IUprofile[]>) => {
                 this.uprofiles = res.body;
+                console.log('CONSOLOG: M:myProfiles & O: res.body : ', res.body);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
