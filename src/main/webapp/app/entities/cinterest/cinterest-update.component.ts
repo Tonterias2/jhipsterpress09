@@ -9,6 +9,8 @@ import { CinterestService } from './cinterest.service';
 import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from 'app/entities/community';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-cinterest-update',
     templateUrl: './cinterest-update.component.html'
@@ -19,10 +21,13 @@ export class CinterestUpdateComponent implements OnInit {
 
     communities: ICommunity[];
 
+    currentAccount: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private cinterestService: CinterestService,
         private communityService: CommunityService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -31,9 +36,21 @@ export class CinterestUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ cinterest }) => {
             this.cinterest = cinterest;
         });
-        this.communityService.query().subscribe(
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.myCommunityCinterests(this.currentAccount);
+        });
+    }
+
+    private myCommunityCinterests(currentAccount) {
+        const query = {};
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService.query(query).subscribe(
             (res: HttpResponse<ICommunity[]>) => {
                 this.communities = res.body;
+                console.log('CONSOLOG: M:myUserActivities & O: res.body : ', res.body);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

@@ -4,6 +4,7 @@
             "home": {
                 "title": "Cinterests",
                 "createLabel": "Create a new Cinterest",
+                "myLabel": "My Community Interest",
                 "createOrEditLabel": "Create or edit a Cinterest",
                 "search": "Search for Cinterest"
             },

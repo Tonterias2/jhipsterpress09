@@ -5,10 +5,12 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ICinterest } from 'app/shared/model/cinterest.model';
-import { Principal } from 'app/core';
-
-import { ITEMS_PER_PAGE } from 'app/shared';
 import { CinterestService } from './cinterest.service';
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from 'app/entities/community';
+
+import { Principal } from 'app/core';
+import { ITEMS_PER_PAGE } from 'app/shared';
 
 @Component({
     selector: 'jhi-cinterest',
@@ -17,6 +19,7 @@ import { CinterestService } from './cinterest.service';
 export class CinterestComponent implements OnInit, OnDestroy {
     currentAccount: any;
     cinterests: ICinterest[];
+    communities: ICommunity[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -30,9 +33,12 @@ export class CinterestComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private cinterestService: CinterestService,
+        private communityService: CommunityService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -133,8 +139,45 @@ export class CinterestComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInCinterests();
+    }
+
+    myCinterests() {
+        const query = {};
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService.query(query).subscribe(
+            (res: HttpResponse<ICommunity[]>) => {
+                this.communities = res.body;
+                console.log('CONSOLOG: M:myCactivities & O: res.body : ', res.body);
+                this.communityCinterests();
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private communityCinterests() {
+        const query = {};
+        if (this.communities != null) {
+            const arrayCommunities = [];
+            this.communities.forEach(community => {
+                arrayCommunities.push(community.id);
+            });
+            query['communityId.in'] = arrayCommunities;
+        }
+        this.cinterestService.query(query).subscribe(
+            (res: HttpResponse<ICommunity[]>) => {
+                this.cinterests = res.body;
+                console.log('CONSOLOG: M:communityCactivities & O: res.body : ', res.body);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     ngOnDestroy() {
@@ -162,6 +205,9 @@ export class CinterestComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.cinterests = data;
+        console.log('CONSOLOG: M:paginateActivities & O: this.activities : ', this.cinterests);
+        console.log('CONSOLOG: M:paginateActivities & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateActivities & O: this.isAdmin : ', this.isAdmin);
     }
 
     private onError(errorMessage: string) {
