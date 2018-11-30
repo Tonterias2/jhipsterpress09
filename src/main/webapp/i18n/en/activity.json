@@ -4,6 +4,7 @@
             "home": {
                 "title": "Activities",
                 "createLabel": "Create a new Activity",
+                "myLabel": "My Activities",
                 "createOrEditLabel": "Create or edit a Activity",
                 "search": "Search for Activity"
             },
@@ -17,7 +18,8 @@
                 "title": "Activity"
             },
             "activityName": "Activity Name",
-            "uprofile": "Uprofile"
+            "community": "Community",
+            "umxm": "Umxm"
         }
     }
 }

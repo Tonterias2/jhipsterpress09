@@ -5,6 +5,7 @@
                 "title": "Activities",
                 "createLabel": "Crear nuevo Activity",
                 "createOrEditLabel": "Crear o editar Activity",
+                "myLabel": "Mi Activity",
                 "search": "Search for Activity"
             },
             "created": "Un nuevo Activity ha sido creado con el identificador {{ param }}",
@@ -17,7 +18,8 @@
                 "title": "Activity"
             },
             "activityName": "Activity Name",
-            "uprofile": "Uprofile"
+            "community": "Community",
+            "umxm": "Umxm"
         }
     }
 }
