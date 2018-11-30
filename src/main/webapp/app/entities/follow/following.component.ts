@@ -12,15 +12,14 @@ import { FollowService } from './follow.service';
 
 @Component({
     selector: 'jhi-follow',
-    templateUrl: './follow.component.html'
+    templateUrl: './following.component.html'
 })
-export class FollowComponent implements OnInit, OnDestroy {
+export class FollowingComponent implements OnInit, OnDestroy {
     currentAccount: any;
     follows: IFollow[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
-    currentSearch: string;
     routeData: any;
     links: any;
     totalItems: any;
@@ -54,38 +53,22 @@ export class FollowComponent implements OnInit, OnDestroy {
                 this.nameParamFollows = 'followedId.equals';
                 this.valueParamFollows = params.followedIdEquals;
             }
-            if (params.followingIdEquals != null) {
-                this.nameParamFollows = 'followingId.equals';
-                this.valueParamFollows = params.followingIdEquals;
+            if (params.cfollowedIdEquals != null) {
+                this.nameParamFollows = 'cfollowedId.equals';
+                this.valueParamFollows = params.cfollowedIdEquals;
             }
         });
-        this.currentSearch =
-            this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
-                ? this.activatedRoute.snapshot.params['search']
-                : '';
     }
 
     loadAll() {
-        if (this.currentSearch) {
-            this.followService
-                .search({
-                    page: this.page - 1,
-                    query: this.currentSearch,
-                    size: this.itemsPerPage,
-                    sort: this.sort()
-                })
-                .subscribe(
-                    (res: HttpResponse<IFollow[]>) => this.paginateFollows(res.body, res.headers),
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
-            return;
-        }
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        query[this.nameParamFollows] = this.valueParamFollows;
         this.followService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .query(query)
             .subscribe(
                 (res: HttpResponse<IFollow[]>) => this.paginateFollows(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -104,7 +87,6 @@ export class FollowComponent implements OnInit, OnDestroy {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
-                search: this.currentSearch,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }
         });
@@ -113,27 +95,9 @@ export class FollowComponent implements OnInit, OnDestroy {
 
     clear() {
         this.page = 0;
-        this.currentSearch = '';
         this.router.navigate([
             '/follow',
             {
-                page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        ]);
-        this.loadAll();
-    }
-
-    search(query) {
-        if (!query) {
-            return this.clear();
-        }
-        this.page = 0;
-        this.currentSearch = query;
-        this.router.navigate([
-            '/follow',
-            {
-                search: this.currentSearch,
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
             }

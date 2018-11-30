@@ -5,6 +5,8 @@ import { JhipsterpressSharedModule } from 'app/shared';
 import { JhipsterpressAdminModule } from 'app/admin/admin.module';
 import {
     FollowComponent,
+    FollowingComponent,
+    FollowerComponent,
     FollowDetailComponent,
     FollowUpdateComponent,
     FollowDeletePopupComponent,
@@ -17,8 +19,23 @@ const ENTITY_STATES = [...followRoute, ...followPopupRoute];
 
 @NgModule({
     imports: [JhipsterpressSharedModule, JhipsterpressAdminModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [FollowComponent, FollowDetailComponent, FollowUpdateComponent, FollowDeleteDialogComponent, FollowDeletePopupComponent],
-    entryComponents: [FollowComponent, FollowUpdateComponent, FollowDeleteDialogComponent, FollowDeletePopupComponent],
+    declarations: [
+        FollowComponent,
+        FollowingComponent,
+        FollowerComponent,
+        FollowDetailComponent,
+        FollowUpdateComponent,
+        FollowDeleteDialogComponent,
+        FollowDeletePopupComponent
+    ],
+    entryComponents: [
+        FollowComponent,
+        FollowingComponent,
+        FollowerComponent,
+        FollowUpdateComponent,
+        FollowDeleteDialogComponent,
+        FollowDeletePopupComponent
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class JhipsterpressFollowModule {}
