@@ -30,6 +30,8 @@ export class AlbumComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private albumService: AlbumService,
@@ -133,6 +135,10 @@ export class AlbumComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInAlbums();
     }
@@ -157,11 +163,31 @@ export class AlbumComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    myAlbums() {
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.albumService
+            .query(query)
+            .subscribe(
+                (res: HttpResponse<IAlbum[]>) => this.paginateAlbums(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
     private paginateAlbums(data: IAlbum[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.albums = data;
+        console.log('CONSOLOG: M:paginateAlbums & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateAlbums & O: this.isAdmin : ', this.isAdmin);
+        console.log('CONSOLOG: M:paginateAlbums & O: this.albums : ', this.albums);
     }
 
     private onError(errorMessage: string) {

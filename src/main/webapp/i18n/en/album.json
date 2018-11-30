@@ -4,6 +4,7 @@
             "home": {
                 "title": "Albums",
                 "createLabel": "Create a new Album",
+                "myLabel": "My Album",
                 "createOrEditLabel": "Create or edit a Album",
                 "search": "Search for Album"
             },
