@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IInterest } from 'app/shared/model/interest.model';
+import { IUprofile } from 'app/shared/model/uprofile.model';
+import { UprofileService } from 'app/entities/uprofile';
 import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
@@ -17,6 +19,7 @@ import { InterestService } from './interest.service';
 export class InterestComponent implements OnInit, OnDestroy {
     currentAccount: any;
     interests: IInterest[];
+    uprofiles: IUprofile[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -30,9 +33,12 @@ export class InterestComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private interestService: InterestService,
+        private uprofileService: UprofileService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -133,8 +139,45 @@ export class InterestComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInInterests();
+    }
+
+    myInterests() {
+        const query = {};
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.uprofileService.query(query).subscribe(
+            (res: HttpResponse<IUprofile[]>) => {
+                this.uprofiles = res.body;
+                console.log('CONSOLOG: M:myProfiles & O: res.body : ', res.body);
+                this.uprofileInterests();
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private uprofileInterests() {
+        const query = {};
+        if (this.uprofiles != null) {
+            const arrayUprofiles = [];
+            this.uprofiles.forEach(uprofile => {
+                arrayUprofiles.push(uprofile.id);
+            });
+            query['uprofileId.in'] = arrayUprofiles;
+        }
+        this.interestService.query(query).subscribe(
+            (res: HttpResponse<IInterest[]>) => {
+                this.interests = res.body;
+                console.log('CONSOLOG: M:communitiesActivities & O: res.body : ', res.body);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
 
     ngOnDestroy() {
@@ -162,6 +205,9 @@ export class InterestComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.interests = data;
+        console.log('CONSOLOG: M:paginateActivities & O: this.activities : ', this.interests);
+        console.log('CONSOLOG: M:paginateActivities & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateActivities & O: this.isAdmin : ', this.isAdmin);
     }
 
     private onError(errorMessage: string) {

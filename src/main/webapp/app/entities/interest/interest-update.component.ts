@@ -9,6 +9,8 @@ import { InterestService } from './interest.service';
 import { IUprofile } from 'app/shared/model/uprofile.model';
 import { UprofileService } from 'app/entities/uprofile';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-interest-update',
     templateUrl: './interest-update.component.html'
@@ -19,10 +21,13 @@ export class InterestUpdateComponent implements OnInit {
 
     uprofiles: IUprofile[];
 
+    currentAccount: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private interestService: InterestService,
         private uprofileService: UprofileService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -31,9 +36,21 @@ export class InterestUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ interest }) => {
             this.interest = interest;
         });
-        this.uprofileService.query().subscribe(
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.myUserInterests(this.currentAccount);
+        });
+    }
+
+    private myUserInterests(currentAccount) {
+        const query = {};
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.uprofileService.query(query).subscribe(
             (res: HttpResponse<IUprofile[]>) => {
                 this.uprofiles = res.body;
+                console.log('CONSOLOG: M:myProfiles & O: res.body : ', res.body);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

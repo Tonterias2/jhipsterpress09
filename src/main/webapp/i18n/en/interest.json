@@ -4,6 +4,7 @@
             "home": {
                 "title": "Interests",
                 "createLabel": "Create a new Interest",
+                "myLabel": "My Interests",
                 "createOrEditLabel": "Create or edit a Interest",
                 "search": "Search for Interest"
             },
@@ -17,7 +18,8 @@
                 "title": "Interest"
             },
             "interestName": "Interest Name",
-            "uprofile": "Uprofile"
+            "community": "Community",
+            "uprofile": "Profile"
         }
     }
 }
