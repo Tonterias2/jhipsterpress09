@@ -9,6 +9,8 @@ import { CactivityService } from './cactivity.service';
 import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from 'app/entities/community';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-cactivity-update',
     templateUrl: './cactivity-update.component.html'
@@ -19,10 +21,13 @@ export class CactivityUpdateComponent implements OnInit {
 
     communities: ICommunity[];
 
+    currentAccount: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private cactivityService: CactivityService,
         private communityService: CommunityService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -31,9 +36,21 @@ export class CactivityUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ cactivity }) => {
             this.cactivity = cactivity;
         });
-        this.communityService.query().subscribe(
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.myUserActivities(this.currentAccount);
+        });
+    }
+
+    private myUserActivities(currentAccount) {
+        const query = {};
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService.query(query).subscribe(
             (res: HttpResponse<ICommunity[]>) => {
                 this.communities = res.body;
+                console.log('CONSOLOG: M:myUserActivities & O: res.body : ', res.body);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

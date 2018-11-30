@@ -4,6 +4,7 @@
             "home": {
                 "title": "Cactivities",
                 "createLabel": "Create a new Cactivity",
+                "myLabel": "My Cactivities",
                 "createOrEditLabel": "Create or edit a Cactivity",
                 "search": "Search for Cactivity"
             },

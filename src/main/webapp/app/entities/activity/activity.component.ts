@@ -5,12 +5,12 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IActivity } from 'app/shared/model/activity.model';
+import { ActivityService } from './activity.service';
 import { IUprofile } from 'app/shared/model/uprofile.model';
 import { UprofileService } from 'app/entities/uprofile';
-import { Principal } from 'app/core';
 
+import { Principal } from 'app/core';
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { ActivityService } from './activity.service';
 
 @Component({
     selector: 'jhi-activity',
