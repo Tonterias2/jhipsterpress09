@@ -3,12 +3,17 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { INotification } from 'app/shared/model/notification.model';
+import { NotificationService } from './notification.service';
+import { IUser, UserService } from 'app/core';
+
 import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { NotificationService } from './notification.service';
 
 @Component({
     selector: 'jhi-notification',
@@ -30,9 +35,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    paramNotificationUserId: any;
+    owner: any;
+    isAdmin: boolean;
+    creationDate: string;
+    notificationDate: string;
+    private _notification: INotification;
+    isSaving: boolean;
+    users: IUser[];
 
     constructor(
         private notificationService: NotificationService,
+        private userService: UserService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -130,10 +144,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
+        this.isSaving = false;
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.myNotifications();
         });
+        this.userService.query().subscribe(
+            (res: HttpResponse<IUser[]>) => {
+                this.users = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
         this.registerChangeInNotifications();
     }
 
@@ -155,6 +177,53 @@ export class NotificationComponent implements OnInit, OnDestroy {
             result.push('id');
         }
         return result;
+    }
+
+    myNotifications() {
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.notificationService.query(query).subscribe(
+            (res: HttpResponse<INotification[]>) => {
+                this.paginateNotifications(res.body, res.headers);
+                this.notifications = res.body;
+                console.log('CONSOLOG: M:isDeliveredUpdate & O: res.body : ', res.body);
+                this.isDeliveredUpdate(this.notifications);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    isDeliveredUpdate(notifications: INotification[]) {
+        this.isSaving = true;
+        this.notifications.forEach(notification => {
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications PRE-Date : ', notifications);
+            this.notificationDate = moment(notification.notificationDate).format(DATE_TIME_FORMAT);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: this.notificationDate : ', this.notificationDate);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications POST-Date : ', notifications);
+            notification.isDelivered = true;
+            //            this.notificationService.update(notification);
+            this.subscribeToSaveResponse(this.notificationService.update(notification));
+            //            this.subscribeToSaveResponse(this.notificationService.update(notification));
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications : ', notifications);
+        });
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<INotification>>) {
+        result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess() {
+        this.isSaving = false;
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
     }
 
     private paginateNotifications(data: INotification[], headers: HttpHeaders) {
