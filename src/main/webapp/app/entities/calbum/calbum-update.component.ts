@@ -11,6 +11,8 @@ import { CalbumService } from './calbum.service';
 import { ICommunity } from 'app/shared/model/community.model';
 import { CommunityService } from 'app/entities/community';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-calbum-update',
     templateUrl: './calbum-update.component.html'
@@ -22,10 +24,13 @@ export class CalbumUpdateComponent implements OnInit {
     communities: ICommunity[];
     creationDate: string;
 
+    currentAccount: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private calbumService: CalbumService,
         private communityService: CommunityService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -35,12 +40,10 @@ export class CalbumUpdateComponent implements OnInit {
             this.calbum = calbum;
             this.creationDate = this.calbum.creationDate != null ? this.calbum.creationDate.format(DATE_TIME_FORMAT) : null;
         });
-        this.communityService.query().subscribe(
-            (res: HttpResponse<ICommunity[]>) => {
-                this.communities = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.myCommunities(this.currentAccount);
+        });
     }
 
     previousState() {
@@ -55,6 +58,21 @@ export class CalbumUpdateComponent implements OnInit {
         } else {
             this.subscribeToSaveResponse(this.calbumService.create(this.calbum));
         }
+    }
+
+    private myCommunities(currentAccount) {
+        const query = {};
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService.query(query).subscribe(
+            (res: HttpResponse<ICommunity[]>) => {
+                this.communities = res.body;
+                console.log('CONSOLOG: M:myCommunities & O: res.body : ', res.body);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        console.log('CONSOLOG: M:myCommunities & O: this.currentAccount.id : ', this.currentAccount.id);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<ICalbum>>) {

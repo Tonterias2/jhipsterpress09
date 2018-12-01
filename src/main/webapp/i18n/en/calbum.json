@@ -4,6 +4,7 @@
             "home": {
                 "title": "Calbums",
                 "createLabel": "Create a new Calbum",
+                "myLabel": "My Calbum",
                 "createOrEditLabel": "Create or edit a Calbum",
                 "search": "Search for Calbum"
             },
