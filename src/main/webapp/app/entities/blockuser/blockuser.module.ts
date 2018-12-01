@@ -5,6 +5,8 @@ import { JhipsterpressSharedModule } from 'app/shared';
 import { JhipsterpressAdminModule } from 'app/admin/admin.module';
 import {
     BlockuserComponent,
+    BlockinguserComponent,
+    BlockeduserComponent,
     BlockuserDetailComponent,
     BlockuserUpdateComponent,
     BlockuserDeletePopupComponent,
@@ -19,6 +21,8 @@ const ENTITY_STATES = [...blockuserRoute, ...blockuserPopupRoute];
     imports: [JhipsterpressSharedModule, JhipsterpressAdminModule, RouterModule.forChild(ENTITY_STATES)],
     declarations: [
         BlockuserComponent,
+        BlockinguserComponent,
+        BlockeduserComponent,
         BlockuserDetailComponent,
         BlockuserUpdateComponent,
         BlockuserDeleteDialogComponent,

@@ -1,91 +1,82 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterpressApp.blockuser.home.title">Blockusers</span>
+        <!--
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-blockuser" [routerLink]="['/blockuser/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="jhipsterpressApp.blockuser.home.createLabel">
             Create new Blockuser
             </span>
         </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12">
-            <form name="searchForm" class="form-inline">
-                <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'jhipsterpressApp.blockuser.home.search' | translate }}">
-                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
-                        <fa-icon [icon]="'search'"></fa-icon>
-                    </button>
-                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <fa-icon [icon]="'trash-alt'"></fa-icon>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <br/>
-    <div class="table-responsive" *ngIf="blockusers">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="creationDate"><span jhiTranslate="jhipsterpressApp.blockuser.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="blockeduserId"><span jhiTranslate="jhipsterpressApp.blockuser.blockeduser">Blockeduser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="blockinguserId"><span jhiTranslate="jhipsterpressApp.blockuser.blockinguser">Blockinguser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="cblockeduserId"><span jhiTranslate="jhipsterpressApp.blockuser.cblockeduser">Cblockeduser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="cblockinguserId"><span jhiTranslate="jhipsterpressApp.blockuser.cblockinguser">Cblockinguser</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let blockuser of blockusers ;trackBy: trackId">
-                <td><a [routerLink]="['/blockuser', blockuser.id, 'view' ]">{{blockuser.id}}</a></td>
-                <td>{{blockuser.creationDate | date:'medium'}}</td>
-                <td>
-                    {{blockuser.blockeduserId}}
-                </td>
-                <td>
-                    {{blockuser.blockinguserId}}
-                </td>
-                <td>
-                    <div *ngIf="blockuser.cblockeduserId">
-                        <a [routerLink]="['../community', blockuser.cblockeduserId , 'view' ]" >{{blockuser.cblockeduserId}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="blockuser.cblockinguserId">
-                        <a [routerLink]="['../community', blockuser.cblockinguserId , 'view' ]" >{{blockuser.cblockinguserId}}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/blockuser', blockuser.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/blockuser', blockuser.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'blockuser/'+ blockuser.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+         -->
+
+   	<!-- Profile Content -->
+	<div class="col-lg-9" *ngIf="blockusers?.length; else zipZeroResults"> 
+	  <!-- User Contacts -->
+	  <div class="row g-mb-40">
+	    <div class="col-md-4 g-mb-30 g-mb-0--md" *ngFor="let blockuser of blockusers ;trackBy: trackId">
+	      <!-- Figure -->
+	      <figure class="g-bg-white g-brd-around g-brd-gray-light-v4 g-brd-cyan--hover g-transition-0_2 text-center">
+	        <div class="g-py-40 g-px-20">
+	          <!-- Figure Image -->
+	          <a *ngIf="blockuser.cblockeduserImage" [routerLink]="['/community', blockuser.cblockeduserId, 'view' ]">
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.cblockeduserImageContentType + ';base64,' + blockuser.cblockeduserImage" alt="image"/>
+              </a>
+              <a *ngIf="blockuser.blockeduserImage" [routerLink]="['/profile', blockuser.blockeduserId, 'view' ]">
+                  <img class="g-width-100 g-height-100 rounded-circle g-mb-20" [src]="'data:' + blockuser.blockeduserImageContentType + ';base64,' + blockuser.blockeduserImage" alt="image"/>
+              </a>
+	          <!-- Figure Image -->
+	
+	          <!-- Figure Info -->
+
+			  <a *ngIf="blockuser.cblockeduserId" [routerLink]="['/community', blockuser.cblockeduserId, 'view' ]">
+	          	<h4 class="h5 g-mb-5">{{blockuser.cblockeduserCommunityname}}</h4>
+	          </a>
+	          <a *ngIf="blockuser.blockeduserId" [routerLink]="['/profile', blockuser.blockeduserId, 'view' ]">
+	          	<h4 class="h5 g-mb-5">{{blockuser.blockeduserFirstName}} {{blockuser.blockeduserLastName}}</h4>
+	          </a>
+	          
+	          <!--
+	          <div class="d-block">
+	            <span class="g-color-cyan g-font-size-default g-mr-3">
+	              <i class="icon-user"></i>
+	            </span>
+	            <em class="g-color-gray-dark-v4 g-font-style-normal g-font-size-default">Employee</em>
+	          </div>
+	          -- End Figure Info -->
+	        </div>
+	
+	        <hr class="g-brd-gray-light-v4 g-my-0">
+	
+	        <!-- Figure List --
+	        <ul class="row list-inline g-py-20 g-ma-0">
+	          <li class="col g-brd-right g-brd-gray-light-v4">
+	            <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-bg-transparent g-color-cyan--hover" href="#!">
+	              <i class="icon-speech"></i>
+	            </a>
+	          </li>
+	          <li class="col g-brd-right g-brd-gray-light-v4">
+	            <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-bg-transparent g-color-red--hover" href="#!">
+	              <i class="icon-envelope-letter"></i>
+	            </a>
+	          </li>
+	          <li class="col">
+	            <a class="u-icon-v1 u-icon-size--sm g-color-gray-dark-v5 g-bg-transparent g-color-purple--hover" href="#!">
+	              <i class="icon-screen-smartphone"></i>
+	            </a>
+	          </li>
+	        </ul>
+	        -- End Figure List -->
+	      </figure>
+	      <!-- End Figure -->
+	    </div>
+	 </div>
+	</div>
+	<ng-template #zipZeroResults>
+	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
+	</ng-template>
+	<!-- End Profile Content -->
+	
     <div *ngIf="blockusers && blockusers.length">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>

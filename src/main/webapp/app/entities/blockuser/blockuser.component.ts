@@ -30,6 +30,11 @@ export class BlockuserComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    nameParamBlockUser: any;
+    valueParamBlockUser: any;
+    owner: any;
+    isAdmin: boolean;
+    zipZeroResults: any;
 
     constructor(
         private blockuserService: BlockuserService,
@@ -46,6 +51,16 @@ export class BlockuserComponent implements OnInit, OnDestroy {
             this.previousPage = data.pagingParams.page;
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
+        });
+        this.activatedRoute.queryParams.subscribe(params => {
+            if (params.blockeduserIdEquals != null) {
+                this.nameParamBlockUser = 'blockinguserId.equals';
+                this.valueParamBlockUser = params.blockeduserIdEquals;
+            }
+            if (params.cblockinguserIdEquals != null) {
+                this.nameParamBlockUser = 'cblockinguserId.equals';
+                this.valueParamBlockUser = params.cblockinguserIdEquals;
+            }
         });
         this.currentSearch =
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
@@ -133,6 +148,10 @@ export class BlockuserComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInBlockusers();
     }
@@ -162,6 +181,9 @@ export class BlockuserComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.blockusers = data;
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.blockusers : ', this.blockusers);
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateBlockusers & O: this.isAdmin : ', this.isAdmin);
     }
 
     private onError(errorMessage: string) {
