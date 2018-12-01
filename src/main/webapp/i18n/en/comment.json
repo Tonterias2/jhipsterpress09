@@ -4,6 +4,7 @@
             "home": {
                 "title": "Comments",
                 "createLabel": "Create a new Comment",
+                "myLabel": "My Comment",
                 "createOrEditLabel": "Create or edit a Comment",
                 "search": "Search for Comment"
             },

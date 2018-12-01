@@ -30,6 +30,8 @@ export class CommentComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private commentService: CommentService,
@@ -133,6 +135,10 @@ export class CommentComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInComments();
     }
@@ -157,11 +163,29 @@ export class CommentComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    myComments() {
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        query['userId.equals'] = this.owner;
+        this.commentService
+            .query(query)
+            .subscribe(
+                (res: HttpResponse<IComment[]>) => this.paginateComments(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
     private paginateComments(data: IComment[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.comments = data;
+        console.log('CONSOLOG: M:paginateComments & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateComments & O: this.isAdmin : ', this.isAdmin);
+        console.log('CONSOLOG: M:paginateComments & O: this.comments : ', this.comments);
     }
 
     private onError(errorMessage: string) {
