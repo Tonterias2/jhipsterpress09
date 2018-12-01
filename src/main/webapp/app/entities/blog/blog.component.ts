@@ -5,10 +5,12 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IBlog } from 'app/shared/model/blog.model';
-import { Principal } from 'app/core';
-
-import { ITEMS_PER_PAGE } from 'app/shared';
 import { BlogService } from './blog.service';
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from '../community/community.service';
+
+import { Principal } from 'app/core';
+import { ITEMS_PER_PAGE } from 'app/shared';
 
 @Component({
     selector: 'jhi-blog',
@@ -17,6 +19,7 @@ import { BlogService } from './blog.service';
 export class BlogComponent implements OnInit, OnDestroy {
     currentAccount: any;
     blogs: IBlog[];
+    communities: ICommunity[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -30,9 +33,12 @@ export class BlogComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private blogService: BlogService,
+        private communityService: CommunityService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -134,6 +140,10 @@ export class BlogComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInBlogs();
     }
@@ -166,11 +176,59 @@ export class BlogComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    myBlogs() {
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService
+            .query(query)
+            .subscribe(
+                (res: HttpResponse<ICommunity[]>) => this.paginateCommunities(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    private communitiesBlogs() {
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        if (this.communities != null) {
+            const arrayCommmunities = [];
+            this.communities.forEach(community => {
+                arrayCommmunities.push(community.id);
+            });
+            query['communityId.in'] = arrayCommmunities;
+        }
+        this.blogService
+            .query(query)
+            .subscribe(
+                (res: HttpResponse<IBlog[]>) => this.paginateBlogs(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
     private paginateBlogs(data: IBlog[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.blogs = data;
+        console.log('CONSOLOG: M:paginateBlogs & O: this.blogs : ', this.blogs);
+    }
+
+    private paginateCommunities(data: ICommunity[], headers: HttpHeaders) {
+        this.links = this.parseLinks.parse(headers.get('link'));
+        this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+        this.queryCount = this.totalItems;
+        this.communities = data;
+        this.communitiesBlogs();
+        console.log('CONSOLOG: M:paginateBlogs & O: this.communities : ', this.communities);
     }
 
     private onError(errorMessage: string) {
