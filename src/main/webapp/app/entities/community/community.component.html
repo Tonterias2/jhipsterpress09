@@ -1,7 +1,13 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterpressApp.community.home.title">Communities</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-community" [routerLink]="['/community/new']">
+        <button style="margin:5px;" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myCommunities()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterpressApp.community.home.myLabel">
+            My Communities
+            </span>
+        </button>
+        <button style="margin:5px;" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-community" [routerLink]="['/community/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="jhipsterpressApp.community.home.createLabel">
             Create new Community
@@ -25,37 +31,33 @@
         </div>
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="communities">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="creationDate"><span jhiTranslate="jhipsterpressApp.community.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="communityname"><span jhiTranslate="jhipsterpressApp.community.communityname">Communityname</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="communitydescription"><span jhiTranslate="jhipsterpressApp.community.communitydescription">Communitydescription</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="image"><span jhiTranslate="jhipsterpressApp.community.image">Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="isActive"><span jhiTranslate="jhipsterpressApp.community.isActive">Is Active</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="userId"><span jhiTranslate="jhipsterpressApp.community.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let community of communities ;trackBy: trackId">
-                <td><a [routerLink]="['/community', community.id, 'view' ]">{{community.id}}</a></td>
-                <td>{{community.creationDate | date:'medium'}}</td>
-                <td>{{community.communityname}}</td>
-                <td>{{community.communitydescription}}</td>
-                <td>
-                    <a *ngIf="community.image" (click)="openFile(community.imageContentType, community.image)">
-                        <img [src]="'data:' + community.imageContentType + ';base64,' + community.image" style="max-height: 30px;" alt="community image"/>
-                    </a>
-                    <span *ngIf="community.image">{{community.imageContentType}}, {{byteSize(community.image)}}</span>
-                </td>
-                <td>{{community.isActive}}</td>
-                <td>
-                    {{community.userId}}
-                </td>
-                <td class="text-right">
+ 		
+	  <!-- User Blocks v16 https://htmlstream.com/public/preview/unify-v2.5.1/unify-main/shortcodes/shortcode-blocks-users.html-->
+      <section class="g-bg-secondary g-py-100">
+        <div class="container" *ngFor="let community of communities ;trackBy: trackId">
+          <div id="shortcode16">
+            <div class="shortcode-html">
+              <!-- Users -->
+              <div class="row g-mb-70">
+                <div class="col-md-12 g-mb-30">
+                  <!-- Listing - Agents -->
+                  <div class="u-shadow-v11 text-center">
+                    <div class="g-bg-white g-pa-20">
+                      <div class="g-width-130 g-height-130 mx-auto mb-4">
+				        <!-- Figure Image -->
+			        	<a *ngIf="community.image" [routerLink]="['/community', community.id, 'view' ]">
+		                    <img [src]="'data:' + community.imageContentType + ';base64,' + community.image" style="max-width: 100%;" alt="community image"/>
+		                </a>
+				        <!-- Figure Image -->
+                      </div>
+                      <div class="mb-3">
+                         <h2 class="h3 mb-4"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/community', community.id, 'view' ]">{{community.communityname}}</a></h2>
+                      </div>
+                      <span class="d-block g-font-weight-500 g-font-size-13">{{community.communitydescription}}</span>
+                      <span class="d-block g-font-weight-500 g-font-size-13">{{community.creationDate | date:'longDate'}}</span>
+                    </div>
+					
+					<!-- Figure List -->
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['/community', community.id, 'view' ]"
@@ -63,13 +65,15 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button *ngIf="owner === community.userId || isAdmin == true"
+            					type="submit"
                                 [routerLink]="['/community', community.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button *ngIf="owner === community.userId || isAdmin == true"
+            					type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'community/'+ community.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
@@ -78,12 +82,22 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div *ngIf="communities && communities.length">
+			        </div>
+			        <!-- End Figure List -->
+                  <!-- End Listing - Agents -->
+                </div>
+
+              </div>
+              <!-- End Users -->
+            </div>
+          </div>
+
+        </div>
+      </section>
+      <!-- End User Blocks v16 -->
+      
+		
+	<div *ngIf="communities && communities.length">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
