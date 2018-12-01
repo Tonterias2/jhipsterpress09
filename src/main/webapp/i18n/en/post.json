@@ -4,6 +4,7 @@
             "home": {
                 "title": "Posts",
                 "createLabel": "Create a new Post",
+                "myLabel": "My Posts",
                 "createOrEditLabel": "Create or edit a Post",
                 "search": "Search for Post"
             },

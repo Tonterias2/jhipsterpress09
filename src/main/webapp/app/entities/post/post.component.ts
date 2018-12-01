@@ -5,10 +5,11 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IPost } from 'app/shared/model/post.model';
-import { Principal } from 'app/core';
-
-import { ITEMS_PER_PAGE } from 'app/shared';
 import { PostService } from './post.service';
+import { IUser, UserService } from 'app/core';
+
+import { Principal } from 'app/core';
+import { ITEMS_PER_PAGE } from 'app/shared';
 
 @Component({
     selector: 'jhi-post',
@@ -17,6 +18,9 @@ import { PostService } from './post.service';
 export class PostComponent implements OnInit, OnDestroy {
     currentAccount: any;
     posts: IPost[];
+    users: IUser[];
+    user: IUser;
+
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -30,13 +34,16 @@ export class PostComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
 
     constructor(
         private postService: PostService,
-        private parseLinks: JhiParseLinks,
+        private userService: UserService,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
         private activatedRoute: ActivatedRoute,
+        private parseLinks: JhiParseLinks,
         private dataUtils: JhiDataUtils,
         private router: Router,
         private eventManager: JhiEventManager
@@ -134,6 +141,10 @@ export class PostComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInPosts();
     }
@@ -166,11 +177,27 @@ export class PostComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    myPosts() {
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        query['userId.equals'] = this.owner;
+        this.postService
+            .query(query)
+            .subscribe(
+                (res: HttpResponse<IPost[]>) => this.paginatePosts(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
     private paginatePosts(data: IPost[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.posts = data;
+        console.log('CONSOLOG: M:ngOnInit & O: this.posts : ', this.posts);
     }
 
     private onError(errorMessage: string) {

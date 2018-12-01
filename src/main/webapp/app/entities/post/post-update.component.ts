@@ -16,32 +16,45 @@ import { TagService } from 'app/entities/tag';
 import { ITopic } from 'app/shared/model/topic.model';
 import { TopicService } from 'app/entities/topic';
 
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from '../../entities/community/community.service';
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-post-update',
     templateUrl: './post-update.component.html'
 })
 export class PostUpdateComponent implements OnInit {
-    post: IPost;
+    private _post: IPost;
     isSaving: boolean;
 
-    users: IUser[];
+    users: IUser[] = [];
+    user: IUser;
 
     blogs: IBlog[];
 
     tags: ITag[];
 
     topics: ITopic[];
+
+    communities: ICommunity[];
+
+    loggeUserdId: number;
     creationDate: string;
     publicationDate: string;
+    currentAccount: any;
+    userLogin: string;
 
     constructor(
         private dataUtils: JhiDataUtils,
         private jhiAlertService: JhiAlertService,
         private postService: PostService,
+        private communityService: CommunityService,
         private userService: UserService,
         private blogService: BlogService,
         private tagService: TagService,
         private topicService: TopicService,
+        private principal: Principal,
         private elementRef: ElementRef,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -50,21 +63,17 @@ export class PostUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ post }) => {
             this.post = post;
+            console.log('CONSOLOG: M:ngOnInit & O: this.post : ', this.post);
             this.creationDate = this.post.creationDate != null ? this.post.creationDate.format(DATE_TIME_FORMAT) : null;
             this.publicationDate = this.post.publicationDate != null ? this.post.publicationDate.format(DATE_TIME_FORMAT) : null;
         });
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.blogService.query().subscribe(
-            (res: HttpResponse<IBlog[]>) => {
-                this.blogs = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.loggeUserdId = this.currentAccount.id;
+            console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ', this.currentAccount);
+            this.myCommunities(this.currentAccount);
+            this.myUser();
+        });
         this.tagService.query().subscribe(
             (res: HttpResponse<ITag[]>) => {
                 this.tags = res.body;
@@ -110,6 +119,60 @@ export class PostUpdateComponent implements OnInit {
         }
     }
 
+    private myCommunities(currentAccount) {
+        const query = {};
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.communityService.query(query).subscribe(
+            (res: HttpResponse<ICommunity[]>) => {
+                this.communities = res.body;
+                console.log('CONSOLOG: M:myCommunities & O: this.communities : ', this.communities);
+                this.communitiesBlogs(this.communities);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private communitiesBlogs(communities) {
+        const query = {};
+        if (this.communities != null) {
+            const arrayCommmunities = [];
+            this.communities.forEach(community => {
+                arrayCommmunities.push(community.id);
+            });
+            query['communityId.in'] = arrayCommmunities;
+        }
+        this.blogService.query(query).subscribe(
+            (res: HttpResponse<IBlog[]>) => {
+                this.blogs = res.body;
+                console.log('CONSOLOG: M:myCommunities & O: this.blogs : ', this.blogs);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
+    private myUser() {
+        console.log('CONSOLOG: M:myUser & ENTRANDO A MY USER!!!!!!!!!!!!! : ', this.post.userId);
+        if (typeof this.post.userId === 'undefined' || this.loggeUserdId === null) {
+            this.userService.findById(this.loggeUserdId).subscribe(
+                (res: HttpResponse<IUser>) => {
+                    this.users.push(res.body);
+                    console.log('CONSOLOG: M:myUser & O: this.user : ', this.user);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        } else {
+            this.userService.findById(this.post.userId).subscribe(
+                (res: HttpResponse<IUser>) => {
+                    this.users.push(res.body);
+                    console.log('CONSOLOG: M:myUser & O: this.user : ', this.user);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }
+    }
+
     private subscribeToSaveResponse(result: Observable<HttpResponse<IPost>>) {
         result.subscribe((res: HttpResponse<IPost>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
@@ -152,5 +215,15 @@ export class PostUpdateComponent implements OnInit {
             }
         }
         return option;
+    }
+
+    get post() {
+        return this._post;
+    }
+
+    set post(post: IPost) {
+        this._post = post;
+        this.creationDate = moment(post.creationDate).format(DATE_TIME_FORMAT);
+        this.publicationDate = moment(post.publicationDate).format(DATE_TIME_FORMAT);
     }
 }
