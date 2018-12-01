@@ -3,6 +3,8 @@
         "blockuser": {
             "home": {
                 "title": "Blockusers",
+                "titleBlockingusers": "Blocking Users",
+                "titleBlockedusers": "Blocked Users",
                 "createLabel": "Crear nuevo Blockuser",
                 "createOrEditLabel": "Crear o editar Blockuser",
                 "search": "Search for Blockuser"

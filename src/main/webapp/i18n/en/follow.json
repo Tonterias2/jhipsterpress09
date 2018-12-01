@@ -3,6 +3,8 @@
         "follow": {
             "home": {
                 "title": "Follows",
+                "titleFollowing": "Following",
+                "titleFollower": "Followers",
                 "createLabel": "Create a new Follow",
                 "createOrEditLabel": "Create or edit a Follow",
                 "search": "Search for Follow"

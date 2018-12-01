@@ -16,6 +16,8 @@ import { ActivityService } from 'app/entities/activity';
 import { ICeleb } from 'app/shared/model/celeb.model';
 import { CelebService } from 'app/entities/celeb';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-uprofile-update',
     templateUrl: './uprofile-update.component.html'
@@ -24,7 +26,8 @@ export class UprofileUpdateComponent implements OnInit {
     uprofile: IUprofile;
     isSaving: boolean;
 
-    users: IUser[];
+    users: IUser[] = [];
+    user: IUser;
 
     interests: IInterest[];
 
@@ -33,6 +36,8 @@ export class UprofileUpdateComponent implements OnInit {
     celebs: ICeleb[];
     creationDate: string;
     birthdate: string;
+
+    currentAccount: any;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -43,6 +48,7 @@ export class UprofileUpdateComponent implements OnInit {
         private activityService: ActivityService,
         private celebService: CelebService,
         private elementRef: ElementRef,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -50,33 +56,21 @@ export class UprofileUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ uprofile }) => {
             this.uprofile = uprofile;
+            console.log('CONSOLOG: M:ngOnInit & O: this.uprofile : ', this.uprofile);
             this.creationDate = this.uprofile.creationDate != null ? this.uprofile.creationDate.format(DATE_TIME_FORMAT) : null;
             this.birthdate = this.uprofile.birthdate != null ? this.uprofile.birthdate.format(DATE_TIME_FORMAT) : null;
+            this.principal.identity().then(account => {
+                this.currentAccount = account;
+                console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ', this.currentAccount);
+                this.userService.findById(this.currentAccount.id).subscribe(
+                    (res: HttpResponse<IUser>) => {
+                        this.uprofile.userId = res.body.id;
+                        console.log('CONSOLOG: M:ngOnInit & O: this.user : ', this.user);
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+            });
         });
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.interestService.query().subscribe(
-            (res: HttpResponse<IInterest[]>) => {
-                this.interests = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.activityService.query().subscribe(
-            (res: HttpResponse<IActivity[]>) => {
-                this.activities = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.celebService.query().subscribe(
-            (res: HttpResponse<ICeleb[]>) => {
-                this.celebs = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
     }
 
     byteSize(field) {

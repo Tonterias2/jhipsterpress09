@@ -4,6 +4,7 @@
             "home": {
                 "title": "Uprofiles",
                 "createLabel": "Crear nuevo Uprofile",
+                "myLabel": "Mi Uprofiles",
                 "createOrEditLabel": "Crear o editar Uprofile",
                 "search": "Search for Uprofile"
             },
@@ -28,6 +29,10 @@
             "physical": "Physical",
             "religion": "Religion",
             "ethnicGroup": "Ethnic Group",
+            "follow": "Follow",
+            "unfollow": "UnFollow",
+            "blockuser": "BlockUser",
+            "unblockuser": "UnBlockUser",
             "studies": "Studies",
             "sibblings": "Sibblings",
             "eyes": "Eyes",

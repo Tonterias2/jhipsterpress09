@@ -30,6 +30,9 @@ export class UprofileComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    owner: any;
+    isAdmin: boolean;
+    hasProfile: boolean;
 
     constructor(
         private uprofileService: UprofileService,
@@ -134,6 +137,10 @@ export class UprofileComponent implements OnInit, OnDestroy {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                this.isAdmin = result;
+            });
         });
         this.registerChangeInUprofiles();
     }
@@ -166,11 +173,37 @@ export class UprofileComponent implements OnInit, OnDestroy {
         return result;
     }
 
+    myProfile() {
+        this.hasProfile = false;
+        console.log('CONSOLOG: M:myProfile & O: this.hasProfile:', this.hasProfile);
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        if (this.currentAccount.id != null) {
+            query['userId.equals'] = this.currentAccount.id;
+        }
+        this.uprofileService.query(query).subscribe(
+            (res: HttpResponse<IUprofile[]>) => {
+                if (res.body.length !== 0) {
+                    this.hasProfile = true;
+                    console.log('CONSOLOG: M:myProfile & O: res.body:', res.body);
+                }
+                this.paginateUprofiles(res.body, res.headers);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
     private paginateUprofiles(data: IUprofile[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.uprofiles = data;
+        console.log('CONSOLOG: M:paginateProfiles & O: this.owner : ', this.owner);
+        console.log('CONSOLOG: M:paginateProfiles & O: this.isAdmin : ', this.isAdmin);
+        console.log('CONSOLOG: M:paginateProfiles & O: this.uprofiles : ', this.uprofiles);
     }
 
     private onError(errorMessage: string) {
