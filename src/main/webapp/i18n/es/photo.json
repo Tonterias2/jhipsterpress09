@@ -4,6 +4,7 @@
             "home": {
                 "title": "Photos",
                 "createLabel": "Crear nuevo Photo",
+                "myLabel": "Mis Photos",
                 "createOrEditLabel": "Crear o editar Photo",
                 "search": "Search for Photo"
             },
