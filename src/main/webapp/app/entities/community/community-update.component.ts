@@ -56,12 +56,7 @@ export class CommunityUpdateComponent implements OnInit {
             console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount.id : ', this.currentAccount.id);
             this.userService.findById(this.currentAccount.id).subscribe(
                 (res: HttpResponse<IUser>) => {
-                    //                    this.user = res.body;
                     this.community.userId = res.body.id;
-                    //                    console.log('CONSOLOG: M:myUser & O: res.body : ', res.body);
-                    //                    console.log('CONSOLOG: M:myUser & O: this.user : ', this.user);
-                    //                    this.users.push(this.user);
-                    //                    console.log('CONSOLOG: M:myUser & O: this.users : ', this.users);
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );

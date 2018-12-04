@@ -137,6 +137,24 @@ export class MessageComponent implements OnInit, OnDestroy {
         this.registerChangeInMessages();
     }
 
+    myMessages() {
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        if (this.currentAccount.id != null) {
+            query['receiverId.equals'] = this.currentAccount.id;
+        }
+        this.messageService.query(query).subscribe(
+            (res: HttpResponse<IMessage[]>) => {
+                this.messages = res.body;
+                console.log('CONSOLOG: M:myUserMessages & O: this.messages : ', this.messages);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }

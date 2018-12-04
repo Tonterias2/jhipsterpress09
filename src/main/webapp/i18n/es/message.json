@@ -4,6 +4,7 @@
             "home": {
                 "title": "Messages",
                 "createLabel": "Crear nuevo Message",
+                "myLabel": "Mis Messages",
                 "createOrEditLabel": "Crear o editar Message",
                 "search": "Search for Message"
             },
