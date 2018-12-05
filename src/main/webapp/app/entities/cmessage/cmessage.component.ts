@@ -137,6 +137,24 @@ export class CmessageComponent implements OnInit, OnDestroy {
         this.registerChangeInCmessages();
     }
 
+    myCmessages() {
+        const query = {
+            page: this.page - 1,
+            size: this.itemsPerPage,
+            sort: this.sort()
+        };
+        if (this.currentAccount.id != null) {
+            query['creceiverId.equals'] = this.currentAccount.id;
+        }
+        this.cmessageService.query(query).subscribe(
+            (res: HttpResponse<ICmessage[]>) => {
+                this.cmessages = res.body;
+                console.log('CONSOLOG: M:myUserMessages & O: this.cmessages : ', this.cmessages);
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }

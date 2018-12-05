@@ -4,6 +4,7 @@
             "home": {
                 "title": "Cmessages",
                 "createLabel": "Crear nuevo Cmessage",
+                "myLabel": "Mis Cmessages",
                 "createOrEditLabel": "Crear o editar Cmessage",
                 "search": "Search for Cmessage"
             },

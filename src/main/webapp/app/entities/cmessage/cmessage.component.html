@@ -1,12 +1,20 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterpressApp.cmessage.home.title">Cmessages</span>
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" id="jh-my-entity" class="btn btn-primary float-right jh-create-entity create-blog" (click)="myCmessages()">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="jhipsterpressApp.cmessage.home.myLabel">
+            My Messages
+            </span>
+        </button>
+        <!-- 
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-cmessage" [routerLink]="['/cmessage/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="jhipsterpressApp.cmessage.home.createLabel">
             Create new Cmessage
             </span>
         </button>
+         -->
     </h2>
     <jhi-alert></jhi-alert>
     <div class="row">
@@ -42,7 +50,7 @@
             <tr *ngFor="let cmessage of cmessages ;trackBy: trackId">
                 <td><a [routerLink]="['/cmessage', cmessage.id, 'view' ]">{{cmessage.id}}</a></td>
                 <td>{{cmessage.creationDate | date:'medium'}}</td>
-                <td>{{cmessage.messageText}}</td>
+                <td [innerHTML]="cmessage.messageText"></td>
                 <td>{{cmessage.isDelivered}}</td>
                 <td>
                     <div *ngIf="cmessage.csenderId">
@@ -62,6 +70,7 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
+                        <!-- 
                         <button type="submit"
                                 [routerLink]="['/cmessage', cmessage.id, 'edit']"
                                 class="btn btn-primary btn-sm">
@@ -76,6 +85,7 @@
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
+                         -->
                     </div>
                 </td>
             </tr>

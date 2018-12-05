@@ -44,7 +44,7 @@ export const messageRoute: Routes = [
         canActivate: [UserRouteAccessService]
     },
     {
-        path: 'message?userId.equals=:id',
+        path: 'message?uprofileId.equals=:id',
         component: MessageComponent,
         resolve: {
             pagingParams: JhiResolvePagingParams

@@ -54,9 +54,10 @@ export class MessageUpdateComponent implements OnInit {
         private activatedRoute: ActivatedRoute
     ) {
         this.activatedRoute.queryParams.subscribe(params => {
-            if (params.userIdEquals != null) {
-                this.nameParamFollows = 'userId';
-                this.valueParamFollows = params.userIdEquals;
+            if (params.uprofileIdEquals != null) {
+                this.nameParamFollows = 'uprofileId';
+                this.valueParamFollows = params.uprofileIdEquals;
+                console.log('CONSOLOG: M:ngOnInit & O: this.activatedRoute.queryParams : ', this.nameParamFollows, this.valueParamFollows);
             }
         });
     }
@@ -71,9 +72,11 @@ export class MessageUpdateComponent implements OnInit {
             this.message = message;
             this.creationDate = this.message.creationDate != null ? this.message.creationDate.format(DATE_TIME_FORMAT) : null;
             console.log('CONSOLOG: M:ngOnInit & O: this.message : ', this.message);
+            this.message.receiverId = Number(this.valueParamFollows);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.message.senderId = this.currentAccount.id;
             console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ', this.currentAccount);
             //            this.myMessagesCommunities();
             //            this.currentLoggedUser();
@@ -130,7 +133,7 @@ export class MessageUpdateComponent implements OnInit {
             //            query['blockinguserId.in'] = Number(this.valueParamFollows);
             //            query['blockeduserId.in'] = this.currentAccount.id;
             //            query['blockinguserId.in'] = this.message.receiverId;
-            query['blockeduserId.in'] = this.message.receiverId;
+            query['blockeduserId.in'] = Number(this.valueParamFollows);
             query['blockinguserId.in'] = this.currentAccount.id;
         }
         console.log('CONSOLOG: M:isBlockUser & O: query : ', query);
