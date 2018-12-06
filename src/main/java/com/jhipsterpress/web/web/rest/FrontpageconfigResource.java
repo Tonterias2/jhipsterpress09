@@ -6,6 +6,7 @@ import com.jhipsterpress.web.web.rest.errors.BadRequestAlertException;
 import com.jhipsterpress.web.web.rest.util.HeaderUtil;
 import com.jhipsterpress.web.web.rest.util.PaginationUtil;
 import com.jhipsterpress.web.service.dto.FrontpageconfigDTO;
+import com.jhipsterpress.web.service.dto.CustomFrontpageconfigDTO;
 import com.jhipsterpress.web.service.dto.FrontpageconfigCriteria;
 import com.jhipsterpress.web.service.FrontpageconfigQueryService;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -119,6 +120,20 @@ public class FrontpageconfigResource {
         return ResponseEntity.ok().body(frontpageconfigQueryService.countByCriteria(criteria));
     }
 
+    /**
+     * GET  /frontpageconfigs/:id/posts : get the "id" frontpageconfig, including posts
+     *
+     * @param id the id of the frontpageconfigDTO to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the frontpageconfigDTO, or with status 404 (Not Found)
+     */
+    @GetMapping("/frontpageconfigs/{id}/posts")
+    @Timed
+    public ResponseEntity<CustomFrontpageconfigDTO> getFrontpageconfigIncludingPosts(@PathVariable Long id) {
+        log.debug("REST request to get Frontpageconfig : {}", id);
+        Optional<CustomFrontpageconfigDTO> frontpageconfigDTO = frontpageconfigService.findOneIncludingPosts(id);
+        return ResponseUtil.wrapOrNotFound(frontpageconfigDTO);
+    }
+    
     /**
      * GET  /frontpageconfigs/:id : get the "id" frontpageconfig.
      *
