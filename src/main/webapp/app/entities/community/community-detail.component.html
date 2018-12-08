@@ -50,16 +50,24 @@
 				<div class="g-mb-30">
 					<h6 class="g-color-gray-dark-v1">
 						<button id="jh-create-entity"
+							*ngIf="owner === community.userId" 
 							class="btn btn-primary float-right jh-create-entity create-interest"
-							[routerLink]="['/interest']">
+							[routerLink]="['/cinterest/new']">
 							<fa-icon [icon]="'plus'"></fa-icon>
 						</button>
 						<strong class="g-mr-5">Interests:</strong> 
-						<span *ngFor="let interest of interests"> 
-							<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5"
-							href="#!">{{interest.interestName}}</a>
-							<!-- TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-				        	<a [routerLink]="['/interest', interest.id, 'delete']" [queryParams]="{ 'communityId': community.id }">-</a>
+						<span *ngFor="let cinterest of cinterests"> 
+							<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+								<button *ngIf="owner === community.userId" 
+								        type="submit"
+								        [routerLink]="['/', { outlets: { popup: 'cinterest/'+ cinterest.id + '/delete'} }]"
+								        replaceUrl="true"
+								        queryParamsHandling="merge"
+								        class="btn btn-danger btn-sm">
+								        <fa-icon [icon]="'times'"></fa-icon>
+								</button>
+							{{cinterest.interestName}}
+							</a>
 						</span>
 					</h6>
 				</div>
@@ -69,17 +77,25 @@
 				<div class="g-mb-30">
 				  <h6 class="g-color-gray-dark-v1">
 				            <button id="jh-create-entity" 
+				            	*ngIf="owner === community.userId" 
 				                class="btn btn-primary float-right jh-create-entity create-interest" 
-				                [routerLink]="['/activity']">
+				                [routerLink]="['/cactivity/new']">
 				            <fa-icon [icon]="'plus'"></fa-icon>
 				        </button>
-				    <strong class="g-mr-5">Activities:</strong>
-				    <span  *ngFor="let activity of activities">
-				        <a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" 
-				        href="#!">{{activity.activityName}}</a>
-				        <!-- TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-				        <a [routerLink]="['/activity-update']" [queryParams]="{ 'communityIdEquals': community.id }">-</a>
-				    </span>
+					    <strong class="g-mr-5">Activities:</strong>
+					    <span  *ngFor="let cactivity of cactivities">
+							<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+								<button *ngIf="owner === community.userId" 
+								        type="submit"
+								        [routerLink]="['/', { outlets: { popup: 'cactivity/'+ cactivity.id + '/delete'} }]"
+								        replaceUrl="true"
+								        queryParamsHandling="merge"
+								        class="btn btn-danger btn-sm">
+								        <fa-icon [icon]="'times'"></fa-icon>
+								</button>
+							{{cactivity.activityName}}
+							</a>
+					    </span>
 				  </h6>
 				</div>
 				<!-- End Activities -->
@@ -88,17 +104,25 @@
 				<div class="g-mb-30">
 				  <h6 class="g-color-gray-dark-v1">
 				            <button id="jh-create-entity" 
+				           		*ngIf="owner === community.userId" 
 				                class="btn btn-primary float-right jh-create-entity create-interest" 
-				                [routerLink]="['/celeb']">
+				                [routerLink]="['/cceleb/new']">
 				            <fa-icon [icon]="'plus'"></fa-icon>
 				        </button>
-				    <strong class="g-mr-5">Celebs:</strong>
-				    <span  *ngFor="let celeb of celebs">
-				        <a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" 
-				        href="#!">{{celeb.celebName}}</a>
-				        <!-- TOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
-				        <a [routerLink]="['/celeb-update']" [queryParams]="{ 'communityIdEquals': community.id }">-</a>
-				    </span>
+					    <strong class="g-mr-5">Celebs:</strong>
+					    <span  *ngFor="let cceleb of ccelebs">
+							<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+								<button *ngIf="owner === community.userId" 
+								        type="submit"
+								        [routerLink]="['/', { outlets: { popup: 'cceleb/'+ cceleb.id + '/delete'} }]"
+								        replaceUrl="true"
+								        queryParamsHandling="merge"
+								        class="btn btn-danger btn-sm">
+								        <fa-icon [icon]="'times'"></fa-icon>
+								</button>
+							{{cceleb.celebName}}
+							</a>					        
+					    </span>
 				  </h6>
 				</div>
 				<!-- End Celebs -->

@@ -16,12 +16,12 @@ import { IUprofile } from 'app/shared/model/uprofile.model';
 import { UprofileService } from 'app/entities/uprofile';
 import { INotification } from 'app/shared/model/notification.model';
 import { NotificationService } from '../notification/notification.service';
-import { IInterest } from 'app/shared/model/interest.model';
-import { InterestService } from '../interest/interest.service';
-import { IActivity } from 'app/shared/model/activity.model';
-import { ActivityService } from '../activity/activity.service';
-import { ICeleb } from 'app/shared/model/celeb.model';
-import { CelebService } from '../celeb/celeb.service';
+import { ICinterest } from 'app/shared/model/cinterest.model';
+import { CinterestService } from '../cinterest/cinterest.service';
+import { ICactivity } from 'app/shared/model/cactivity.model';
+import { CactivityService } from '../cactivity/cactivity.service';
+import { ICceleb } from 'app/shared/model/cceleb.model';
+import { CcelebService } from '../cceleb/cceleb.service';
 
 @Component({
     selector: 'jhi-community-detail',
@@ -37,9 +37,9 @@ export class CommunityDetailComponent implements OnInit {
     profile: IUprofile;
     profiles: IUprofile[];
 
-    interests: IInterest[];
-    activities: IActivity[];
-    celebs: ICeleb[];
+    cinterests: ICinterest[];
+    cactivities: ICactivity[];
+    ccelebs: ICceleb[];
 
     loggedProfile: IUprofile;
 
@@ -54,15 +54,16 @@ export class CommunityDetailComponent implements OnInit {
     private _notification: INotification;
     notificationDate: string;
     notificationReason: any;
+    owner: any;
 
     constructor(
         private blogService: BlogService,
         private followService: FollowService,
         private uprofileService: UprofileService,
         private notificationService: NotificationService,
-        private interestService: InterestService,
-        private activityService: ActivityService,
-        private celebService: CelebService,
+        private cinterestService: CinterestService,
+        private cactivityService: CactivityService,
+        private ccelebService: CcelebService,
         private dataUtils: JhiDataUtils,
         private principal: Principal,
         private jhiAlertService: JhiAlertService,
@@ -81,6 +82,8 @@ export class CommunityDetailComponent implements OnInit {
         this.communityCelebs();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            console.log('CONSOLOG: M:paginateProfiles & O: this.owner : ', this.owner);
             this.isFollower();
         });
         this.isSaving = false;
@@ -104,10 +107,10 @@ export class CommunityDetailComponent implements OnInit {
     private communityInterests() {
         const query2 = {};
         query2['communityId.equals'] = this.community.id;
-        return this.interestService.query(query2).subscribe(
-            (res: HttpResponse<IInterest[]>) => {
-                this.interests = res.body;
-                console.log('CONSOLOG: M:umxmInterests & O: this.interests : ', this.interests);
+        return this.cinterestService.query(query2).subscribe(
+            (res: HttpResponse<ICinterest[]>) => {
+                this.cinterests = res.body;
+                console.log('CONSOLOG: M:umxmInterests & O: this.cinterests : ', this.cinterests);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -116,10 +119,10 @@ export class CommunityDetailComponent implements OnInit {
     private communityActivities() {
         const query3 = {};
         query3['communityId.equals'] = this.community.id;
-        return this.activityService.query(query3).subscribe(
-            (res: HttpResponse<IActivity[]>) => {
-                this.activities = res.body;
-                console.log('CONSOLOG: M:umxmActivities & O: this.activities : ', this.activities);
+        return this.cactivityService.query(query3).subscribe(
+            (res: HttpResponse<ICactivity[]>) => {
+                this.cactivities = res.body;
+                console.log('CONSOLOG: M:umxmActivities & O: this.cactivities : ', this.cactivities);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -128,10 +131,10 @@ export class CommunityDetailComponent implements OnInit {
     private communityCelebs() {
         const query4 = {};
         query4['communityId.equals'] = this.community.id;
-        return this.celebService.query(query4).subscribe(
-            (res: HttpResponse<ICeleb[]>) => {
-                this.celebs = res.body;
-                console.log('CONSOLOG: M:umxmCelebs & O: this.celebs : ', this.celebs);
+        return this.ccelebService.query(query4).subscribe(
+            (res: HttpResponse<ICceleb[]>) => {
+                this.ccelebs = res.body;
+                console.log('CONSOLOG: M:umxmCelebs & O: this.ccelebs : ', this.ccelebs);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
