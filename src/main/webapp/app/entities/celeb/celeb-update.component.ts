@@ -65,6 +65,8 @@ export class CelebUpdateComponent implements OnInit {
         if (this.celeb.id !== undefined) {
             this.subscribeToSaveResponse(this.celebService.update(this.celeb));
         } else {
+            this.celeb.uprofiles = this.uprofiles;
+            console.log('CONSOLOG: M:save & O: this.celeb : ', this.celeb);
             this.subscribeToSaveResponse(this.celebService.create(this.celeb));
         }
     }

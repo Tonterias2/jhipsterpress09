@@ -65,6 +65,8 @@ export class ActivityUpdateComponent implements OnInit {
         if (this.activity.id !== undefined) {
             this.subscribeToSaveResponse(this.activityService.update(this.activity));
         } else {
+            this.activity.uprofiles = this.uprofiles;
+            console.log('CONSOLOG: M:save & O: this.activity : ', this.activity);
             this.subscribeToSaveResponse(this.activityService.create(this.activity));
         }
     }

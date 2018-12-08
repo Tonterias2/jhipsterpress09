@@ -56,6 +56,7 @@ export class UprofileDetailComponent implements OnInit {
     loggedProfileId: number;
     creationDate: string;
     isSaving: boolean;
+    owner: any;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -80,6 +81,8 @@ export class UprofileDetailComponent implements OnInit {
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
+            console.log('CONSOLOG: M:paginateProfiles & O: this.owner : ', this.owner);
             this.currentLoggedProfile();
         });
         this.fillProfile();

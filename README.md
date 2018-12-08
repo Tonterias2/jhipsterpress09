@@ -38,6 +38,7 @@ STARTERS:
 * [How to import your project in STS Maven - Gradle:](ReadMe/Solution12.md)
 * [How to import a template like UNIFY for your project:](ReadMe/Solution14.md)
 * [How to allow HTML code inside a text field:](ReadMe/Solution15.md)
+* [How to allow access to content for visitors in some pages like the home:](ReadMe/Solution29.md)
 * [How to show/hide information in the frontend depending on the user Role:](ReadMe/Solution16.md)
 * [How to open access to the REST Api:](ReadMe/Solution1.md)
 * [How to add static pages to the project:](ReadMe/Solution27.md)

@@ -65,6 +65,8 @@ export class InterestUpdateComponent implements OnInit {
         if (this.interest.id !== undefined) {
             this.subscribeToSaveResponse(this.interestService.update(this.interest));
         } else {
+            this.interest.uprofiles = this.uprofiles;
+            console.log('CONSOLOG: M:save & O: this.interest : ', this.interest);
             this.subscribeToSaveResponse(this.interestService.create(this.interest));
         }
     }
