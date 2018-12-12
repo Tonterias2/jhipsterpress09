@@ -12,7 +12,8 @@
                 <dt><span jhiTranslate="jhipsterpressApp.cceleb.community">Community</span></dt>
                 <dd>
                     <span *ngFor="let community of cceleb.communities; let last = last">
-                        <a [routerLink]="['/community', community?.id, 'view' ]">{{community.id}}</a>{{last ? '' : ', '}}
+                    	<img [src]="'data:' + community.imageContentType + ';base64,' + community.image" style="max-height: 100px;" *ngIf="community.image" alt="community image"/>
+                        <a [routerLink]="['/community', community?.id, 'view' ]">{{community.communityname}}</a>{{last ? '' : ', '}}<br>
                     </span>
                 </dd>
             </dl>

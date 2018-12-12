@@ -15,6 +15,7 @@ export class CinterestDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ cinterest }) => {
             this.cinterest = cinterest;
+            //            console.log('CONSOLOG: M:ngOnInit & O: this.cinterest : ', this.cinterest);
         });
     }
 

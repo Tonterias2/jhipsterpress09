@@ -40,6 +40,7 @@ export class PostDetailComponent implements OnInit {
 
     currentAccount: any;
     creationDate: string;
+    owner: any;
 
     error: any;
     success: any;
@@ -81,7 +82,9 @@ export class PostDetailComponent implements OnInit {
         this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.owner = account.id;
             console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ', this.currentAccount.id);
+            console.log('CONSOLOG: M:paginateProfiles & O: this.owner : ', this.owner);
         });
         this.comment = new Object();
         this.comment.commentText = '';

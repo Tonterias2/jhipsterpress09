@@ -79,9 +79,31 @@
 		                    <strong class="g-mr-5">Source:</strong> <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{{post.linkURL}}">{{post.linkText}}</a>
 		                  </h6>
 		                  <h6 class="g-color-gray-dark-v1">
+			                  	<button id="jh-create-entity"
+									*ngIf="owner === post.userId" 
+									class="btn btn-primary float-right jh-create-entity create-tag"
+									[routerLink]="['/tag/new']" [queryParams]="{ 'postIdEquals': post.id }">
+									<fa-icon [icon]="'plus'"></fa-icon>
+								</button>
 		                    <strong class="g-mr-5">Tags:</strong>
 		                    <span  *ngFor="let tag of post.tags">
-		                    	<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">{{tag.tagName}}</a>
+		                    	<a [routerLink]="['/tag', tag.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+		                    		{{tag.tagName}}
+		                    	</a>
+		                    </span>
+		                  </h6>
+		                  <h6 class="g-color-gray-dark-v1">
+			                  	<button id="jh-create-entity"
+									*ngIf="owner === post.userId" 
+									class="btn btn-primary float-right jh-create-entity create-topic"
+									[routerLink]="['/topic/new']" [queryParams]="{ 'postIdEquals': post.id }">
+									<fa-icon [icon]="'plus'"></fa-icon>
+								</button>
+		                    <strong class="g-mr-5">Topics:</strong>
+		                    <span  *ngFor="let topic of post.topics">
+		                    	<a [routerLink]="['/topic', topic.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+		                    		{{topic.topicName}}
+		                    	</a>
 		                    </span>
 		                  </h6>
 		                </div>

@@ -19,24 +19,48 @@ export class TopicUpdateComponent implements OnInit {
 
     posts: IPost[];
 
+    nameParamPost: any;
+    valueParamPost: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private topicService: TopicService,
         private postService: PostService,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+        this.activatedRoute.queryParams.subscribe(params => {
+            if (params.postIdEquals != null) {
+                this.nameParamPost = 'postId.equals';
+                this.valueParamPost = params.postIdEquals;
+            }
+            console.log('CONSOLOG: M:constructor & O: activatedRoute : ', this.nameParamPost, ' : ', this.valueParamPost);
+        });
+    }
 
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ topic }) => {
             this.topic = topic;
         });
-        this.postService.query().subscribe(
-            (res: HttpResponse<IPost[]>) => {
-                this.posts = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        if (this.valueParamPost != null) {
+            const query = {};
+            query['id.equals'] = this.valueParamPost;
+            this.postService.query(query).subscribe(
+                (res: HttpResponse<IPost[]>) => {
+                    this.posts = res.body;
+                    console.log('CONSOLOG: M:ngOnInit & O: this.posts if1 : ', this.posts);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        } else {
+            this.postService.query().subscribe(
+                (res: HttpResponse<IPost[]>) => {
+                    this.posts = res.body;
+                    console.log('CONSOLOG: M:ngOnInit & O: this.posts else2 : ', this.posts);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }
     }
 
     previousState() {

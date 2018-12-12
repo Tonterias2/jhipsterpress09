@@ -57,7 +57,7 @@
 						</button>
 						<strong class="g-mr-5">Interests:</strong> 
 						<span *ngFor="let cinterest of cinterests"> 
-							<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+							<a [routerLink]="['/cinterest', cinterest.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
 								<button *ngIf="owner === community.userId" 
 								        type="submit"
 								        [routerLink]="['/', { outlets: { popup: 'cinterest/'+ cinterest.id + '/delete'} }]"
@@ -83,8 +83,8 @@
 				            <fa-icon [icon]="'plus'"></fa-icon>
 				        </button>
 					    <strong class="g-mr-5">Activities:</strong>
-					    <span  *ngFor="let cactivity of cactivities">
-							<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+					    <span *ngFor="let cactivity of cactivities">
+							<a [routerLink]="['/cactivity', cactivity.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
 								<button *ngIf="owner === community.userId" 
 								        type="submit"
 								        [routerLink]="['/', { outlets: { popup: 'cactivity/'+ cactivity.id + '/delete'} }]"
@@ -111,7 +111,7 @@
 				        </button>
 					    <strong class="g-mr-5">Celebs:</strong>
 					    <span  *ngFor="let cceleb of ccelebs">
-							<a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+							<a [routerLink]="['/cceleb', cceleb.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
 								<button *ngIf="owner === community.userId" 
 								        type="submit"
 								        [routerLink]="['/', { outlets: { popup: 'cceleb/'+ cceleb.id + '/delete'} }]"
