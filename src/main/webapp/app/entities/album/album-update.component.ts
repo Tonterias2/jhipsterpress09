@@ -53,13 +53,12 @@ export class AlbumUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.album.userId = this.user.id;
-        console.log('CONSOLOG: M:save & O: this.user.id : ', this.user.id);
-        console.log('CONSOLOG: M:save & O: this.album.userId : ', this.album.userId);
         this.album.creationDate = this.creationDate != null ? moment(this.creationDate, DATE_TIME_FORMAT) : null;
         if (this.album.id !== undefined) {
+            console.log('CONSOLOG: M:save & O: this.album : ', this.album);
             this.subscribeToSaveResponse(this.albumService.update(this.album));
         } else {
+            console.log('CONSOLOG: M:save & O: this.album : ', this.album);
             this.subscribeToSaveResponse(this.albumService.create(this.album));
         }
     }
@@ -68,7 +67,8 @@ export class AlbumUpdateComponent implements OnInit {
         this.userService.findById(this.currentAccount.id).subscribe(
             (res: HttpResponse<IUser>) => {
                 this.album.userId = res.body.id;
-                console.log('CONSOLOG: M:ngOnInit & O: this.user : ', this.user);
+                console.log('CONSOLOG: M:myUser & O: res.body : ', res.body);
+                console.log('CONSOLOG: M:myUser & O: this.album.userId : ', this.album.userId);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

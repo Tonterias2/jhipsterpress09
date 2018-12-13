@@ -54,7 +54,7 @@ export const followRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
-            pageTitle: 'jhipsterPress08App.follow.home.title'
+            pageTitle: 'jhipsterpressApp.follow.home.titleFollowing'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -67,7 +67,7 @@ export const followRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
-            pageTitle: 'jhipsterPress08App.follow.home.title'
+            pageTitle: 'jhipsterpressApp.follow.home.titleFollower'
         },
         canActivate: [UserRouteAccessService]
     },
