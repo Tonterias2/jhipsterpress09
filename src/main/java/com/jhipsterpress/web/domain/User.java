@@ -101,6 +101,10 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PersistentToken> persistentTokens = new HashSet<>();
 
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    private Uprofile uprofile;
+    
     public Long getId() {
         return id;
     }
@@ -214,7 +218,20 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.persistentTokens = persistentTokens;
     }
 
-    @Override
+    public Uprofile getUprofile() {
+		return uprofile;
+	}
+
+	public void setUprofile(Uprofile uprofile) {
+		this.uprofile = uprofile;
+	}
+
+	public User uprofile(Uprofile uprofile) {
+		this.uprofile = uprofile;
+		return this;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -232,17 +249,26 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", email=" + email + ", activated=" + activated + ", langKey=" + langKey
+				+ ", imageUrl=" + imageUrl + ", activationKey=" + activationKey + ", resetKey=" + resetKey
+				+ ", resetDate=" + resetDate + ", authorities=" + authorities + ", persistentTokens=" + persistentTokens
+				+ ", uprofile=" + uprofile + "]";
+	}
+
+//    @Override
+//    public String toString() {
+//        return "User{" +
+//            "login='" + login + '\'' +
+//            ", firstName='" + firstName + '\'' +
+//            ", lastName='" + lastName + '\'' +
+//            ", email='" + email + '\'' +
+//            ", imageUrl='" + imageUrl + '\'' +
+//            ", activated='" + activated + '\'' +
+//            ", langKey='" + langKey + '\'' +
+//            ", activationKey='" + activationKey + '\'' +
+//            "}";
+//    }
 }

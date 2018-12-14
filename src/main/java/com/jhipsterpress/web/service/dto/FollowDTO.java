@@ -19,9 +19,9 @@ public class FollowDTO implements Serializable {
     
     private Long followedId;
     
-//    @Lob
-//    private byte[] followedImage;
-//    private String followedImageContentType;
+    @Lob
+    private byte[] followedImage;
+    private String followedImageContentType;
     
     private String followedUserFirstName;
     
@@ -30,9 +30,9 @@ public class FollowDTO implements Serializable {
     
     private Long followingId;
     
-//    @Lob
-//    private byte[] followingImage;
-//    private String followingImageContentType;
+    @Lob
+    private byte[] followingImage;
+    private String followingImageContentType;
     
     private String followingUserFirstName;
     
@@ -104,21 +104,21 @@ public class FollowDTO implements Serializable {
         this.cfollowingId = communityId;
     }
 
-//	public byte[] getFollowedImage() {
-//		return followedImage;
-//	}
-//
-//	public void setFollowedImage(byte[] followedImage) {
-//		this.followedImage = followedImage;
-//	}
-//
-//	public String getFollowedImageContentType() {
-//		return followedImageContentType;
-//	}
-//
-//	public void setFollowedImageContentType(String followedImageContentType) {
-//		this.followedImageContentType = followedImageContentType;
-//	}
+	public byte[] getFollowedImage() {
+		return followedImage;
+	}
+
+	public void setFollowedImage(byte[] followedImage) {
+		this.followedImage = followedImage;
+	}
+
+	public String getFollowedImageContentType() {
+		return followedImageContentType;
+	}
+
+	public void setFollowedImageContentType(String followedImageContentType) {
+		this.followedImageContentType = followedImageContentType;
+	}
 
 	public String getFollowedUserFirstName() {
 		return followedUserFirstName;
@@ -136,21 +136,21 @@ public class FollowDTO implements Serializable {
 		this.followedUserLastName = followedUserLastName;
 	}
 
-//	public byte[] getFollowingImage() {
-//		return followingImage;
-//	}
-//
-//	public void setFollowingImage(byte[] followingImage) {
-//		this.followingImage = followingImage;
-//	}
-//
-//	public String getFollowingImageContentType() {
-//		return followingImageContentType;
-//	}
-//
-//	public void setFollowingImageContentType(String followingImageContentType) {
-//		this.followingImageContentType = followingImageContentType;
-//	}
+	public byte[] getFollowingImage() {
+		return followingImage;
+	}
+
+	public void setFollowingImage(byte[] followingImage) {
+		this.followingImage = followingImage;
+	}
+
+	public String getFollowingImageContentType() {
+		return followingImageContentType;
+	}
+
+	public void setFollowingImageContentType(String followingImageContentType) {
+		this.followingImageContentType = followingImageContentType;
+	}
 
 	public String getFollowingUserFirstName() {
 		return followingUserFirstName;
@@ -240,8 +240,11 @@ public class FollowDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "FollowDTO [id=" + id + ", creationDate=" + creationDate + ", followedId=" + followedId
-				+ ", followedUserFirstName=" + followedUserFirstName + ", followedUserLastName=" + followedUserLastName
-				+ ", followingId=" + followingId + ", followingUserFirstName=" + followingUserFirstName
+				+ ", followedImage=" + Arrays.toString(followedImage) + ", followedImageContentType="
+				+ followedImageContentType + ", followedUserFirstName=" + followedUserFirstName
+				+ ", followedUserLastName=" + followedUserLastName + ", followingId=" + followingId
+				+ ", followingImage=" + Arrays.toString(followingImage) + ", followingImageContentType="
+				+ followingImageContentType + ", followingUserFirstName=" + followingUserFirstName
 				+ ", followingUserLastName=" + followingUserLastName + ", cfollowedId=" + cfollowedId
 				+ ", cfollowedImage=" + Arrays.toString(cfollowedImage) + ", cfollowedImageContentType="
 				+ cfollowedImageContentType + ", cfollowedCommunityname=" + cfollowedCommunityname + ", cfollowingId="
@@ -249,6 +252,19 @@ public class FollowDTO implements Serializable {
 				+ ", cfollowingImageContentType=" + cfollowingImageContentType + ", cfollowingCommunityname="
 				+ cfollowingCommunityname + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "FollowDTO [id=" + id + ", creationDate=" + creationDate + ", followedId=" + followedId
+//				+ ", followedUserFirstName=" + followedUserFirstName + ", followedUserLastName=" + followedUserLastName
+//				+ ", followingId=" + followingId + ", followingUserFirstName=" + followingUserFirstName
+//				+ ", followingUserLastName=" + followingUserLastName + ", cfollowedId=" + cfollowedId
+//				+ ", cfollowedImage=" + Arrays.toString(cfollowedImage) + ", cfollowedImageContentType="
+//				+ cfollowedImageContentType + ", cfollowedCommunityname=" + cfollowedCommunityname + ", cfollowingId="
+//				+ cfollowingId + ", cfollowingImage=" + Arrays.toString(cfollowingImage)
+//				+ ", cfollowingImageContentType=" + cfollowingImageContentType + ", cfollowingCommunityname="
+//				+ cfollowingCommunityname + "]";
+//	}
 
 //    @Override
 //    public String toString() {

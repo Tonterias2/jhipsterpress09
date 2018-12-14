@@ -12,13 +12,13 @@ import org.mapstruct.*;
 public interface FollowMapper extends EntityMapper<FollowDTO, Follow> {
 
     @Mapping(source = "followed.id", target = "followedId")
-//    @Mapping(source = "followed.uprofile.image", target = "followedImage")
-//    @Mapping(source = "followed.uprofile.imageContentType", target = "followedImageContentType")
+    @Mapping(source = "followed.uprofile.image", target = "followedImage")
+    @Mapping(source = "followed.uprofile.imageContentType", target = "followedImageContentType")
     @Mapping(source = "followed.firstName", target = "followedUserFirstName")
     @Mapping(source = "followed.lastName", target = "followedUserLastName")
     @Mapping(source = "following.id", target = "followingId")
-//    @Mapping(source = "following.uprofile.image", target = "followingImage")
-//    @Mapping(source = "following.uprofile.imageContentType", target = "followingImageContentType")
+    @Mapping(source = "following.uprofile.image", target = "followingImage")
+    @Mapping(source = "following.uprofile.imageContentType", target = "followingImageContentType")
     @Mapping(source = "following.firstName", target = "followingUserFirstName")
     @Mapping(source = "following.lastName", target = "followingUserLastName")
     @Mapping(source = "cfollowed.id", target = "cfollowedId")
