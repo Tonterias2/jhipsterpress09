@@ -54,7 +54,7 @@ export const blockuserRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
-            pageTitle: 'jhipsterPress08App.blockuser.home.title'
+            pageTitle: 'jhipsterpressApp.blockuser.home.titleBlockingusers'
         },
         canActivate: [UserRouteAccessService]
     },
@@ -67,7 +67,7 @@ export const blockuserRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
-            pageTitle: 'jhipsterPress08App.blockuser.home.title'
+            pageTitle: 'jhipsterpressApp.blockuser.home.titleBlockedusers'
         },
         canActivate: [UserRouteAccessService]
     },

@@ -198,18 +198,19 @@
 		                   <!-- Comment 1 -->
 		                   <!-- <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of post.comments"> -->
 			                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of comments">
+			                  <!-- 
 			                    <a (click)="openFile(comment.profileImageContentType, comment.profileImage)">
 		                            <img class="d-flex u-shadow-v25 g-width-50 g-height-50 rounded-circle g-mr-15" [src]="'data:' + comment.profileImageContentType + ';base64,' + comment.profileImage" style="max-width: 100%;" alt="comment.profileImage"/>
 		                        </a>
-			
+							  -->
 			                    <div class="media-body">
 			                      <div class="g-mb-15">
 			                        <h5 class="d-flex justify-content-between align-items-center g-font-size-16 g-color-gray-dark-v1 mb-0">
-			                          <span class="d-block g-mr-10">{{comment.commentProfileUserFirstName}} {{comment.commentProfileUserLastName}}</span>
+			                          <span class="d-block g-mr-10">{{comment.commenterFirstName}} {{comment.commenterLastName}}</span>
 			                          <a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15" 
 			                          [routerLink]="['/profile', comment.profileId, 'view']">Author</a>
 			                        </h5>
-			                        <span class="g-color-gray-dark-v4 g-font-size-12">{{comment.creationDate | date:'medium'}} calcular x? days ago</span>
+			                        <span class="g-color-gray-dark-v4 g-font-size-12">{{comment.creationDate | date:'medium'}}</span>
 			                      </div>
 			
 			                      <div class="g-mb-15">
