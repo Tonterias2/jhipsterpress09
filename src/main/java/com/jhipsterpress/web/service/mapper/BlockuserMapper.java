@@ -20,9 +20,13 @@ public interface BlockuserMapper extends EntityMapper<BlockuserDTO, Blockuser> {
     @Mapping(source = "cblockinguser.imageContentType", target = "cblockinguserImageContentType")
     @Mapping(source = "cblockinguser.communityname", target = "cblockinguserCommunityname")
     @Mapping(source = "blockeduser.id", target = "blockeduserId")
+    @Mapping(source = "blockeduser.uprofile.image", target = "blockeduserImage")
+    @Mapping(source = "blockeduser.uprofile.imageContentType", target = "blockeduserImageContentType")
     @Mapping(source = "blockeduser.firstName", target = "blockeduserFirstName")
     @Mapping(source = "blockeduser.lastName", target = "blockeduserLastName")
     @Mapping(source = "blockinguser.id", target = "blockinguserId")
+    @Mapping(source = "blockinguser.uprofile.image", target = "blockinguserImage")
+    @Mapping(source = "blockinguser.uprofile.imageContentType", target = "blockinguserImageContentType")
     @Mapping(source = "blockinguser.firstName", target = "blockinguserFirstName")
     @Mapping(source = "blockinguser.lastName", target = "blockinguserLastName")
     BlockuserDTO toDto(Blockuser blockuser);

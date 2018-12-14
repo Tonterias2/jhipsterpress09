@@ -33,10 +33,10 @@
 	          <!-- Figure Info -->
 
 			  <a *ngIf="blockuser.cblockeduserId" [routerLink]="['/community', blockuser.cblockeduserId, 'view' ]">
-	          	<h4 class="h5 g-mb-5">{{blockuser.id}} {{blockuser.cblockeduserCommunityname}}</h4>
+	          	<h4 class="h5 g-mb-5">{{blockuser.id}}: {{blockuser.cblockeduserCommunityname}}</h4>
 	          </a>
 	          <a *ngIf="blockuser.blockeduserId" [routerLink]="['/uprofile', blockuser.blockeduserId, 'view' ]">
-	          	<h4 class="h5 g-mb-5">{{blockuser.id}} {{blockuser.blockeduserUserFirstName}} {{blockuser.blockeduserUserLastName}}</h4>
+	          	<h4 class="h5 g-mb-5">{{blockuser.id}}: {{blockuser.blockeduserFirstName}} {{blockuser.blockeduserLastName}}</h4>
 	          </a>
 	          
 	          <!--

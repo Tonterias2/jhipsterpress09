@@ -18,11 +18,19 @@ public class BlockuserDTO implements Serializable {
 
     private Long blockeduserId;
     
+    @Lob
+    private byte[] blockeduserImage;
+    private String blockeduserImageContentType;
+    
     private String blockeduserFirstName;
 
     private String blockeduserLastName;
 
     private Long blockinguserId;
+    
+    @Lob
+    private byte[] blockinguserImage;
+    private String blockinguserImageContentType;
     
     private String blockinguserFirstName;
 
@@ -172,7 +180,39 @@ public class BlockuserDTO implements Serializable {
         this.cblockinguserId = communityId;
     }
 
-    @Override
+    public byte[] getBlockeduserImage() {
+		return blockeduserImage;
+	}
+
+	public void setBlockeduserImage(byte[] blockeduserImage) {
+		this.blockeduserImage = blockeduserImage;
+	}
+
+	public String getBlockeduserImageContentType() {
+		return blockeduserImageContentType;
+	}
+
+	public void setBlockeduserImageContentType(String blockeduserImageContentType) {
+		this.blockeduserImageContentType = blockeduserImageContentType;
+	}
+
+	public byte[] getBlockinguserImage() {
+		return blockinguserImage;
+	}
+
+	public void setBlockinguserImage(byte[] blockinguserImage) {
+		this.blockinguserImage = blockinguserImage;
+	}
+
+	public String getBlockinguserImageContentType() {
+		return blockinguserImageContentType;
+	}
+
+	public void setBlockinguserImageContentType(String blockinguserImageContentType) {
+		this.blockinguserImageContentType = blockinguserImageContentType;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -196,8 +236,11 @@ public class BlockuserDTO implements Serializable {
 	@Override
 	public String toString() {
 		return "BlockuserDTO [id=" + id + ", creationDate=" + creationDate + ", blockeduserId=" + blockeduserId
-				+ ", blockeduserFirstName=" + blockeduserFirstName + ", blockeduserLastName=" + blockeduserLastName
-				+ ", blockinguserId=" + blockinguserId + ", blockinguserFirstName=" + blockinguserFirstName
+				+ ", blockeduserImage=" + Arrays.toString(blockeduserImage) + ", blockeduserImageContentType="
+				+ blockeduserImageContentType + ", blockeduserFirstName=" + blockeduserFirstName
+				+ ", blockeduserLastName=" + blockeduserLastName + ", blockinguserId=" + blockinguserId
+				+ ", blockinguserImage=" + Arrays.toString(blockinguserImage) + ", blockinguserImageContentType="
+				+ blockinguserImageContentType + ", blockinguserFirstName=" + blockinguserFirstName
 				+ ", blockinguserLastName=" + blockinguserLastName + ", cblockeduserId=" + cblockeduserId
 				+ ", cblockeduserImage=" + Arrays.toString(cblockeduserImage) + ", cblockeduserImageContentType="
 				+ cblockeduserImageContentType + ", cblockeduserCommunityname=" + cblockeduserCommunityname
@@ -205,4 +248,17 @@ public class BlockuserDTO implements Serializable {
 				+ ", cblockinguserImageContentType=" + cblockinguserImageContentType + ", cblockinguserCommunityname="
 				+ cblockinguserCommunityname + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "BlockuserDTO [id=" + id + ", creationDate=" + creationDate + ", blockeduserId=" + blockeduserId
+//				+ ", blockeduserFirstName=" + blockeduserFirstName + ", blockeduserLastName=" + blockeduserLastName
+//				+ ", blockinguserId=" + blockinguserId + ", blockinguserFirstName=" + blockinguserFirstName
+//				+ ", blockinguserLastName=" + blockinguserLastName + ", cblockeduserId=" + cblockeduserId
+//				+ ", cblockeduserImage=" + Arrays.toString(cblockeduserImage) + ", cblockeduserImageContentType="
+//				+ cblockeduserImageContentType + ", cblockeduserCommunityname=" + cblockeduserCommunityname
+//				+ ", cblockinguserId=" + cblockinguserId + ", cblockinguserImage=" + Arrays.toString(cblockinguserImage)
+//				+ ", cblockinguserImageContentType=" + cblockinguserImageContentType + ", cblockinguserCommunityname="
+//				+ cblockinguserCommunityname + "]";
+//	}
 }
