@@ -30,9 +30,9 @@ public class CommentDTO implements Serializable {
     
     private String commenterLastName;
     
-//    @Lob
-//    private byte[] commenterImage;
-//    private String commenterImageContentType;
+    @Lob
+    private byte[] commenterImage;
+    private String commenterImageContentType;
 
     private Long postId;
 
@@ -100,21 +100,21 @@ public class CommentDTO implements Serializable {
 		this.commenterLastName = commenterLastName;
 	}
 
-//	public byte[] getCommenterImage() {
-//		return commenterImage;
-//	}
-//
-//	public void setCommenterImage(byte[] commenterImage) {
-//		this.commenterImage = commenterImage;
-//	}
-//
-//	public String getCommenterImageContentType() {
-//		return commenterImageContentType;
-//	}
-//
-//	public void setCommenterImageContentType(String commenterImageContentType) {
-//		this.commenterImageContentType = commenterImageContentType;
-//	}
+	public byte[] getCommenterImage() {
+		return commenterImage;
+	}
+
+	public void setCommenterImage(byte[] commenterImage) {
+		this.commenterImage = commenterImage;
+	}
+
+	public String getCommenterImageContentType() {
+		return commenterImageContentType;
+	}
+
+	public void setCommenterImageContentType(String commenterImageContentType) {
+		this.commenterImageContentType = commenterImageContentType;
+	}
 
 	@Override
     public boolean equals(Object o) {

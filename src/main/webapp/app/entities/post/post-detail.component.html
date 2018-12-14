@@ -198,11 +198,9 @@
 		                   <!-- Comment 1 -->
 		                   <!-- <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of post.comments"> -->
 			                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of comments">
-			                  <!-- 
 			                    <a (click)="openFile(comment.profileImageContentType, comment.profileImage)">
-		                            <img class="d-flex u-shadow-v25 g-width-50 g-height-50 rounded-circle g-mr-15" [src]="'data:' + comment.profileImageContentType + ';base64,' + comment.profileImage" style="max-width: 100%;" alt="comment.profileImage"/>
+		                            <img class="d-flex u-shadow-v25 g-width-50 g-height-50 rounded-circle g-mr-15" [src]="'data:' + comment.commenterImageContentType + ';base64,' + comment.commenterImage" style="max-width: 100%;" alt="comment.commenterImage"/>
 		                        </a>
-							  -->
 			                    <div class="media-body">
 			                      <div class="g-mb-15">
 			                        <h5 class="d-flex justify-content-between align-items-center g-font-size-16 g-color-gray-dark-v1 mb-0">
