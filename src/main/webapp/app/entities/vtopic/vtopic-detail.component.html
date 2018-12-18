@@ -40,21 +40,25 @@
 			</h3>
 
 			<div id="accordion-07" class="u-accordion u-accordion-color-primary"
-				role="tablist" aria-multiselectable="true">
+				role="tablist" aria-multiselectable="true"
+				*ngFor="let value of values; let i = index"
+				>
 				<!-- Card -->
 				<div class="card rounded-0 g-brd-none">
-					<div id="accordion-07-heading-01"
+				<!-- ngFor="let value of values; let i = index" -->
+				<!-- (click)="agregar(i)" -->
+					<div id="accordion-07-heading-01" (click)="agregar(i)"
 						class="u-accordion__header g-pa-0" role="tab">
 						<h5 class="mb-0 text-uppercase g-font-size-default g-font-weight-700 g-pa-20a mb-0">
 							<a class="d-block g-color-main g-text-underline--none--hover"
-								href="#accordion-07-body-01" data-toggle="collapse"
+								data-toggle="collapse"
 								data-parent="#accordion-07" aria-expanded="true"
 								aria-controls="accordion-07-body-01"> 
 								<span class="u-accordion__control-icon d-inline-block g-brd-right g-brd-gray-light-v4 g-color-primary text-center g-pa-20">
 									<i class="fa fa-plus"></i> 
 									<i class="fa fa-minus"></i>
 								</span> 
-								<span class="d-inline-block g-pa-15"> ¿Dónde puedo encontrar ejemplos de apps con microservicios? </span>
+								<span class="d-inline-block g-pa-15">{{value}} -¿Dónde puedo encontrar ejemplos de apps con microservicios?  </span>
 							</a>
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
 								  <i class="fa fa-thumbs-up">1</i>
@@ -69,7 +73,8 @@
 						        </button>
 						</h5>
 					</div>
-					<div id="accordion-07-body-01" class="collapse show"
+					<!-- [ngStyle]="{display: mostrar(i) ? 'block' : 'none' }" -->
+					<div id="accordion-07-body-01" [ngStyle]="{display: mostrar(i) ? 'block' : 'none' }"
 						role="tabpanel" aria-labelledby="accordion-07-heading-01">
 							<button id="jh-create-entity"  
 						                class="btn btn-primary float-right jh-create-entity create-interest" 
@@ -87,66 +92,7 @@
 							</div>
 					</div>
 				</div>
-				<!-- End Card -->
-				<!-- Card -->
-				<div class="card rounded-0 g-brd-none">
-					<div id="accordion-07-heading-02"
-						class="u-accordion__header g-pa-0" role="tab">
-						<h5
-							class="mb-0 text-uppercase g-font-size-default g-font-weight-700 g-pa-20a mb-0">
-							<a
-								class="collapsed d-block g-color-main g-text-underline--none--hover"
-								href="#accordion-07-body-02" data-toggle="collapse"
-								data-parent="#accordion-07" aria-expanded="false"
-								aria-controls="accordion-07-body-02"> <span
-								class="u-accordion__control-icon d-inline-block g-brd-right g-brd-gray-light-v4 g-color-primary text-center g-pa-20">
-									<i class="fa fa-plus"></i> <i class="fa fa-minus"></i>
-							</span> <span class="d-inline-block g-pa-15"> ¿Dónde puedo encontrar ejemplos de apps con microservicios? 2</span>
-							</a>
-						</h5>
-					</div>
-					<div id="accordion-07-body-02" class="collapse" role="tabpanel"
-						aria-labelledby="accordion-07-heading-02">
-						<div class="u-accordion__body g-bg-gray-light-v5 g-px-50 g-py-30">
-							This is where we sit down, grab a cup of coffee and dial in the
-							details. Understanding the task at hand and ironing out the
-							wrinkles is key. Now that we've aligned the details, it's time to
-							get things mapped out and organized. This part is really crucial
-							in keeping the project in line to completion.</div>
-					</div>
-				</div>
-				<!-- End Card -->
-				<!-- Card -->
-				<div class="card rounded-0 g-brd-none">
-					<div id="accordion-07-heading-03"
-						class="u-accordion__header g-pa-0" role="tab">
-						<h5
-							class="mb-0 text-uppercase g-font-size-default g-font-weight-700 g-pa-20a mb-0">
-							<a
-								class="collapsed d-block g-color-main g-text-underline--none--hover"
-								href="#accordion-07-body-03" data-toggle="collapse"
-								data-parent="#accordion-07" aria-expanded="false"
-								aria-controls="accordion-07-body-03"> <span
-								class="u-accordion__control-icon d-inline-block g-brd-right g-brd-gray-light-v4 g-color-primary text-center g-pa-20">
-									<i class="fa fa-plus"></i> <i class="fa fa-minus"></i>
-							</span> <span class="d-inline-block g-pa-15"> Design </span>
-							</a>
-						</h5>
-					</div>
-					<div id="accordion-07-body-03" class="collapse" role="tabpanel"
-						aria-labelledby="accordion-07-heading-03">
-						<div class="u-accordion__body g-bg-gray-light-v5 g-px-50 g-py-30">
-							This is where we sit down, grab a cup of coffee and dial in the
-							details. Understanding the task at hand and ironing out the
-							wrinkles is key. Now that we've aligned the details, it's time to
-							get things mapped out and organized. This part is really crucial
-							in keeping the project in line to completion.</div>
-					</div>
-				</div>
-				<!-- End Card -->
 			</div>
-
-
 			<button type="submit" (click)="previousState()" class="btn btn-info">
 				<fa-icon [icon]="'arrow-left'"></fa-icon>
 				&nbsp;<span jhiTranslate="entity.action.back"> Back</span>

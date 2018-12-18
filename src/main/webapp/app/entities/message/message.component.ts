@@ -146,9 +146,9 @@ export class MessageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.loadAll();
         });
         this.registerChangeInMessages();
     }
@@ -172,7 +172,9 @@ export class MessageComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.eventManager.destroy(this.eventSubscriber);
+        if (this.eventSubscriber) {
+            this.eventManager.destroy(this.eventSubscriber);
+        }
     }
 
     trackId(index: number, item: IMessage) {

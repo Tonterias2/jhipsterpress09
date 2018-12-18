@@ -8,8 +8,10 @@ import { IVtopic } from 'app/shared/model/vtopic.model';
     templateUrl: './vtopic-detail.component.html'
 })
 export class VtopicDetailComponent implements OnInit {
+    values = ['elemento1', 'elemento2'];
     vtopic: IVtopic;
-
+    items = [];
+    accc = true;
     constructor(private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
@@ -20,5 +22,17 @@ export class VtopicDetailComponent implements OnInit {
 
     previousState() {
         window.history.back();
+    }
+
+    agregar(i) {
+        if (this.items.includes(i)) {
+            this.items.splice(i, 1);
+        } else {
+            this.items.push(i);
+        }
+    }
+
+    mostrar(i) {
+        return this.items.includes(i);
     }
 }
