@@ -24,7 +24,6 @@ import { UprofileService } from 'app/entities/uprofile';
     templateUrl: './post-detail.component.html'
 })
 export class PostDetailComponent implements OnInit {
-    id: any;
     private _comment: IComment;
     isSaving: boolean;
 
@@ -54,6 +53,7 @@ export class PostDetailComponent implements OnInit {
     predicate: any = 'id';
     previousPage: any = 0;
     reverse: any = 'asc';
+    id: any;
 
     constructor(
         private dataUtils: JhiDataUtils,

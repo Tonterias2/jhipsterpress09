@@ -15,7 +15,12 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
                     loadChildren: './admin/admin.module#JhipsterpressAdminModule'
                 }
             ],
-            { useHash: true, enableTracing: DEBUG_INFO_ENABLED }
+            {
+                useHash: true,
+                enableTracing: DEBUG_INFO_ENABLED,
+                scrollPositionRestoration: 'enabled',
+                anchorScrolling: 'enabled'
+            }
         )
     ],
     exports: [RouterModule]

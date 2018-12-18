@@ -67,10 +67,13 @@ INTERMEDIATE:
 * [How to create the FrontPage:](ReadMe/Solution22.md)
 * [How to combine two entities together: Post and Comments:](ReadMe/Solution24.md)
 * [Cascade deletion:](ReadMe/Solution28.md)* 
+* [How to enable scrollPositionRestoration:](ReadMe/Solution31.md)
 * Different ways to block un-authorized code
 * And more that will appear.
 
 ADVANCED:
+
+* [How to manually add relationships to the User Entity:](ReadMe/Solution30.md)
 
 # DOWNLOAD & DATA INSERTIONS:
 

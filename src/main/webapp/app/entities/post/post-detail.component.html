@@ -244,6 +244,14 @@
 							            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
 							        </div>
 							    </div>
+				<div *ngIf="comments && comments.length">
+			        <div class="row justify-content-center">
+			            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+			        </div>
+			        <div class="row justify-content-center">
+			            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+			        </div>
+			    </div>
 						<!--  
 		                  <div class="text-center g-mt-30">
 		                    <a class="btn u-btn-outline-primary g-font-size-12 text-uppercase g-px-25 g-py-13" href="#!">
