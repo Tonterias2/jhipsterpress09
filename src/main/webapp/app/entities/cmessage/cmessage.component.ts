@@ -5,10 +5,12 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ICmessage } from 'app/shared/model/cmessage.model';
-import { Principal } from 'app/core';
-
-import { ITEMS_PER_PAGE } from 'app/shared';
 import { CmessageService } from './cmessage.service';
+import { ICommunity } from 'app/shared/model/community.model';
+import { CommunityService } from '../.././../app/entities/community/community.service';
+
+import { Principal } from 'app/core';
+import { ITEMS_PER_PAGE } from 'app/shared';
 
 @Component({
     selector: 'jhi-cmessage',
@@ -17,6 +19,7 @@ import { CmessageService } from './cmessage.service';
 export class CmessageComponent implements OnInit, OnDestroy {
     currentAccount: any;
     cmessages: ICmessage[];
+    communities: ICommunity[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -33,6 +36,7 @@ export class CmessageComponent implements OnInit, OnDestroy {
 
     constructor(
         private cmessageService: CmessageService,
+        private communityService: CommunityService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -138,18 +142,34 @@ export class CmessageComponent implements OnInit, OnDestroy {
     }
 
     myCmessages() {
-        const query = {
-            page: this.page - 1,
-            size: this.itemsPerPage,
-            sort: this.sort()
-        };
+        const query = {};
         if (this.currentAccount.id != null) {
-            query['creceiverId.equals'] = this.currentAccount.id;
+            query['userId.equals'] = this.currentAccount.id;
         }
-        this.cmessageService.query(query).subscribe(
-            (res: HttpResponse<ICmessage[]>) => {
-                this.cmessages = res.body;
-                console.log('CONSOLOG: M:myUserMessages & O: this.cmessages : ', this.cmessages);
+        this.communityService.query(query).subscribe(
+            (res: HttpResponse<ICommunity[]>) => {
+                this.communities = res.body;
+                console.log('CONSOLOG: M:loginData & O: this.communities : ', this.communities);
+                const query2 = {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                };
+                if (this.communities != null) {
+                    const arrayCommmunities = [];
+                    this.communities.forEach(community => {
+                        arrayCommmunities.push(community.id);
+                    });
+                    query2['creceiverId.in'] = arrayCommmunities;
+                    query2['isDelivered.equals'] = 'false';
+                }
+                this.cmessageService.query(query2).subscribe(
+                    (res2: HttpResponse<ICmessage[]>) => {
+                        this.cmessages = res2.body;
+                        console.log('CONSOLOG: M:myUserMessages & O: this.cmessages : ', this.cmessages);
+                    },
+                    (res2: HttpErrorResponse) => this.onError(res2.message)
+                );
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

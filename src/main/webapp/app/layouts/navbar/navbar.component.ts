@@ -118,7 +118,7 @@ export class NavbarComponent implements OnInit {
                     console.log('CONSOLOG: M:loginData & O: res3.body.length .numberOfMessages : ', res3.body.length);
                     console.log('CONSOLOG: M:loginData & O: res3.body : ', res3.body);
                     this.numberOfCmessages = res3.body.length;
-                    console.log('CONSOLOG: M:loginData & O: this.numberOfMessages : ', this.numberOfMessages);
+                    console.log('CONSOLOG: M:loginData & O: this.numberOfMessages : ', this.numberOfCmessages);
                 },
                 (res3: HttpErrorResponse) => this.onError(res3.message)
             );
@@ -169,7 +169,7 @@ export class NavbarComponent implements OnInit {
     private mymessages() {
         const query = {};
         if (this.currentAccount.id != null) {
-            query['profileId.equals'] = this.currentAccount.id;
+            query['receiverId.equals'] = this.currentAccount.id;
             query['isDelivered.equals'] = 'false';
         }
         return this.messageService.query(query);
@@ -191,7 +191,7 @@ export class NavbarComponent implements OnInit {
             this.communities.forEach(community => {
                 arrayCommmunities.push(community.id);
             });
-            query['communityId.in'] = arrayCommmunities;
+            query['creceiverId.in'] = arrayCommmunities;
             query['isDelivered.equals'] = 'false';
         }
         return this.cmessageService.query(query);
