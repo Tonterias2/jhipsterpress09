@@ -39,21 +39,20 @@
 				</span>
 			</h3>
 
-			<div id="accordion-07" class="u-accordion u-accordion-color-primary"
+			<div id="accordion" class="u-accordion u-accordion-color-primary"
 				role="tablist" aria-multiselectable="true"
-				*ngFor="let value of values; let i = index"
-				>
+				*ngFor="let value of values; let i = index">
 				<!-- Card -->
 				<div class="card rounded-0 g-brd-none">
 				<!-- ngFor="let value of values; let i = index" -->
 				<!-- (click)="agregar(i)" -->
-					<div id="accordion-07-heading-01" (click)="agregar(i)"
+					<div id="accordion-heading" (click)="agregar(i)"
 						class="u-accordion__header g-pa-0" role="tab">
 						<h5 class="mb-0 text-uppercase g-font-size-default g-font-weight-700 g-pa-20a mb-0">
 							<a class="d-block g-color-main g-text-underline--none--hover"
 								data-toggle="collapse"
-								data-parent="#accordion-07" aria-expanded="true"
-								aria-controls="accordion-07-body-01"> 
+								data-parent="#accordion" aria-expanded="true"
+								aria-controls="accordion-body"> 
 								<span class="u-accordion__control-icon d-inline-block g-brd-right g-brd-gray-light-v4 g-color-primary text-center g-pa-20">
 									<i class="fa fa-plus"></i> 
 									<i class="fa fa-minus"></i>
@@ -74,8 +73,8 @@
 						</h5>
 					</div>
 					<!-- [ngStyle]="{display: mostrar(i) ? 'block' : 'none' }" -->
-					<div id="accordion-07-body-01" [ngStyle]="{display: mostrar(i) ? 'block' : 'none' }"
-						role="tabpanel" aria-labelledby="accordion-07-heading-01">
+					<div id="accordion-body" [ngStyle]="{display: mostrar(i) ? 'block' : 'none' }"
+						role="tabpanel" aria-labelledby="accordion-heading">
 							<button id="jh-create-entity"  
 						                class="btn btn-primary float-right jh-create-entity create-interest" 
 						                [routerLink]="['/']">

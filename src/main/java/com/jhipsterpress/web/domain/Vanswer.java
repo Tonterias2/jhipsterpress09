@@ -20,7 +20,7 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "vanswer")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.NONE)
 @Document(indexName = "vanswer")
 public class Vanswer implements Serializable {
 
