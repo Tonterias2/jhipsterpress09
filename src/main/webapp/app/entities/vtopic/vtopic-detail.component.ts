@@ -12,7 +12,7 @@ import { VquestionService } from '../vquestion/vquestion.service';
     templateUrl: './vtopic-detail.component.html'
 })
 export class VtopicDetailComponent implements OnInit {
-    values = ['elemento1', 'elemento2'];
+    values: IVquestion[];
     vtopic: IVtopic;
     vquestions: IVquestion[];
     items = [];
@@ -33,19 +33,24 @@ export class VtopicDetailComponent implements OnInit {
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ vtopic }) => {
             this.vtopic = vtopic;
-            this.vquestionService
-                .query({
-                    //                page: this.page - 1,
-                    //                size: this.itemsPerPage,
-                    //                sort: this.sort()
-                })
-                .subscribe(
-                    (res: HttpResponse<IVquestion[]>) => {
-                        this.vquestions = res.body;
-                        console.log('CONSOLOG: M:ngOnInit & O: this.vquestions : ', this.vquestions);
-                    },
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
+            const query = {
+                //                    page: this.page - 1,
+                //                    size: this.itemsPerPage,
+                //                    sort: this.sort()
+            };
+            if (this.vtopic != null) {
+                query['vtopicId.equals'] = vtopic.id;
+            }
+            this.vquestionService.query(query).subscribe(
+                (res: HttpResponse<IVquestion[]>) => {
+                    this.vquestions = res.body;
+                    //                        this.values = res.body;
+                    console.log('CONSOLOG: M:ngOnInit & O: this.vquestions : ', this.vquestions);
+                    console.log('CONSOLOG: M:ngOnInit & O: this.values : ', this.values);
+                    //                        this.paginatePosts(res.body, res.headers);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         });
     }
 
@@ -53,7 +58,7 @@ export class VtopicDetailComponent implements OnInit {
         window.history.back();
     }
     // *************************************************************************************************************
-    agregar(i) {
+    accordionAddItem(i) {
         if (this.items.includes(i)) {
             this.items.splice(i, 1);
         } else {
@@ -61,7 +66,7 @@ export class VtopicDetailComponent implements OnInit {
         }
     }
 
-    mostrar(i) {
+    accordionShowItem(i) {
         return this.items.includes(i);
     }
 

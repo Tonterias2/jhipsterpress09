@@ -162,6 +162,7 @@ export class VtopicComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.vtopics = data;
+        console.log('CONSOLOG: M:paginateVtopics & O: this.vtopics : ', this.vtopics);
     }
 
     private onError(errorMessage: string) {
