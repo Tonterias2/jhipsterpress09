@@ -12,12 +12,16 @@ import { IUser, UserService } from 'app/core';
 import { IVquestion } from 'app/shared/model/vquestion.model';
 import { VquestionService } from 'app/entities/vquestion';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-vanswer-update',
     templateUrl: './vanswer-update.component.html'
 })
 export class VanswerUpdateComponent implements OnInit {
     vanswer: IVanswer;
+    vanswers: IVanswer[];
+
     isSaving: boolean;
 
     users: IUser[];
@@ -25,13 +29,27 @@ export class VanswerUpdateComponent implements OnInit {
     vquestions: IVquestion[];
     creationDate: string;
 
+    currentAccount: any;
+
+    nameParamVquestion: any;
+    valueParamVquestion: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private vanswerService: VanswerService,
+        private principal: Principal,
         private userService: UserService,
         private vquestionService: VquestionService,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+        this.activatedRoute.queryParams.subscribe(params => {
+            if (params.vquestionIdEquals != null) {
+                this.nameParamVquestion = 'vquestionId.equals';
+                this.valueParamVquestion = params.vquestionIdEquals;
+            }
+            console.log('CONSOLOG: M:constructor & O: activatedRoute : ', this.nameParamVquestion, ' : ', this.valueParamVquestion);
+        });
+    }
 
     ngOnInit() {
         this.isSaving = false;
@@ -39,18 +57,30 @@ export class VanswerUpdateComponent implements OnInit {
             this.vanswer = vanswer;
             this.creationDate = this.vanswer.creationDate != null ? this.vanswer.creationDate.format(DATE_TIME_FORMAT) : null;
         });
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.vquestionService.query().subscribe(
-            (res: HttpResponse<IVquestion[]>) => {
-                this.vquestions = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        if (this.nameParamVquestion != null) {
+            this.vanswer.vquestionId = this.valueParamVquestion;
+            this.principal.identity().then(account => {
+                //                this.currentAccount = account;
+                this.vanswer.userId = account.id;
+                this.vanswer.accepted = true;
+                console.log('CONSOLOG: M:ngOnInit & O: this.vanswer : ', this.vanswer);
+                //                this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                //                    this.isAdmin = result;
+                //                });
+            });
+        }
+        //        this.userService.query().subscribe(
+        //            (res: HttpResponse<IUser[]>) => {
+        //                this.users = res.body;
+        //            },
+        //            (res: HttpErrorResponse) => this.onError(res.message)
+        //        );
+        //        this.vquestionService.query().subscribe(
+        //            (res: HttpResponse<IVquestion[]>) => {
+        //                this.vquestions = res.body;
+        //            },
+        //            (res: HttpErrorResponse) => this.onError(res.message)
+        //        );
     }
 
     previousState() {
@@ -61,8 +91,10 @@ export class VanswerUpdateComponent implements OnInit {
         this.isSaving = true;
         this.vanswer.creationDate = this.creationDate != null ? moment(this.creationDate, DATE_TIME_FORMAT) : null;
         if (this.vanswer.id !== undefined) {
+            console.log('CONSOLOG: M:ngOnInit & O: this.vquestion : ', this.vanswer);
             this.subscribeToSaveResponse(this.vanswerService.update(this.vanswer));
         } else {
+            console.log('CONSOLOG: M:ngOnInit & O: this.vquestion : ', this.vanswer);
             this.subscribeToSaveResponse(this.vanswerService.create(this.vanswer));
         }
     }

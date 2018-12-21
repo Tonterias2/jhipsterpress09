@@ -1,12 +1,14 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="jhipsterpressApp.vquestion.home.title">Vquestions</span>
+        <!-- 
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-vquestion" [routerLink]="['/vquestion/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="jhipsterpressApp.vquestion.home.createLabel">
             Create new Vquestion
             </span>
         </button>
+         -->
     </h2>
     <jhi-alert></jhi-alert>
     <div class="row">
@@ -54,6 +56,7 @@
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
+                    <!-- 
                         <button type="submit"
                                 [routerLink]="['/vquestion', vquestion.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -66,6 +69,7 @@
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
+                     -->
                         <button type="submit"
                                 [routerLink]="['/', { outlets: { popup: 'vquestion/'+ vquestion.id + '/delete'} }]"
                                 replaceUrl="true"

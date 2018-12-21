@@ -37,6 +37,11 @@
 				<span jhiTranslate="jhipsterpressApp.vtopic.vquestion">
 					VQquestion
 				</span>
+				<button id="jh-create-entity"
+					class="btn btn-primary float-right jh-create-entity create-tag"
+					[routerLink]="['/vquestion/new']" [queryParams]="{ 'vtopicIdEquals': vtopic.id }">
+					<fa-icon [icon]="'plus'"></fa-icon>
+				</button>
 			</h3>
 
 			<div id="accordion" class="u-accordion u-accordion-color-primary"
@@ -65,11 +70,11 @@
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
 								  <i class="fa fa-thumbs-down">2</i>
 								</span>
-								<button id="jh-create-entity"  
-							                class="btn btn-primary float-right jh-create-entity create-interest" 
-							                [routerLink]="['/']">
-					            	<fa-icon [icon]="'plus'"></fa-icon>
-						        </button>
+						        <button id="jh-create-entity"
+									class="btn btn-primary float-right jh-create-entity create-tag"
+									[routerLink]="['/vanswer/new']" [queryParams]="{ 'vquestionIdEquals': vquestion.id }">
+									<fa-icon [icon]="'plus'"></fa-icon>
+								</button>
 						      </a>
 						</h5>
 					</div>
@@ -78,11 +83,6 @@
 							[ngStyle]="{display: accordionShowItem(i) ? 'block' : 'none' }"
 							role="tabpanel" 
 							aria-labelledby="accordion-heading">
-							<button id="jh-create-entity"  
-						                class="btn btn-primary float-right jh-create-entity create-interest" 
-						                [routerLink]="['/']">
-				            	<fa-icon [icon]="'plus'"></fa-icon>
-					        </button>
 						<div *ngFor="let vanswer of vquestion.vanswers" class="u-accordion__body g-bg-gray-light-v5 g-px-50 g-py-30">
 							<a href="http://{{vanswer.urlvanser}}" target="_blank">{{vanswer.urlvanser}}</a>
 								<span class="u-icon-v1 g-mr-15 g-mb-15">

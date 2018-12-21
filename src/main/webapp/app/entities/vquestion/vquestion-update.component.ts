@@ -12,12 +12,16 @@ import { IUser, UserService } from 'app/core';
 import { IVtopic } from 'app/shared/model/vtopic.model';
 import { VtopicService } from 'app/entities/vtopic';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-vquestion-update',
     templateUrl: './vquestion-update.component.html'
 })
 export class VquestionUpdateComponent implements OnInit {
     vquestion: IVquestion;
+    vquestions: IVquestion[];
+
     isSaving: boolean;
 
     users: IUser[];
@@ -25,13 +29,29 @@ export class VquestionUpdateComponent implements OnInit {
     vtopics: IVtopic[];
     creationDate: string;
 
+    //    owner: any;
+    //    isAdmin: boolean;
+    currentAccount: any;
+
+    nameParamVtopic: any;
+    valueParamVtopic: any;
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private vquestionService: VquestionService,
+        private principal: Principal,
         private userService: UserService,
         private vtopicService: VtopicService,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+        this.activatedRoute.queryParams.subscribe(params => {
+            if (params.vtopicIdEquals != null) {
+                this.nameParamVtopic = 'vtopicId.equals';
+                this.valueParamVtopic = params.vtopicIdEquals;
+            }
+            console.log('CONSOLOG: M:constructor & O: activatedRoute : ', this.nameParamVtopic, ' : ', this.valueParamVtopic);
+        });
+    }
 
     ngOnInit() {
         this.isSaving = false;
@@ -39,18 +59,38 @@ export class VquestionUpdateComponent implements OnInit {
             this.vquestion = vquestion;
             this.creationDate = this.vquestion.creationDate != null ? this.vquestion.creationDate.format(DATE_TIME_FORMAT) : null;
         });
-        this.userService.query().subscribe(
-            (res: HttpResponse<IUser[]>) => {
-                this.users = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.vtopicService.query().subscribe(
-            (res: HttpResponse<IVtopic[]>) => {
-                this.vtopics = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
+        if (this.valueParamVtopic != null) {
+            this.vquestion.vtopicId = this.valueParamVtopic;
+            this.principal.identity().then(account => {
+                //                this.currentAccount = account;
+                this.vquestion.userId = account.id;
+                console.log('CONSOLOG: M:ngOnInit & O: this.vquestion : ', this.vquestion);
+                //                this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
+                //                    this.isAdmin = result;
+                //                });
+            });
+            //            const query = {};
+            //            query['vtopicId.equals'] = this.valueParamPost;
+            //            this.vquestionService.query(query).subscribe(
+            //                (res: HttpResponse<IVquestion[]>) => {
+            //                    this.vquestions = res.body;
+            //                    console.log('CONSOLOG: M:ngOnInit & O: this.vquestions : ', this.vquestions);
+            //                },
+            //                (res: HttpErrorResponse) => this.onError(res.message)
+            //            );
+        }
+        //        this.userService.query().subscribe(
+        //            (res: HttpResponse<IUser[]>) => {
+        //                this.users = res.body;
+        //            },
+        //            (res: HttpErrorResponse) => this.onError(res.message)
+        //        );
+        //        this.vtopicService.query().subscribe(
+        //            (res: HttpResponse<IVtopic[]>) => {
+        //                this.vtopics = res.body;
+        //            },
+        //            (res: HttpErrorResponse) => this.onError(res.message)
+        //        );
     }
 
     previousState() {
@@ -61,8 +101,10 @@ export class VquestionUpdateComponent implements OnInit {
         this.isSaving = true;
         this.vquestion.creationDate = this.creationDate != null ? moment(this.creationDate, DATE_TIME_FORMAT) : null;
         if (this.vquestion.id !== undefined) {
+            console.log('CONSOLOG: M:ngOnInit & O: this.vquestion : ', this.vquestion);
             this.subscribeToSaveResponse(this.vquestionService.update(this.vquestion));
         } else {
+            console.log('CONSOLOG: M:ngOnInit & O: this.vquestion : ', this.vquestion);
             this.subscribeToSaveResponse(this.vquestionService.create(this.vquestion));
         }
     }
