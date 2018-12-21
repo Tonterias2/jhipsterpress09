@@ -21,7 +21,7 @@ export class VtopicDetailComponent implements OnInit {
     itemsPerPage: any;
     page: any;
     predicate: any;
-    //    previousPage: any;
+
     reverse: any;
 
     constructor(
@@ -44,9 +44,7 @@ export class VtopicDetailComponent implements OnInit {
             this.vquestionService.query(query).subscribe(
                 (res: HttpResponse<IVquestion[]>) => {
                     this.vquestions = res.body;
-                    //                        this.values = res.body;
                     console.log('CONSOLOG: M:ngOnInit & O: this.vquestions : ', this.vquestions);
-                    console.log('CONSOLOG: M:ngOnInit & O: this.values : ', this.values);
                     //                        this.paginatePosts(res.body, res.headers);
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)

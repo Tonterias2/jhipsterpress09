@@ -165,16 +165,16 @@
 									</button>
 								    <strong class="g-mr-5">Interests:</strong>
 								    <span *ngFor="let interest of interests">
-								    	<a [routerLink]="['/interest', interest.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
-											<button *ngIf="owner === uprofile.userId" 
+								    	<button *ngIf="owner === uprofile.userId" 
 											        type="submit"
 											        [routerLink]="['/', { outlets: { popup: 'interest/'+ interest.id + '/delete'} }]"
 											        replaceUrl="true"
 											        queryParamsHandling="merge"
 											        class="btn btn-danger btn-sm">
 											        <fa-icon [icon]="'times'"></fa-icon>
-											</button>
-		                    					{{interest.interestName}}
+										</button>
+								    	<a [routerLink]="['/interest', interest.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
+	                    					{{interest.interestName}}
 								    	</a>
 								    </span>
 								  </h6>
