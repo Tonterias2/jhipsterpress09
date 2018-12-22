@@ -63,20 +63,18 @@
 									<i class="fa fa-minus"></i>
 								</span> 
 								<span class="d-inline-block g-pa-15">{{vquestion.vquestion}}</span>
-							
+						     </a>							
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
-								  <i [routerLink]="['/vthumb/new']" [queryParams]="{ 'vthumbup': 'true', 'vquestionIdEquals': vquestion.id }" 
-								  class="fa fa-thumbs-up">10</i>
+								  <i class="fa fa-thumbs-up" (click)="registerQuestionThumbUp(vquestion.id)">1</i>
 								</span>
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
-								  <i class="fa fa-thumbs-down">2</i>
+								  <i class="fa fa-thumbs-down" (click)="registerQuestionThumbDown(vquestion.id)">1</i>
 								</span>
 						        <button id="jh-create-entity"
 									class="btn btn-primary float-right jh-create-entity create-tag"
 									[routerLink]="['/vanswer/new']" [queryParams]="{ 'vquestionIdEquals': vquestion.id }">
 									<fa-icon [icon]="'plus'"></fa-icon>
 								</button>
-						      </a>
 						</h5>
 					</div>
 					<!-- [ngStyle]="{display: mostrar(i) ? 'block' : 'none' }" -->
@@ -87,11 +85,10 @@
 						<div *ngFor="let vanswer of vquestion.vanswers" class="u-accordion__body g-bg-gray-light-v5 g-px-50 g-py-30">
 							<a href="http://{{vanswer.urlvanser}}" target="_blank">{{vanswer.urlvanser}}</a>
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
-								  <i [routerLink]="['/vthumb/new']" [queryParams]="{ 'vthumbup': 'true', 'vquestionIdEquals': vquestion.id }"
-								  class="fa fa-thumbs-up"></i>1/ {{vanswer.vthumbs.length}}
+								  <i class="fa fa-thumbs-up" (click)="registerAnswerThumbUp(vanswer.id)"></i>1/ {{vanswer.vthumbs.length}}
 								</span>
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
-								  <i class="fa fa-thumbs-down" [routerLink]="['/vthumb/new']" [queryParams]="{ 'vquestionIdEquals': vquestion.id }">2</i>
+								  <i class="fa fa-thumbs-down" (click)="registerAnswerThumbDown(vanswer.id)">2</i>
 								</span>
 							</div>
 					</div>
