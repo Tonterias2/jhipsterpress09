@@ -154,7 +154,7 @@ export class VtopicDetailComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
+        this.reload();
     }
 
     private onSaveError() {
@@ -177,6 +177,11 @@ export class VtopicDetailComponent implements OnInit {
     previousState() {
         window.history.back();
     }
+
+    reload() {
+        window.location.reload();
+    }
+
     // *************************************************************************************************************
     accordionAddItem(i) {
         if (this.items.includes(i)) {

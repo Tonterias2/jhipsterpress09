@@ -65,10 +65,10 @@
 								<span class="d-inline-block g-pa-15">{{vquestion.vquestion}}</span>
 						     </a>							
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
-								  <i class="fa fa-thumbs-up" (click)="registerQuestionThumbUp(vquestion.id)">1</i>
+								  <i class="fa fa-thumbs-up" (click)="registerQuestionThumbUp(vquestion.id)">{{vquestion.vthumbs | thumbcounter:'vthumbup':true}}</i>
 								</span>
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
-								  <i class="fa fa-thumbs-down" (click)="registerQuestionThumbDown(vquestion.id)">1</i>
+								  <i class="fa fa-thumbs-down" (click)="registerQuestionThumbDown(vquestion.id)">{{vquestion.vthumbs | thumbcounter:'vthumbdown':true}}</i>
 								</span>
 						        <button id="jh-create-entity"
 									class="btn btn-primary float-right jh-create-entity create-tag"
@@ -85,10 +85,10 @@
 						<div *ngFor="let vanswer of vquestion.vanswers" class="u-accordion__body g-bg-gray-light-v5 g-px-50 g-py-30">
 							<a href="http://{{vanswer.urlvanser}}" target="_blank">{{vanswer.urlvanser}}</a>
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
-								  <i class="fa fa-thumbs-up" (click)="registerAnswerThumbUp(vanswer.id)"></i>1/ {{vanswer.vthumbs.length}}
+								  <i class="fa fa-thumbs-up" (click)="registerAnswerThumbUp(vanswer.id)"></i>{{vanswer.vthumbs | thumbcounter:'vthumbup':true}}</i>
 								</span>
 								<span class="u-icon-v1 g-mr-15 g-mb-15">
-								  <i class="fa fa-thumbs-down" (click)="registerAnswerThumbDown(vanswer.id)">2</i>
+								  <i class="fa fa-thumbs-down" (click)="registerAnswerThumbDown(vanswer.id)">{{vanswer.vthumbs | thumbcounter:'vthumbdown':true}}</i>
 								</span>
 							</div>
 					</div>
