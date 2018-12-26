@@ -73,7 +73,10 @@ public class Topic implements Serializable {
 
     public Topic addPost(Post post) {
         this.posts.add(post);
+        System.out.println("1!!!!!!!!!!!!!!!!!!!!!!!!!!!!------------ªªªªªªªªªªªªªªªª!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ this.posts);
         post.getTopics().add(this);
+        System.out.println("2!!!!!!!!!!!!!!!!!!!!!!!!!!!!------------ªªªªªªªªªªªªªªªª!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ post);
+        System.out.println("3!!!!!!!!!!!!!!!!!!!!!!!!!!!!------------ªªªªªªªªªªªªªªªª!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ this);
         return this;
     }
 

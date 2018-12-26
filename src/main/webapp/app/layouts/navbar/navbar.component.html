@@ -61,14 +61,7 @@
                             <span jhiTranslate="global.menu.entities.tag">Tag</span>
                         </a>
                     </li>
-                     -->
-                    <li>
-                        <a class="dropdown-item" routerLink="urllink" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            
-                            <span jhiTranslate="global.menu.entities.urllink">Urllink</span>
-                        </a>
-                    </li>
-                    
+                     -->                   
                     <li>
                         <a class="dropdown-item" routerLink="uprofile" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             
@@ -151,24 +144,6 @@
                             <span jhiTranslate="global.menu.entities.vtopic">Vtopic</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="vquestion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            
-                            <span jhiTranslate="global.menu.entities.vquestion">Vquestion</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="vanswer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            
-                            <span jhiTranslate="global.menu.entities.vanswer">Vanswer</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="vthumb" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            
-                            <span jhiTranslate="global.menu.entities.vthumb">Vthumb</span>
-                        </a>
-                    </li>
                     
                     <li>
                         <a class="dropdown-item" routerLink="message" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
@@ -194,7 +169,13 @@
                             
                             <span jhiTranslate="global.menu.entities.frontpageconfig">Frontpageconfig</span>
                         </a>
-                    </li>                                  
+                    </li>
+                    <li>
+                        <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="dropdown-item" routerLink="urllink" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            
+                            <span jhiTranslate="global.menu.entities.urllink">Urllink</span>
+                        </a>
+                    </li>
                     <li>
                         <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="dropdown-item" routerLink="comment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             
@@ -211,6 +192,24 @@
                         <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="dropdown-item" routerLink="feedback" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             
                             <span jhiTranslate="global.menu.entities.feedback">Feedback</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="dropdown-item" routerLink="vquestion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            
+                            <span jhiTranslate="global.menu.entities.vquestion">Vquestion</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="dropdown-item" routerLink="vanswer" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            
+                            <span jhiTranslate="global.menu.entities.vanswer">Vanswer</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a *jhiHasAnyAuthority="'ROLE_ADMIN'" class="dropdown-item" routerLink="vthumb" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            
+                            <span jhiTranslate="global.menu.entities.vthumb">Vthumb</span>
                         </a>
                     </li>
                     <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->

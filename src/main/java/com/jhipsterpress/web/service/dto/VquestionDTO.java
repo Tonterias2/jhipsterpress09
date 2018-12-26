@@ -28,6 +28,8 @@ public class VquestionDTO implements Serializable {
     private Long vtopicId;
     
     private Set <VanswerDTO> vanswers;
+    
+    private Set <VthumbDTO> vthumbs;
 
     public Long getId() {
         return id;
@@ -85,6 +87,14 @@ public class VquestionDTO implements Serializable {
 		this.vanswers = vanswers;
 	}
 
+	public Set<VthumbDTO> getVthumbs() {
+		return vthumbs;
+	}
+
+	public void setVthumbs(Set<VthumbDTO> vthumbs) {
+		this.vthumbs = vthumbs;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -110,18 +120,25 @@ public class VquestionDTO implements Serializable {
 	public String toString() {
 		return "VquestionDTO [id=" + id + ", creationDate=" + creationDate + ", vquestion=" + vquestion
 				+ ", vquestiondesc=" + vquestiondesc + ", userId=" + userId + ", vtopicId=" + vtopicId + ", vanswers="
-				+ vanswers + "]";
+				+ vanswers + ", vthumbs=" + vthumbs + "]";
 	}
 
-//    @Override
-//    public String toString() {
-//        return "VquestionDTO{" +
-//            "id=" + getId() +
-//            ", creationDate='" + getCreationDate() + "'" +
-//            ", vquestion='" + getVquestion() + "'" +
-//            ", vquestiondesc='" + getVquestiondesc() + "'" +
-//            ", user=" + getUserId() +
-//            ", vtopic=" + getVtopicId() +
-//            "}";
-//    }
+//	@Override
+//	public String toString() {
+//		return "VquestionDTO [id=" + id + ", creationDate=" + creationDate + ", vquestion=" + vquestion
+//				+ ", vquestiondesc=" + vquestiondesc + ", userId=" + userId + ", vtopicId=" + vtopicId + ", vanswers="
+//				+ vanswers + "]";
+//	}
+//
+////    @Override
+////    public String toString() {
+////        return "VquestionDTO{" +
+////            "id=" + getId() +
+////            ", creationDate='" + getCreationDate() + "'" +
+////            ", vquestion='" + getVquestion() + "'" +
+////            ", vquestiondesc='" + getVquestiondesc() + "'" +
+////            ", user=" + getUserId() +
+////            ", vtopic=" + getVtopicId() +
+////            "}";
+////    }
 }

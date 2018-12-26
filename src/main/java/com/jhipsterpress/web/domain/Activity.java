@@ -73,7 +73,11 @@ public class Activity implements Serializable {
 
     public Activity addUprofile(Uprofile uprofile) {
         this.uprofiles.add(uprofile);
+        System.out.println("1!!!!!!!!!!!!!!!!!!!!!!!!!!!!------------ªªªªªªªªªªªªªªªª!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ this.uprofiles);
         uprofile.getActivities().add(this);
+        System.out.println("2!!!!!!!!!!!!!!!!!!!!!!!!!!!!------------ªªªªªªªªªªªªªªªª!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ uprofile);
+        System.out.println("3!!!!!!!!!!!!!!!!!!!!!!!!!!!!------------ªªªªªªªªªªªªªªªª!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+ this);
+
         return this;
     }
 
