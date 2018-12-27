@@ -87,7 +87,7 @@
 								</button>
 		                    <strong class="g-mr-5">Tags:</strong>
 		                    <span  *ngFor="let tag of post.tags">
-		                    	<a [routerLink]="['/tag', tag.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+		                    	<a [routerLink]="['/tag', tag.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
 		                    		{{tag.tagName}}
 		                    	</a>
 		                    </span>
@@ -101,7 +101,7 @@
 								</button>
 		                    <strong class="g-mr-5">Topics:</strong>
 		                    <span  *ngFor="let topic of post.topics">
-		                    	<a [routerLink]="['/topic', topic.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
+		                    	<a [routerLink]="['/topic', topic.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
 		                    		{{topic.topicName}}
 		                    	</a>
 		                    </span>
@@ -196,7 +196,6 @@
 		                  </div>
 		
 		                   <!-- Comment 1 -->
-		                   <!-- <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of post.comments"> -->
 			                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of comments">
 			                    <a (click)="openFile(comment.profileImageContentType, comment.profileImage)">
 		                            <img class="d-flex u-shadow-v25 g-width-50 g-height-50 rounded-circle g-mr-15" [src]="'data:' + comment.commenterImageContentType + ';base64,' + comment.commenterImage" style="max-width: 100%;" alt="comment.commenterImage"/>

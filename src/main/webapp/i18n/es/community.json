@@ -2,42 +2,42 @@
     "jhipsterpressApp": {
         "community": {
             "home": {
-                "title": "Communities",
-                "createLabel": "Crear nuevo Community",
-                "myLabel": "Mi Communities",
-                "createOrEditLabel": "Crear o editar Community",
-                "search": "Search for Community"
+                "title": "Communidades",
+                "createLabel": "Crear nuevo Communidad",
+                "myLabel": "Mis Communidades",
+                "createOrEditLabel": "Crear o editar Communidad",
+                "search": "Buscar una Communidad"
             },
-            "created": "Un nuevo Community ha sido creado con el identificador {{ param }}",
-            "updated": "Un Community ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Community ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva Communidad ha sido creada con el identificador {{ param }}",
+            "updated": "Una Communidad ha sido actualizada con el identificador {{ param }}",
+            "deleted": "Una Communidad ha sido eliminada con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Community {{ id }}?"
+                "question": "¿Seguro que quiere eliminar la Communidad {{ id }}?"
             },
             "detail": {
-                "title": "Community",
-                "founder": "Blog Founder",
-                "cblog": "Communities' Blogs"
+                "title": "Communidad",
+                "founder": "Fundador del Blog",
+                "cblog": "Blogs de la Communidad"
             },
-            "creationDate": "Creation Date",
-            "communityname": "Communityname",
-            "communitydescription": "Communitydescription",
-            "image": "Image",
-            "isActive": "Is Active",
+            "creationDate": "Fecha de Creación",
+            "communityname": "Nombre de la Communidad",
+            "communitydescription": "Descripción de la Comunidad",
+            "image": "Imagen",
+            "isActive": "¿Está activa?",
             "blog": "Blog",
             "follow": "Follow",
             "unfollow": "UnFollow",
-            "csender": "Csender",
-            "creceiver": "Creceiver",
-            "cfollowed": "Cfollowed",
-            "cfollowing": "Cfollowing",
-            "cblockeduser": "Cblockeduser",
-            "cblockinguser": "Cblockinguser",
+            "csender": "Comunidad Emisora",
+            "creceiver": "Comunidad Receptora",
+            "cfollowed": "Comunidad Follower",
+            "cfollowing": "Comunidad Following",
+            "cblockeduser": "Comunidad Blocked User",
+            "cblockinguser": "Comunidad Blocking User",
             "user": "User",
-            "calbum": "Calbum",
-            "cinterest": "Cinterest",
-            "cactivity": "Cactivity",
-            "cceleb": "Cceleb"
+            "calbum": "Album de la Comunidad",
+            "cinterest": "Intereses de la Comunidad",
+            "cactivity": "Actividad de la Comunidad",
+            "cceleb": "Celebridades de la Comunidad"
         }
     }
 }

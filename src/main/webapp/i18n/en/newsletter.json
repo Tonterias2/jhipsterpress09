@@ -3,9 +3,9 @@
         "newsletter": {
             "home": {
                 "title": "Newsletters",
-                "createLabel": "Create a new Newsletter",
-                "createOrEditLabel": "Create or edit a Newsletter",
-                "search": "Search for Newsletter"
+                "createLabel": "Create a new Newsletter User",
+                "createOrEditLabel": "Create or edit a Newsletter User",
+                "search": "Search for Newsletter User"
             },
             "created": "A new Newsletter is created with identifier {{ param }}",
             "updated": "A Newsletter is updated with identifier {{ param }}",

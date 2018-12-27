@@ -2,23 +2,23 @@
     "jhipsterpressApp": {
         "celeb": {
             "home": {
-                "title": "Celebs",
-                "createLabel": "Crear nuevo Celeb",
-                "createOrEditLabel": "Crear o editar Celeb",
-                "myLabel": "Mi Celebs",
-                "search": "Search for Celeb"
+                "title": "Celebridad",
+                "createLabel": "Crear nueva Celebridad",
+                "createOrEditLabel": "Crear o editar Celebridades",
+                "myLabel": "Mis Celebridades",
+                "search": "Buscar una Celebridad"
             },
-            "created": "Un nuevo Celeb ha sido creado con el identificador {{ param }}",
-            "updated": "Un Celeb ha sido actualizado con el identificador {{ param }}",
-            "deleted": "Un Celeb ha sido eliminado con el identificador {{ param }}",
+            "created": "Una nueva Celebridad ha sido creada con el identificador {{ param }}",
+            "updated": "Una Celebridad ha sido actualizada con el identificador {{ param }}",
+            "deleted": "Una Celebridad ha sido eliminada con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Celeb {{ id }}?"
+                "question": "¿Seguro que quiere eliminar Celebridad {{ id }}?"
             },
             "detail": {
-                "title": "Celeb"
+                "title": "Celebridad"
             },
-            "celebName": "Celeb Name",
-            "community": "Community",
+            "celebName": "Nombre de la Celebridad",
+            "community": "Celebridad",
             "uprofile": "Perfil"
         }
     }

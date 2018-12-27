@@ -4,9 +4,9 @@
             "home": {
                 "title": "Posts",
                 "createLabel": "Crear nuevo Post",
-                "myLabel": "Mi Post",
+                "myLabel": "Mi Posts",
                 "createOrEditLabel": "Crear o editar Post",
-                "search": "Search for Post"
+                "search": "Buscar un Post"
             },
             "created": "Un nuevo Post ha sido creado con el identificador {{ param }}",
             "updated": "Un Post ha sido actualizado con el identificador {{ param }}",
@@ -17,18 +17,18 @@
             "detail": {
                 "title": "Post"
             },
-            "creationDate": "Creation Date",
-            "publicationDate": "Publication Date",
-            "headline": "Headline",
-            "leadtext": "Leadtext",
-            "bodytext": "Bodytext",
-            "quote": "Quote",
-            "conclusion": "Conclusion",
-            "linkText": "Link Text",
+            "creationDate": "Fecha de Creación",
+            "publicationDate": "Fecha de Publicación",
+            "headline": "Titular",
+            "leadtext": "Encabezado",
+            "bodytext": "Noticia",
+            "quote": "Cita",
+            "conclusion": "Conclusión",
+            "linkText": "Texto del Link",
             "linkURL": "Link URL",
             "image": "Image",
-            "comment": "Comment",
-            "user": "User",
+            "comment": "Comentarios",
+            "user": "Usuarios",
             "blog": "Blog",
             "tag": "Tag",
             "topic": "Topic"

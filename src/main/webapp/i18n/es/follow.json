@@ -18,11 +18,11 @@
             "detail": {
                 "title": "Follow"
             },
-            "creationDate": "Creation Date",
-            "followed": "Followed",
+            "creationDate": "Fecha de Creación",
+            "followed": "Follower",
             "following": "Following",
-            "cfollowed": "Cfollowed",
-            "cfollowing": "Cfollowing"
+            "cfollowed": "Comunidad Follower",
+            "cfollowing": "Comunidad following"
         }
     }
 }

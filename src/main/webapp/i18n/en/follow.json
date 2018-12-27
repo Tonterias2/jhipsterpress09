@@ -7,7 +7,7 @@
                 "titleFollower": "Followers",
                 "createLabel": "Create a new Follow",
                 "createOrEditLabel": "Create or edit a Follow",
-                "search": "Search for Follow"
+                "search": "Search for Follows"
             },
             "created": "A new Follow is created with identifier {{ param }}",
             "updated": "A Follow is updated with identifier {{ param }}",
@@ -19,10 +19,10 @@
                 "title": "Follow"
             },
             "creationDate": "Creation Date",
-            "followed": "Followed",
+            "followed": "Follower",
             "following": "Following",
-            "cfollowed": "Cfollowed",
-            "cfollowing": "Cfollowing"
+            "cfollowed": "Community follower",
+            "cfollowing": "Community following"
         }
     }
 }

@@ -19,10 +19,10 @@
                 "blogposts": "Posts del Blog"
             },
             "creationDate": "Creation Date",
-            "title": "Title",
-            "image": "Image",
+            "title": "Título",
+            "image": "Imagen",
             "post": "Post",
-            "community": "Community"
+            "community": "Comunidad"
         }
     }
 }

@@ -11,7 +11,7 @@
             "updated": "Un Tema ha sido actualizado con el identificador {{ param }}",
             "deleted": "Un Tema ha sido eliminado con el identificador {{ param }}",
             "delete": {
-                "question": "¿Seguro que quiere eliminar Tema {{ id }}?"
+                "question": "¿Seguro que quiere eliminar el Tema {{ id }}?"
             },
             "detail": {
                 "title": "Tema"
