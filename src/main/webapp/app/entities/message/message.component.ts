@@ -3,12 +3,16 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { IMessage } from 'app/shared/model/message.model';
+import { MessageService } from './message.service';
+
 import { Principal } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { MessageService } from './message.service';
 
 @Component({
     selector: 'jhi-message',
@@ -30,6 +34,8 @@ export class MessageComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    isSaving: boolean;
+    creationDate: string;
 
     constructor(
         private messageService: MessageService,
@@ -148,7 +154,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.principal.identity().then(account => {
             this.currentAccount = account;
-            this.loadAll();
+            this.myMessages();
         });
         this.registerChangeInMessages();
     }
@@ -166,9 +172,37 @@ export class MessageComponent implements OnInit, OnDestroy {
             (res: HttpResponse<IMessage[]>) => {
                 this.messages = res.body;
                 console.log('CONSOLOG: M:myUserMessages & O: this.messages : ', this.messages);
+                this.isDeliveredUpdate(this.messages);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+    }
+
+    isDeliveredUpdate(messages: IMessage[]) {
+        this.isSaving = true;
+        this.messages.forEach(message => {
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: messages PRE-Date : ', messages);
+            this.creationDate = moment(message.creationDate).format(DATE_TIME_FORMAT);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: this.creationDate : ', this.creationDate);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: messages POST-Date : ', messages);
+            message.isDelivered = true;
+            //            this.notificationService.update(notification);
+            this.subscribeToSaveResponse(this.messageService.update(message));
+            //            this.subscribeToSaveResponse(this.notificationService.update(notification));
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: message : ', message);
+        });
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<IMessage>>) {
+        result.subscribe((res: HttpResponse<IMessage>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess() {
+        this.isSaving = false;
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
     }
 
     ngOnDestroy() {

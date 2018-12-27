@@ -3,6 +3,9 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import * as moment from 'moment';
+import { Observable } from 'rxjs';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 
 import { ICmessage } from 'app/shared/model/cmessage.model';
 import { CmessageService } from './cmessage.service';
@@ -33,6 +36,8 @@ export class CmessageComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    isSaving: boolean;
+    creationDate: string;
 
     constructor(
         private cmessageService: CmessageService,
@@ -134,9 +139,10 @@ export class CmessageComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
+        //        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            this.myCmessages();
         });
         this.registerChangeInCmessages();
     }
@@ -144,7 +150,7 @@ export class CmessageComponent implements OnInit, OnDestroy {
     myCmessages() {
         const query = {};
         if (this.currentAccount.id != null) {
-            query['userId.equals'] = this.currentAccount.id;
+            query['creceiverId.equals'] = this.currentAccount.id;
         }
         this.communityService.query(query).subscribe(
             (res: HttpResponse<ICommunity[]>) => {
@@ -167,12 +173,40 @@ export class CmessageComponent implements OnInit, OnDestroy {
                     (res2: HttpResponse<ICmessage[]>) => {
                         this.cmessages = res2.body;
                         console.log('CONSOLOG: M:myUserMessages & O: this.cmessages : ', this.cmessages);
+                        this.isDeliveredUpdate(this.cmessages);
                     },
                     (res2: HttpErrorResponse) => this.onError(res2.message)
                 );
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+    }
+
+    isDeliveredUpdate(cmessages: ICmessage[]) {
+        this.isSaving = true;
+        this.cmessages.forEach(cmessage => {
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: cmessages PRE-Date : ', cmessages);
+            this.creationDate = moment(cmessage.creationDate).format(DATE_TIME_FORMAT);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: this.notificationDate : ', this.creationDate);
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: notifications POST-Date : ', cmessages);
+            cmessage.isDelivered = true;
+            //            this.notificationService.update(notification);
+            this.subscribeToSaveResponse(this.cmessageService.update(cmessage));
+            //            this.subscribeToSaveResponse(this.notificationService.update(notification));
+            console.log('CONSOLOG: M:isDeliveredUpdate & O: cmessages : ', cmessages);
+        });
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<ICmessage>>) {
+        result.subscribe((res: HttpResponse<ICmessage>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess() {
+        this.isSaving = false;
+    }
+
+    private onSaveError() {
+        this.isSaving = false;
     }
 
     ngOnDestroy() {

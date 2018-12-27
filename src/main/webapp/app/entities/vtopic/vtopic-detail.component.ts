@@ -182,7 +182,6 @@ export class VtopicDetailComponent implements OnInit {
         window.location.reload();
     }
 
-    // *************************************************************************************************************
     accordionAddItem(i) {
         if (this.items.includes(i)) {
             this.items.splice(i, 1);
