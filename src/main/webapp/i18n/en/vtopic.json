@@ -2,7 +2,7 @@
     "jhipsterpressApp": {
         "vtopic": {
             "home": {
-                "title": "Question Topic",
+                "title": "Question's' Topic",
                 "createLabel": "Create a new Question Topic",
                 "createOrEditLabel": "Create or edit a Question Topic",
                 "search": "Search for Question Topic"

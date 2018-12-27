@@ -150,7 +150,7 @@ export class CmessageComponent implements OnInit, OnDestroy {
     myCmessages() {
         const query = {};
         if (this.currentAccount.id != null) {
-            query['creceiverId.equals'] = this.currentAccount.id;
+            query['userId.equals'] = this.currentAccount.id;
         }
         this.communityService.query(query).subscribe(
             (res: HttpResponse<ICommunity[]>) => {
@@ -167,7 +167,7 @@ export class CmessageComponent implements OnInit, OnDestroy {
                         arrayCommmunities.push(community.id);
                     });
                     query2['creceiverId.in'] = arrayCommmunities;
-                    query2['isDelivered.equals'] = 'false';
+                    //                    query2['isDelivered.equals'] = 'false';
                 }
                 this.cmessageService.query(query2).subscribe(
                     (res2: HttpResponse<ICmessage[]>) => {

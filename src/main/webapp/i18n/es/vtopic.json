@@ -2,7 +2,7 @@
     "jhipsterpressApp": {
         "vtopic": {
             "home": {
-                "title": "Tema de la Pregunta",
+                "title": "Temas de las Preguntas",
                 "createLabel": "Crear un nuevo Tema",
                 "createOrEditLabel": "Crear o editar Tema",
                 "search": "Buscar un Tema"
