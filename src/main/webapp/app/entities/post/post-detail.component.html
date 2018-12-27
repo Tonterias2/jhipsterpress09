@@ -11,7 +11,7 @@
 		                  <h2 class="h1 g-mb-15">{{post.headline}}</h2>
 		
 		                  <ul class="list-inline d-sm-flex g-color-gray-dark-v4 mb-0">
-		                    <li class="list-inline-item" *ngIf="post">
+		                    <li class="list-inline-item" *ngIf="post && profile">
 		                      <a [routerLink]="['/profile', profile.id, 'view']" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">{{post.userFirstName}} {{post.userLastName}}</a>
 		                    </li>
 		                    <li class="list-inline-item g-mx-10">/</li>
@@ -152,13 +152,13 @@
 		
 		                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20">
 
-		                    <div *ngIf="profile.image">
+		                    <div *ngIf="profile">
 		                        <a (click)="openFile(profile.imageContentType, profile.image)">
 		                            <img [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-width: 100%;" alt="profile.image"/>
 		                        </a>
 			                </div>
 
-		                    <div class="media-body">
+		                    <div class="media-body" *ngIf="profile">
 		                      <h4 class="g-color-gray-dark-v1 g-mb-15">
 		                        <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/profile', profile.id, 'view']">{{post.userFirstName}} {{post.userLastName}}</a>
 		                      </h4>
@@ -243,14 +243,6 @@
 							            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
 							        </div>
 							    </div>
-				<div *ngIf="comments && comments.length">
-			        <div class="row justify-content-center">
-			            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
-			        </div>
-			        <div class="row justify-content-center">
-			            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
-			        </div>
-			    </div>
 						<!--  
 		                  <div class="text-center g-mt-30">
 		                    <a class="btn u-btn-outline-primary g-font-size-12 text-uppercase g-px-25 g-py-13" href="#!">

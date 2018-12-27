@@ -184,7 +184,8 @@ export class VtopicDetailComponent implements OnInit {
 
     accordionAddItem(i) {
         if (this.items.includes(i)) {
-            this.items.splice(i, 1);
+            const index = this.items.indexOf(i);
+            this.items.splice(index, 1);
         } else {
             this.items.push(i);
         }

@@ -67,7 +67,15 @@ export class PostDetailComponent implements OnInit {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private eventManager: JhiEventManager
-    ) {}
+    ) {
+        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.routeData = this.activatedRoute.data.subscribe(data => {
+            //  this.page = data.pagingParams.page;
+            this.previousPage = data.pagingParams ? data.pagingParams.page : 0;
+            this.reverse = data.pagingParams ? data.pagingParams.ascending : 'asc';
+            this.predicate = data.pagingParams ? data.pagingParams.predicate : 'id';
+        });
+    }
 
     ngOnInit() {
         console.log('CONSOLOG: M:ngOnInit & O: this.page : ', this.page);
