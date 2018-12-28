@@ -40,7 +40,7 @@
             <tbody>
             <tr *ngFor="let feedback of feedbacks ;trackBy: trackId">
                 <td><a [routerLink]="['/feedback', feedback.id, 'view' ]">{{feedback.id}}</a></td>
-                <td>{{feedback.creationDate | date:'medium'}}</td>
+                <td>{{feedback.creationDate | date:'MMM d, y, h:mm a'}}</td>
                 <td>{{feedback.name}}</td>
                 <td>{{feedback.email}}</td>
                 <td>{{feedback.feedback}}</td>

@@ -10,7 +10,7 @@
 
 	        <div class="g-brd-around g-brd-secondary-light-v2 g-bg-white g-pa-20">
 	        <!-- <h3 class="g-font-size-16"><a class="u-link-v5 g-color-main g-color-primary--hover" [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></h3>  -->
-	        <p class="g-font-size-13">{{blog.creationDate | date:'medium'}}</p>
+	        <p class="g-font-size-13">{{blog.creationDate | date:'MMM d, y, h:mm a'}}</p>
 			
 				<h3><span jhiTranslate="jhipsterpressApp.blog.detail.blogposts">Blogs´ Posts</span></h3>
 		           
@@ -27,7 +27,7 @@
 			            <tbody>
 			            <tr *ngFor="let post of posts">
 			                <td><a [routerLink]="['/post', post.id, 'view' ]">{{post.id}}</a></td>
-			                <td>{{post.creationDate | date:'medium'}}</td>
+			                <td>{{post.creationDate | date:'MMM d, y, h:mm a'}}</td>
 			                <td><a [routerLink]="['/post', post.id, 'view' ]">{{post.headline}}</a></td>
 			                <td>
 			                    <a *ngIf="post.image" (click)="openFile(post.imageContentType, post.image)">

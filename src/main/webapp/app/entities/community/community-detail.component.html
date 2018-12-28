@@ -161,7 +161,7 @@
 		            <tbody>
 		            <tr *ngFor="let blog of blogs">
 		                <td><a [routerLink]="['/blog', blog.id, 'view' ]">{{blog.id}}</a></td>
-		                <td>{{blog.creationDate | date:'medium'}}</td>
+		                <td>{{blog.creationDate | date:'MMM d, y, h:mm a'}}</td>
 		                <td><a [routerLink]="['/blog', blog.id, 'view' ]">{{blog.title}}</a></td>
 		                <td>
 		                    <a *ngIf="blog.image" (click)="openFile(blog.imageContentType, blog.image)">

@@ -41,7 +41,7 @@
             <tbody>
             <tr *ngFor="let follow of follows ;trackBy: trackId">
                 <td><a [routerLink]="['/follow', follow.id, 'view' ]">{{follow.id}}</a></td>
-                <td>{{follow.creationDate | date:'medium'}}</td>
+                <td>{{follow.creationDate | date:'MMM d, y, h:mm a'}}</td>
                 <td>
                     {{follow.followedId}}
                 </td>

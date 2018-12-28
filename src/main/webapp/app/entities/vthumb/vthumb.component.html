@@ -42,7 +42,7 @@
             <tbody>
             <tr *ngFor="let vthumb of vthumbs ;trackBy: trackId">
                 <td><a [routerLink]="['/vthumb', vthumb.id, 'view' ]">{{vthumb.id}}</a></td>
-                <td>{{vthumb.creationDate | date:'medium'}}</td>
+                <td>{{vthumb.creationDate | date:'MMM d, y, h:mm a'}}</td>
                 <td>{{vthumb.vthumbup}}</td>
                 <td>{{vthumb.vthumbdown}}</td>
                 <td>
