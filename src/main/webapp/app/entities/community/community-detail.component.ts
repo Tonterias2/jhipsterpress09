@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { ActivatedRoute, Router } from '@angular/router';
+import { JhiAlertService, JhiDataUtils, JhiParseLinks, JhiEventManager } from 'ng-jhipster';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
+import { ITEMS_PER_PAGE } from 'app/shared';
 import { Principal } from 'app/core';
 
 import { ICommunity } from 'app/shared/model/community.model';
@@ -56,6 +57,20 @@ export class CommunityDetailComponent implements OnInit {
     notificationReason: any;
     owner: any;
 
+    error: any;
+    success: any;
+    //    eventSubscriber: Subscription;
+    routeData: any;
+    links: any;
+    totalItems: any;
+    queryCount: any;
+    itemsPerPage: any;
+    page: any = 1;
+    predicate: any = 'id';
+    previousPage: any = 0;
+    reverse: any = 'asc';
+    id: any;
+
     constructor(
         private blogService: BlogService,
         private followService: FollowService,
@@ -65,10 +80,21 @@ export class CommunityDetailComponent implements OnInit {
         private cactivityService: CactivityService,
         private ccelebService: CcelebService,
         private dataUtils: JhiDataUtils,
+        private parseLinks: JhiParseLinks,
         private principal: Principal,
         private jhiAlertService: JhiAlertService,
-        private activatedRoute: ActivatedRoute
-    ) {}
+        private activatedRoute: ActivatedRoute,
+        private router: Router,
+        private eventManager: JhiEventManager
+    ) {
+        this.itemsPerPage = ITEMS_PER_PAGE;
+        this.routeData = this.activatedRoute.data.subscribe(data => {
+            //  this.page = data.pagingParams.page;
+            this.previousPage = data.pagingParams ? data.pagingParams.page : 0;
+            this.reverse = data.pagingParams ? data.pagingParams.ascending : 'asc';
+            this.predicate = data.pagingParams ? data.pagingParams.predicate : 'id';
+        });
+    }
 
     ngOnInit() {
         this.activatedRoute.data.subscribe(({ community }) => {
@@ -97,7 +123,8 @@ export class CommunityDetailComponent implements OnInit {
         }
         this.blogService.query(query).subscribe(
             (res: HttpResponse<IBlog[]>) => {
-                this.blogs = res.body;
+                //                this.blogs = res.body;
+                this.paginateBlogs(res.body, res.headers);
                 console.log('CONSOLOG: M:communitiesBlogs & O: this.blogs : ', this.blogs);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
@@ -242,6 +269,19 @@ export class CommunityDetailComponent implements OnInit {
 
     reload() {
         window.location.reload();
+    }
+
+    private paginateBlogs(data: IBlog[], headers: HttpHeaders) {
+        this.links = this.parseLinks.parse(headers.get('link'));
+        this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
+        this.queryCount = this.totalItems;
+        this.blogs = data;
+        console.log('CONSOLOG: M:paginateBlogs & O: this.blogs : ', this.blogs);
+    }
+
+    loadPage(page) {
+        this.previousPage = page;
+        this.page = page;
     }
 
     private onError(errorMessage: string) {
