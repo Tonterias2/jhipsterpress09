@@ -31,8 +31,8 @@ export class PostDetailComponent implements OnInit {
     posts: IPost[];
     comments: IComment[];
 
-    profile: IUprofile;
-    profiles: IUprofile[];
+    uprofile: IUprofile;
+    uprofiles: IUprofile[];
 
     user: IUser;
     users: IUser[];
@@ -198,9 +198,9 @@ export class PostDetailComponent implements OnInit {
         }
         this.uprofileService.query(query2).subscribe(
             (res: HttpResponse<IUprofile[]>) => {
-                this.profiles = res.body;
-                this.profile = res.body[0];
-                console.log('CONSOLOG: M:ngOnInit & O: this.profile : ', this.profile);
+                this.uprofiles = res.body;
+                this.uprofile = res.body[0];
+                console.log('CONSOLOG: M:ngOnInit & O: this.profile : ', this.uprofile);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );

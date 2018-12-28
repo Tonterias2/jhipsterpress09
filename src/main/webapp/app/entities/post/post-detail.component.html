@@ -11,8 +11,8 @@
 		                  <h2 class="h1 g-mb-15">{{post.headline}}</h2>
 		
 		                  <ul class="list-inline d-sm-flex g-color-gray-dark-v4 mb-0">
-		                    <li class="list-inline-item" *ngIf="post && profile">
-		                      <a [routerLink]="['/profile', profile.id, 'view']" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">{{post.userFirstName}} {{post.userLastName}}</a>
+		                    <li class="list-inline-item" *ngIf="post && uprofile">
+		                      <a [routerLink]="['/uprofile', uprofile.id, 'view']" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">{{post.userFirstName}} {{post.userLastName}}</a>
 		                    </li>
 		                    <li class="list-inline-item g-mx-10">/</li>
 		                    <li class="list-inline-item">
@@ -30,29 +30,32 @@
 		                  </ul>
 		
 		                  <hr class="g-brd-gray-light-v4 g-my-15">
-		
+          		          <h6 class="g-color-gray-dark-v1 g-mb-15" *ngIf="post.linkURL">
+		                    <strong class="g-mr-5">Source:</strong> <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{{post.linkURL}}">{{post.linkText}}</a>
+		                  </h6>
+
 		                  <ul class="list-inline text-uppercase mb-0">
-		                    <li class="list-inline-item g-mr-10">
+		                    <!-- <li class="list-inline-item g-mr-10">
 		                      <strong class="align-middle g-font-size-24">423</strong>
 		                    </li>
 		                    <li class="list-inline-item g-mr-10">
 		                      <span class="g-color-gray-dark-v5">|</span>
-		                    </li>
+		                    </li>  -->
 		                    <li class="list-inline-item g-mr-10">
-		                      <a class="btn u-btn-facebook g-font-size-12 rounded g-px-20--sm g-py-10" href="#!">
+		                      <a class="btn u-btn-facebook g-font-size-12 rounded g-px-20--sm g-py-10" href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
 		                        <i class="fa fa-facebook g-mr-5--sm"></i> <span class="g-hidden-xs-down">Share on Facebook</span>
 		                      </a>
 		                    </li>
 		                    <li class="list-inline-item g-mr-10">
-		                      <a class="btn u-btn-twitter g-font-size-12 rounded g-px-20--sm g-py-10" href="#!">
+		                      <a class="btn u-btn-twitter g-font-size-12 rounded g-px-20--sm g-py-10" href="https://twitter.com/share?url=example.org" target="_blank">
 		                        <i class="fa fa-twitter g-mr-5--sm"></i> <span class="g-hidden-xs-down">Tweet on Twitter</span>
 		                      </a>
 		                    </li>
-		                    <li class="list-inline-item">
+		                    <!-- <li class="list-inline-item">
 		                      <a class="btn u-btn-lightred g-font-size-12 rounded g-py-10" href="#!">
 		                        <i class="fa fa-pinterest"></i>
 		                      </a>
-		                    </li>
+		                    </li>  -->
 		                  </ul>
 		                </header>
 		
@@ -75,9 +78,6 @@
 		
 		                <!-- Sources & Tags -->
 		                <div class="g-mb-30">
-		                  <h6 class="g-color-gray-dark-v1 g-mb-15">
-		                    <strong class="g-mr-5">Source:</strong> <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{{post.linkURL}}">{{post.linkText}}</a>
-		                  </h6>
 		                  <h6 class="g-color-gray-dark-v1">
 			                  	<button id="jh-create-entity"
 									*ngIf="owner === post.userId" 
@@ -114,27 +114,27 @@
 		                <!-- Social Shares -->
 		                <div class="g-mb-30">
 		                  <ul class="list-inline text-uppercase mb-0">
-		                    <li class="list-inline-item g-mr-10">
+		                    <!-- <li class="list-inline-item g-mr-10">
 		                      <strong class="align-middle g-font-size-24">423</strong>
 		                    </li>
 		                    <li class="list-inline-item g-mr-10">
 		                      <span class="g-color-gray-dark-v5">|</span>
-		                    </li>
+		                    </li>  -->
 		                    <li class="list-inline-item g-mr-10">
-		                      <a class="btn u-btn-facebook g-font-size-12 rounded g-px-20--sm g-py-10" href="#!">
+		                      <a class="btn u-btn-facebook g-font-size-12 rounded g-px-20--sm g-py-10" href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank">
 		                        <i class="fa fa-facebook g-mr-5--sm"></i> <span class="g-hidden-xs-down">Share on Facebook</span>
 		                      </a>
 		                    </li>
 		                    <li class="list-inline-item g-mr-10">
-		                      <a class="btn u-btn-twitter g-font-size-12 rounded g-px-20--sm g-py-10" href="#!">
+		                      <a class="btn u-btn-twitter g-font-size-12 rounded g-px-20--sm g-py-10" href="https://twitter.com/share?url=example.org" target="_blank">
 		                        <i class="fa fa-twitter g-mr-5--sm"></i> <span class="g-hidden-xs-down">Tweet on Twitter</span>
 		                      </a>
 		                    </li>
-		                    <li class="list-inline-item">
+		                    <!-- <li class="list-inline-item">
 		                      <a class="btn u-btn-lightred g-font-size-12 rounded g-py-10" href="#!">
 		                        <i class="fa fa-pinterest"></i>
 		                      </a>
-		                    </li>
+		                    </li>  -->
 		                  </ul>
 		                </div>
 		                <!-- End Social Shares -->
@@ -152,22 +152,22 @@
 		
 		                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20">
 
-		                    <div *ngIf="profile">
-		                        <a (click)="openFile(profile.imageContentType, profile.image)">
-		                            <img [src]="'data:' + profile.imageContentType + ';base64,' + profile.image" style="max-width: 100%;" alt="profile.image"/>
+		                    <div *ngIf="uprofile">
+		                        <a [routerLink]="['/uprofile', uprofile.id, 'view']">
+		                            <img [src]="'data:' + uprofile.imageContentType + ';base64,' + uprofile.image" style="max-width: 100%;" alt="uprofile.image"/>
 		                        </a>
 			                </div>
 
-		                    <div class="media-body" *ngIf="profile">
+		                    <div class="media-body" *ngIf="uprofile">
 		                      <h4 class="g-color-gray-dark-v1 g-mb-15">
-		                        <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/profile', profile.id, 'view']">{{post.userFirstName}} {{post.userLastName}}</a>
+		                        <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/uprofile', uprofile.id, 'view']">{{post.userFirstName}} {{post.userLastName}}</a>
 		                      </h4>
 		
 		                      <div class="g-mb-15">
-		                        <p class="g-color-gray-dark-v2">{{profile.bio}}</p>
+		                        <p class="g-color-gray-dark-v2">{{uprofile.bio}}</p>
 		                      </div>
 		
-		                      <ul class="list-inline mb-0">
+		                      <!-- <ul class="list-inline mb-0">
 		                        <li class="list-inline-item g-mr-10">
 		                          <a class="u-icon-v3 u-icon-size--xs g-font-size-12 g-bg-gray-light-v5 g-bg-primary--hover g-color-gray-dark-v5 g-color-white--hover rounded-circle" href="#!">
 		                            <i class="fa fa-facebook"></i>
@@ -183,7 +183,7 @@
 		                            <i class="fa fa-twitter"></i>
 		                          </a>
 		                        </li>
-		                      </ul>
+		                      </ul> -->
 		                    </div>
 		                  </div>
 		                </div>
@@ -197,15 +197,11 @@
 		
 		                   <!-- Comment 1 -->
 			                  <div class="media g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-20" *ngFor="let comment of comments">
-			                    <a (click)="openFile(comment.profileImageContentType, comment.profileImage)">
 		                            <img class="d-flex u-shadow-v25 g-width-50 g-height-50 rounded-circle g-mr-15" [src]="'data:' + comment.commenterImageContentType + ';base64,' + comment.commenterImage" style="max-width: 100%;" alt="comment.commenterImage"/>
-		                        </a>
 			                    <div class="media-body">
 			                      <div class="g-mb-15">
 			                        <h5 class="d-flex justify-content-between align-items-center g-font-size-16 g-color-gray-dark-v1 mb-0">
 			                          <span class="d-block g-mr-10">{{comment.commenterFirstName}} {{comment.commenterLastName}}</span>
-			                          <a class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15" 
-			                          [routerLink]="['/profile', comment.profileId, 'view']">Author</a>
 			                        </h5>
 			                        <span class="g-color-gray-dark-v4 g-font-size-12">{{comment.creationDate | date:'medium'}}</span>
 			                      </div>
@@ -305,9 +301,9 @@
 							                    </div>
 							      			</textarea>           
 						                </div>
-						                <div [hidden]="!(editForm.controls.profile?.dirty && editForm.controls.profile?.invalid)">
+						                <div [hidden]="!(editForm.controls.uprofile?.dirty && editForm.controls.uprofile?.invalid)">
 						                    <small class="form-text text-danger"
-						                        [hidden]="!editForm.controls.profile?.errors?.required" jhiTranslate="entity.validation.required">
+						                        [hidden]="!editForm.controls.uprofile?.errors?.required" jhiTranslate="entity.validation.required">
 						                        This field is required.
 						                    </small>
 						                </div>
