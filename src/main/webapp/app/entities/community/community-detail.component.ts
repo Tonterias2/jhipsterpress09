@@ -239,6 +239,63 @@ export class CommunityDetailComponent implements OnInit {
         }
     }
 
+    removeCommunityCinterest(cinterestId, communityId) {
+        console.log('CONSOLOG: M:removeProfileInterest & cinterestId: ', cinterestId, ', uprofileId : ', communityId);
+        console.log('CONSOLOG: M:removeProfileInterest & O: this.interests : ', this.cinterests);
+        this.cinterests.forEach(cinterest => {
+            //            console.log( 'CONSOLOG: M:removeProfileInterest; & this.interest: ', interest );
+            if (cinterest.id === cinterestId) {
+                //                console.log( 'CONSOLOG: M:removeProfileInterest; & interest.id COINCIDENTE: ', interest.id, 'interest:', interest );
+                cinterest.communities.forEach(community => {
+                    //                    console.log( 'CONSOLOG: M:removeProfileInterest; & this.uprofile: ', uprofile );
+                    if (community.id === communityId) {
+                        console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', cinterest.communities.indexOf(community));
+                        cinterest.communities.splice(cinterest.communities.indexOf(community), 1);
+                        this.subscribeToSaveResponse3(this.cinterestService.update(cinterest));
+                    }
+                });
+            }
+        });
+    }
+
+    removeCommunityCactivity(cactivityId, communityId) {
+        console.log('CONSOLOG: M:removeProfileInterest & cactivityId: ', cactivityId, ', uprofileId : ', communityId);
+        console.log('CONSOLOG: M:removeProfileInterest & O: this.cactivities : ', this.cactivities);
+        this.cactivities.forEach(cactivity => {
+            //            console.log( 'CONSOLOG: M:removeProfileInterest; & this.interest: ', interest );
+            if (cactivity.id === cactivityId) {
+                //                console.log( 'CONSOLOG: M:removeProfileInterest; & interest.id COINCIDENTE: ', interest.id, 'interest:', interest );
+                cactivity.communities.forEach(community => {
+                    //                    console.log( 'CONSOLOG: M:removeProfileInterest; & this.uprofile: ', uprofile );
+                    if (community.id === communityId) {
+                        console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', cactivity.communities.indexOf(community));
+                        cactivity.communities.splice(cactivity.communities.indexOf(community), 1);
+                        this.subscribeToSaveResponse3(this.cactivityService.update(cactivity));
+                    }
+                });
+            }
+        });
+    }
+
+    removeCommunityCceleb(ccelebId, communityId) {
+        console.log('CONSOLOG: M:removeProfileInterest & ccelebId: ', ccelebId, ', uprofileId : ', communityId);
+        console.log('CONSOLOG: M:removeProfileInterest & O: this.ccelebs : ', this.ccelebs);
+        this.ccelebs.forEach(cceleb => {
+            //            console.log( 'CONSOLOG: M:removeProfileInterest; & this.interest: ', interest );
+            if (cceleb.id === ccelebId) {
+                //                console.log( 'CONSOLOG: M:removeProfileInterest; & interest.id COINCIDENTE: ', interest.id, 'interest:', interest );
+                cceleb.communities.forEach(community => {
+                    //                    console.log( 'CONSOLOG: M:removeProfileInterest; & this.uprofile: ', uprofile );
+                    if (community.id === communityId) {
+                        console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', cceleb.communities.indexOf(community));
+                        cceleb.communities.splice(cceleb.communities.indexOf(community), 1);
+                        this.subscribeToSaveResponse3(this.ccelebService.update(cceleb));
+                    }
+                });
+            }
+        });
+    }
+
     private subscribeToSaveResponse(result: Observable<HttpResponse<IFollow>>) {
         result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
@@ -247,9 +304,26 @@ export class CommunityDetailComponent implements OnInit {
         result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
+    private subscribeToSaveResponse3(result: Observable<HttpResponse<ICinterest>>) {
+        result.subscribe((res: HttpResponse<ICinterest>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private subscribeToSaveResponse4(result: Observable<HttpResponse<ICactivity>>) {
+        result.subscribe((res: HttpResponse<ICactivity>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private subscribeToSaveResponse5(result: Observable<HttpResponse<ICceleb>>) {
+        result.subscribe((res: HttpResponse<ICceleb>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
     private onSaveSuccess() {
         this.isSaving = false;
         this.previousState();
+    }
+
+    private onSaveSuccess2() {
+        this.isSaving = false;
+        this.reload();
     }
 
     private onSaveError() {
@@ -263,6 +337,7 @@ export class CommunityDetailComponent implements OnInit {
     openFile(contentType, field) {
         return this.dataUtils.openFile(contentType, field);
     }
+
     previousState() {
         window.history.back();
     }

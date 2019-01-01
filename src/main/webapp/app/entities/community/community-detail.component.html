@@ -56,17 +56,12 @@
 							<fa-icon [icon]="'plus'"></fa-icon>
 						</button>
 						<strong class="g-mr-5">Interests:</strong> 
-						<span *ngFor="let cinterest of cinterests"> 
+						<span *ngFor="let cinterest of cinterests">
+						    <a (click)="removeCommunityCinterest(cinterest.id, community.id)">
+								<fa-icon [icon]="'times'"></fa-icon>
+							</a>
 							<a [routerLink]="['/cinterest', cinterest.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
-								<button *ngIf="owner === community.userId" 
-								        type="submit"
-								        [routerLink]="['/', { outlets: { popup: 'cinterest/'+ cinterest.id + '/delete'} }]"
-								        replaceUrl="true"
-								        queryParamsHandling="merge"
-								        class="btn btn-danger btn-sm">
-								        <fa-icon [icon]="'times'"></fa-icon>
-								</button>
-							{{cinterest.interestName}}
+								{{cinterest.interestName}}
 							</a>
 						</span>
 					</h6>
@@ -84,16 +79,11 @@
 				        </button>
 					    <strong class="g-mr-5">Activities:</strong>
 					    <span *ngFor="let cactivity of cactivities">
+						    <a (click)="removeCommunityCactivity(cactivity.id, community.id)">
+								<fa-icon [icon]="'times'"></fa-icon>
+							</a>
 							<a [routerLink]="['/cactivity', cactivity.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
-								<button *ngIf="owner === community.userId" 
-								        type="submit"
-								        [routerLink]="['/', { outlets: { popup: 'cactivity/'+ cactivity.id + '/delete'} }]"
-								        replaceUrl="true"
-								        queryParamsHandling="merge"
-								        class="btn btn-danger btn-sm">
-								        <fa-icon [icon]="'times'"></fa-icon>
-								</button>
-							{{cactivity.activityName}}
+								{{cactivity.activityName}}
 							</a>
 					    </span>
 				  </h6>
@@ -111,16 +101,11 @@
 				        </button>
 					    <strong class="g-mr-5">Celebs:</strong>
 					    <span  *ngFor="let cceleb of ccelebs">
+							<a (click)="removeCommunityCceleb(cceleb.id, community.id)">
+								<fa-icon [icon]="'times'"></fa-icon>
+							</a>
 							<a [routerLink]="['/cceleb', cceleb.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5" href="#!">
-								<button *ngIf="owner === community.userId" 
-								        type="submit"
-								        [routerLink]="['/', { outlets: { popup: 'cceleb/'+ cceleb.id + '/delete'} }]"
-								        replaceUrl="true"
-								        queryParamsHandling="merge"
-								        class="btn btn-danger btn-sm">
-								        <fa-icon [icon]="'times'"></fa-icon>
-								</button>
-							{{cceleb.celebName}}
+								{{cceleb.celebName}}
 							</a>					        
 					    </span>
 				  </h6>
