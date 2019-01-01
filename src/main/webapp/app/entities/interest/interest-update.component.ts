@@ -35,6 +35,7 @@ export class InterestUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ interest }) => {
             this.interest = interest;
+            console.log('CONSOLOG: M:ngOnInit & O: this.interest : ', this.interest);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;

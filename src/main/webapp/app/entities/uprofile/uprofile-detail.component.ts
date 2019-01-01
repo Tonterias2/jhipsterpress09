@@ -31,7 +31,7 @@ import { Principal } from 'app/core';
 })
 export class UprofileDetailComponent implements OnInit {
     uprofile: IUprofile;
-    uprofiles: IUprofile[];
+    uprofiles: IUprofile[] = [];
     loggedProfile: IUprofile[];
 
     follows: IFollow[];
@@ -40,7 +40,7 @@ export class UprofileDetailComponent implements OnInit {
     blockusers: IBlockuser[];
     private _blockuser: IBlockuser;
 
-    interests: IInterest[];
+    interests: IInterest[] = [];
     activities: IActivity[];
     celebs: ICeleb[];
 
@@ -106,8 +106,8 @@ export class UprofileDetailComponent implements OnInit {
                 //                    (res2: HttpResponse<IUmxm>) => {
                 //                        this.umxm = res2.body;
                 //                        console.log('CONSOLOG: M:fillProfile & O: this.umxm : ', this.umxm);
-                this.uprodileInterests();
-                this.uprodileActivities();
+                this.uprofileInterests();
+                this.uprofileActivities();
                 this.uprofileCelebs();
                 //                    },
                 //                    (res2: HttpErrorResponse) => this.onError(res2.message)
@@ -127,25 +127,25 @@ export class UprofileDetailComponent implements OnInit {
     //        return this.umxmService.find(this.consultedUser.id);
     //    }
 
-    private uprodileInterests() {
+    private uprofileInterests() {
         const query2 = {};
         query2['uprofileId.equals'] = this.uprofile.id;
         return this.interestService.query(query2).subscribe(
             (res: HttpResponse<IInterest[]>) => {
                 this.interests = res.body;
-                console.log('CONSOLOG: M:uprodileInterests & O: this.interests : ', this.interests);
+                console.log('CONSOLOG: M:uprofileInterests & O: this.interests : ', this.interests);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
     }
 
-    private uprodileActivities() {
+    private uprofileActivities() {
         const query3 = {};
         query3['uprofileId.equals'] = this.uprofile.id;
         return this.activityService.query(query3).subscribe(
             (res: HttpResponse<IActivity[]>) => {
                 this.activities = res.body;
-                console.log('CONSOLOG: M:uprodileActivities & O: this.activities : ', this.activities);
+                console.log('CONSOLOG: M:uprofileActivities & O: this.activities : ', this.activities);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -157,7 +157,7 @@ export class UprofileDetailComponent implements OnInit {
         return this.celebService.query(query4).subscribe(
             (res: HttpResponse<ICeleb[]>) => {
                 this.celebs = res.body;
-                console.log('CONSOLOG: M:umxmCelebs & O: this.celebs : ', this.celebs);
+                console.log('CONSOLOG: M:uprofileCelebs & O: this.celebs : ', this.celebs);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -325,6 +325,56 @@ export class UprofileDetailComponent implements OnInit {
         }
     }
 
+    removeProfileInterest(interestId, uprofileId) {
+        console.log('CONSOLOG: M:removeProfileInterest & interestId: ', interestId, ', uprofileId : ', uprofileId);
+        console.log('CONSOLOG: M:removeProfileInterest & O: this.interests : ', this.interests);
+        this.interests.forEach(interest => {
+            //            console.log( 'CONSOLOG: M:removeProfileInterest; & this.interest: ', interest );
+            if (interest.id === interestId) {
+                //                console.log( 'CONSOLOG: M:removeProfileInterest; & interest.id COINCIDENTE: ', interest.id, 'interest:', interest );
+                interest.uprofiles.forEach(uprofile => {
+                    //                    console.log( 'CONSOLOG: M:removeProfileInterest; & this.uprofile: ', uprofile );
+                    if (uprofile.id === uprofileId) {
+                        console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', interest.uprofiles.indexOf(uprofile));
+                        interest.uprofiles.splice(interest.uprofiles.indexOf(uprofile), 1);
+                        this.subscribeToSaveResponse3(this.interestService.update(interest));
+                    }
+                });
+            }
+        });
+    }
+
+    removeProfileActivity(actvityId, uprofileId) {
+        console.log('CONSOLOG: M:removeProfileInterest & actvityId: ', actvityId, ', uprofileId : ', uprofileId);
+        console.log('CONSOLOG: M:removeProfileInterest & O: this.activities : ', this.activities);
+        this.activities.forEach(activity => {
+            if (activity.id === actvityId) {
+                activity.uprofiles.forEach(uprofile => {
+                    if (uprofile.id === uprofileId) {
+                        activity.uprofiles.splice(activity.uprofiles.indexOf(uprofile), 1);
+                        this.subscribeToSaveResponse4(this.activityService.update(activity));
+                    }
+                });
+            }
+        });
+    }
+
+    removeProfileCeleb(celebId, uprofileId) {
+        console.log('CONSOLOG: M:removeProfileInterest & celebId: ', celebId, ', uprofileId : ', uprofileId);
+        console.log('CONSOLOG: M:removeProfileInterest & O: this.celebs : ', this.celebs);
+        this.celebs.forEach(celeb => {
+            if (celeb.id === celebId) {
+                celeb.uprofiles.forEach(uprofile => {
+                    if (uprofile.id === uprofileId) {
+                        console.log('CONSOLOG: M:removeProfileceleb; INDEX!!!!!: ', celeb.uprofiles.indexOf(uprofile));
+                        celeb.uprofiles.splice(celeb.uprofiles.indexOf(uprofile), 1);
+                        this.subscribeToSaveResponse5(this.celebService.update(celeb));
+                    }
+                });
+            }
+        });
+    }
+
     private subscribeToSaveResponse(result: Observable<HttpResponse<IFollow>>) {
         result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
@@ -333,9 +383,26 @@ export class UprofileDetailComponent implements OnInit {
         result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
+    private subscribeToSaveResponse3(result: Observable<HttpResponse<IInterest>>) {
+        result.subscribe((res: HttpResponse<IInterest>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private subscribeToSaveResponse4(result: Observable<HttpResponse<IActivity>>) {
+        result.subscribe((res: HttpResponse<IActivity>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private subscribeToSaveResponse5(result: Observable<HttpResponse<ICeleb>>) {
+        result.subscribe((res: HttpResponse<ICeleb>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
     private onSaveSuccess() {
         this.isSaving = false;
         this.previousState();
+    }
+
+    private onSaveSuccess2() {
+        this.isSaving = false;
+        this.reload();
     }
 
     private onSaveError() {

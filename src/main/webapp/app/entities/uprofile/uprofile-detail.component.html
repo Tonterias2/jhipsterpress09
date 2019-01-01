@@ -166,15 +166,10 @@
 										<fa-icon [icon]="'plus'"></fa-icon>
 									</button>
 								    <strong class="g-mr-5">Interests:</strong>
-								    <span *ngFor="let interest of interests">
-								    	<button *ngIf="owner === uprofile.userId" 
-											        type="submit"
-											        [routerLink]="['/', { outlets: { popup: 'interest/'+ interest.id + '/delete'} }]"
-											        replaceUrl="true"
-											        queryParamsHandling="merge"
-											        class="btn btn-danger btn-sm">
-											        <fa-icon [icon]="'times'"></fa-icon>
-										</button>
+								    <span *ngFor="let interest of interests">								    
+									    <a (click)="removeProfileInterest(interest.id, uprofile.id)">
+											<fa-icon [icon]="'times'"></fa-icon>
+										</a>
 								    	<a [routerLink]="['/interest', interest.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
 	                    					{{interest.interestName}}
 								    	</a>
@@ -186,22 +181,17 @@
 								<!-- Activities -->
 								<div class="g-mb-30">
 								  <h6 class="g-color-gray-dark-v1">
- 	   								    <button id="jh-create-entity" 
- 	   								    		*ngIf="owner === uprofile.userId" 
-										        class="btn btn-primary float-right jh-create-entity create-interest" 
-										        [routerLink]="['/activity/new']">
-											<fa-icon [icon]="'plus'"></fa-icon>
-										</button>
+   								    <button id="jh-create-entity" 
+   								    		*ngIf="owner === uprofile.userId" 
+								        	class="btn btn-primary float-right jh-create-entity create-interest" 
+								        	[routerLink]="['/activity/new']">
+										<fa-icon [icon]="'plus'"></fa-icon>
+									</button>
 								    <strong class="g-mr-5">Activities:</strong>
 								    <span *ngFor="let activity of activities">
-							    		<button *ngIf="owner === uprofile.userId" 
-										        type="submit"
-										        [routerLink]="['/', { outlets: { popup: 'activity/'+ activity.id + '/delete'} }]"
-										        replaceUrl="true"
-										        queryParamsHandling="merge"
-										        class="btn btn-danger btn-sm">
-										        <fa-icon [icon]="'times'"></fa-icon>
-										</button>
+									    <a (click)="removeProfileActivity(activity.id, uprofile.id)">
+											<fa-icon [icon]="'times'"></fa-icon>
+										</a>
 								    	<a [routerLink]="['/activity', activity.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
 								    		{{activity.activityName}}
 								    	</a>
@@ -221,14 +211,9 @@
 										</button>
 								    <strong class="g-mr-5">Celebs:</strong>
 								    <span *ngFor="let celeb of celebs">
-							    		<button *ngIf="owner === uprofile.userId" 
-										        type="submit"
-										        [routerLink]="['/', { outlets: { popup: 'celeb/'+ celeb.id + '/delete'} }]"
-										        replaceUrl="true"
-										        queryParamsHandling="merge"
-										        class="btn btn-danger btn-sm">
-										        <fa-icon [icon]="'times'"></fa-icon>
-										</button>
+									    <a (click)="removeProfileCeleb(celeb.id, uprofile.id)">
+											<fa-icon [icon]="'times'"></fa-icon>
+										</a>
 								    	<a [routerLink]="['/celeb', celeb.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
 								    		{{celeb.celebName}}
 								    	</a>
