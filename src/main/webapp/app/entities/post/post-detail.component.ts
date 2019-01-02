@@ -18,6 +18,10 @@ import { PostService } from 'app/entities/post';
 import { IUser, UserService } from 'app/core';
 import { IUprofile } from 'app/shared/model/uprofile.model';
 import { UprofileService } from 'app/entities/uprofile';
+import { ITag } from 'app/shared/model/tag.model';
+import { TagService } from 'app/entities/tag';
+import { ITopic } from 'app/shared/model/topic.model';
+import { TopicService } from 'app/entities/topic';
 
 @Component({
     selector: 'jhi-post-detail',
@@ -27,9 +31,11 @@ export class PostDetailComponent implements OnInit {
     private _comment: IComment;
     isSaving: boolean;
 
-    post: any;
+    post: IPost;
     posts: IPost[];
     comments: IComment[];
+    tags: ITag[];
+    topics: ITopic[];
 
     uprofile: IUprofile;
     uprofiles: IUprofile[];
@@ -62,6 +68,8 @@ export class PostDetailComponent implements OnInit {
         private commentService: CommentService,
         private postService: PostService,
         private uprofileService: UprofileService,
+        private tagService: TagService,
+        private topicService: TopicService,
         private principal: Principal,
         private userService: UserService,
         private activatedRoute: ActivatedRoute,
@@ -125,7 +133,7 @@ export class PostDetailComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.reload();
+        //        this.reload();
     }
 
     private onSaveError() {
@@ -211,6 +219,40 @@ export class PostDetailComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
+    }
+
+    removePostTag(tagId, postId) {
+        console.log('CONSOLOG: M:removePostTag & tagId: ', tagId, ', postId : ', postId);
+        console.log('CONSOLOG: M:removePostTag & O: this.post : ', this.post);
+        this.post.tags.forEach(tag => {
+            if (tag.id === tagId) {
+                console.log('CONSOLOG: M:removePostTag; INDEX!!!!!: ', this.post.tags.indexOf(tag));
+                this.post.tags.splice(this.post.tags.indexOf(tag), 1);
+                console.log('CONSOLOG: M:removePostTag; & this.post: ', this.post);
+                this.subscribeToSaveResponse2(this.tagService.update(tag));
+            }
+        });
+    }
+
+    removePostTopic(topicId, postId) {
+        console.log('CONSOLOG: M:removePostTopic & topicId: ', topicId, ', postId : ', postId);
+        console.log('CONSOLOG: M:removePostTopic & O: this.post : ', this.post);
+        this.post.topics.forEach(topic => {
+            if (topic.id === topicId) {
+                console.log('CONSOLOG: M:removePostTopic; INDEX!!!!!: ', this.post.topics.indexOf(topic));
+                this.post.topics.splice(this.post.topics.indexOf(topic), 1);
+                console.log('CONSOLOG: M:removePostTopic; & this.post: ', this.post);
+                this.subscribeToSaveResponse3(this.topicService.update(topic));
+            }
+        });
+    }
+
+    private subscribeToSaveResponse2(result: Observable<HttpResponse<ITag>>) {
+        result.subscribe((res: HttpResponse<ITag>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private subscribeToSaveResponse3(result: Observable<HttpResponse<ITopic>>) {
+        result.subscribe((res: HttpResponse<ITopic>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     transition() {
