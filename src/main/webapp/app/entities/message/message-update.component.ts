@@ -13,6 +13,8 @@ import { IFollow } from 'app/shared/model/follow.model';
 import { FollowService } from '../follow/follow.service';
 import { IBlockuser } from 'app/shared/model/blockuser.model';
 import { BlockuserService } from '../blockuser/blockuser.service';
+import { IUprofile } from 'app/shared/model/uprofile.model';
+import { UprofileService } from '../uprofile/uprofile.service';
 
 import { Principal } from 'app/core';
 
@@ -27,6 +29,8 @@ export class MessageUpdateComponent implements OnInit {
 
     users: IUser[] = [];
     user: IUser;
+    uprofiles: IUprofile[];
+    uprofile: IUprofile;
 
     creationDate: string;
 
@@ -48,6 +52,7 @@ export class MessageUpdateComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private messageService: MessageService,
         private userService: UserService,
+        private uprofileService: UprofileService,
         private followService: FollowService,
         private blockuserService: BlockuserService,
         private principal: Principal,
@@ -71,8 +76,17 @@ export class MessageUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ message }) => {
             this.message = message;
             this.creationDate = this.message.creationDate != null ? this.message.creationDate.format(DATE_TIME_FORMAT) : null;
-            console.log('CONSOLOG: M:ngOnInit & O: this.message : ', this.message);
-            this.message.receiverId = Number(this.valueParamFollows);
+            const query = {};
+            if (this.valueParamFollows != null) {
+                query['id.equals'] = Number(this.valueParamFollows);
+            }
+            this.uprofileService.query(query).subscribe(
+                (res: HttpResponse<IUprofile[]>) => {
+                    this.message.receiverId = res.body[0].userId;
+                    console.log('CONSOLOG: M:ngOnInit & O: this.message.receiverId:', this.message.receiverId);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;

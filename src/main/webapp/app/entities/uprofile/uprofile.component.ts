@@ -5,10 +5,10 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IUprofile } from 'app/shared/model/uprofile.model';
-import { Principal } from 'app/core';
-
-import { ITEMS_PER_PAGE } from 'app/shared';
 import { UprofileService } from './uprofile.service';
+
+import { Principal } from 'app/core';
+import { ITEMS_PER_PAGE } from 'app/shared';
 
 @Component({
     selector: 'jhi-uprofile',
@@ -141,6 +141,27 @@ export class UprofileComponent implements OnInit, OnDestroy {
             this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
                 this.isAdmin = result;
             });
+            this.hasProfile = false;
+            console.log('CONSOLOG: M:myProfile & O: this.hasProfile:', this.hasProfile);
+            const query = {
+                //                page: this.page - 1,
+                //                size: this.itemsPerPage,
+                //                sort: this.sort()
+            };
+            if (this.currentAccount.id != null) {
+                query['userId.equals'] = this.currentAccount.id;
+            }
+            this.uprofileService.query(query).subscribe(
+                (res: HttpResponse<IUprofile[]>) => {
+                    if (res.body.length !== 0) {
+                        this.hasProfile = true;
+                        console.log('CONSOLOG: M:ngOnInit & O: uprofileService-res.body:', res.body);
+                        console.log('CONSOLOG: M:ngOnInit & O: this.hasProfile:', this.hasProfile);
+                    }
+                    //                    this.paginateUprofiles(res.body, res.headers);
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         });
         this.registerChangeInUprofiles();
     }
@@ -189,6 +210,7 @@ export class UprofileComponent implements OnInit, OnDestroy {
                 if (res.body.length !== 0) {
                     this.hasProfile = true;
                     console.log('CONSOLOG: M:myProfile & O: res.body:', res.body);
+                    console.log('CONSOLOG: M:myProfile & O: this.hasProfile:', this.hasProfile);
                 }
                 this.paginateUprofiles(res.body, res.headers);
             },

@@ -20,24 +20,24 @@
                 "cblog": "Communities' Blogs"
             },
             "creationDate": "Creation Date",
-            "communityname": "Communityname",
-            "communitydescription": "Communitydescription",
+            "communityname": "Community Name",
+            "communitydescription": "Community Description",
             "image": "Image",
             "isActive": "Is Active",
             "blog": "Blog",
             "follow": "Follow",
             "unfollow": "UnFollow",
-            "csender": "Csender",
-            "creceiver": "Creceiver",
-            "cfollowed": "Cfollowed",
-            "cfollowing": "Cfollowing",
-            "cblockeduser": "Cblockeduser",
-            "cblockinguser": "Cblockinguser",
+            "csender": "Community Sender",
+            "creceiver": "Community Receiver",
+            "cfollowed": "Community Followed",
+            "cfollowing": "Community Following",
+            "cblockeduser": "Community Blocked User",
+            "cblockinguser": "Community Blocking User",
             "user": "User",
-            "calbum": "Calbum",
-            "cinterest": "Cinterest",
-            "cactivity": "Cactivity",
-            "cceleb": "Cceleb"
+            "calbum": "Community Album",
+            "cinterest": "Community Interest",
+            "cactivity": "Community Activity",
+            "cceleb": "Community Celeb"
         }
     }
 }

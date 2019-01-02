@@ -21,8 +21,8 @@
             "creationDate": "Creation Date",
             "followed": "Follower",
             "following": "Following",
-            "cfollowed": "Community follower",
-            "cfollowing": "Community following"
+            "cfollowed": "Community Follower",
+            "cfollowing": "Community Following"
         }
     }
 }
