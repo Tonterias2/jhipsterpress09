@@ -402,7 +402,6 @@ export class UprofileDetailComponent implements OnInit {
 
     private onSaveSuccess2() {
         this.isSaving = false;
-        this.reload();
     }
 
     private onSaveError() {

@@ -133,7 +133,7 @@ export class PostDetailComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        //        this.reload();
+        this.reload();
     }
 
     private onSaveError() {
@@ -248,11 +248,15 @@ export class PostDetailComponent implements OnInit {
     }
 
     private subscribeToSaveResponse2(result: Observable<HttpResponse<ITag>>) {
-        result.subscribe((res: HttpResponse<ITag>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<ITag>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private subscribeToSaveResponse3(result: Observable<HttpResponse<ITopic>>) {
-        result.subscribe((res: HttpResponse<ITopic>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<ITopic>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
+    }
+
+    private onSaveSuccess2() {
+        this.isSaving = false;
     }
 
     transition() {
