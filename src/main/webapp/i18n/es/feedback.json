@@ -3,8 +3,8 @@
         "feedback": {
             "home": {
                 "title": "Feedback",
-                "createLabel": "Crear nuevo Feedback",
-                "createOrEditLabel": "Crear o editar Feedback",
+                "createLabel": "Contactar o enviar Feedback",
+                "createOrEditLabel": "Contactar o enviar Feedback",
                 "search": "Buscar un Feedback"
             },
             "created": "Un nuevo Feedback ha sido creado con el identificador {{ param }}",

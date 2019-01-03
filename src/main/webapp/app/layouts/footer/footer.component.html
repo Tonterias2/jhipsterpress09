@@ -13,7 +13,8 @@
           <!-- Social Icons -->
           <ul class="list-inline mb-0">
             <li class="list-inline-item g-mx-2">
-              <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" href="#!"
+              <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" 
+                 href="https://www.facebook.com/sharer/sharer.php?u=example.org" target="_blank"
                  data-toggle="tooltip"
                  data-placement="top"
                  title="Like Us on Facebook">
@@ -21,7 +22,8 @@
               </a>
             </li>
             <li class="list-inline-item g-mx-2">
-              <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" href="#!"
+              <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" 
+                 href="https://twitter.com/share?url=example.org" target="_blank"
                  data-toggle="tooltip"
                  data-placement="top"
                  title="Follow Us on Twitter">
@@ -29,7 +31,8 @@
               </a>
             </li>
             <li class="list-inline-item g-mx-2">
-              <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" href="#!"
+              <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" 
+                 href="https://plus.google.com/share?url=example.org" target="_blank"
                  data-toggle="tooltip"
                  data-placement="top"
                  title="Join Our Cirlce on Google Plus">
@@ -37,13 +40,15 @@
               </a>
             </li>
             <li class="list-inline-item g-mx-2">
-              <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" href="#!"
+              <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" 
+                 href="https://www.youtube.com" target="_blank"
                  data-toggle="tooltip"
                  data-placement="top"
                  title="Subscribe to Our YouTube Channel">
                 <i class="fa fa-youtube"></i>
               </a>
             </li>
+            <!-- 
             <li class="list-inline-item g-mx-2">
               <a class="u-icon-v2 u-icon-size--sm g-brd-secondary-light-v2 g-color-secondary-dark-v2 g-color-white--hover g-bg-primary--hover g-font-size-default rounded" href="#!"
                  data-toggle="tooltip"
@@ -60,6 +65,7 @@
                 <i class="fa fa-rss"></i>
               </a>
             </li>
+             -->
           </ul>
           <!-- End Social Icons -->
         </div>
@@ -90,14 +96,14 @@
         <!-- Links -->
         <ul class="list-inline mb-0">
           <li class="list-inline-item g-pl-0 g-pr-10">
-            <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" href="#!">Contact Us</a>
+            <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" [routerLink]="['/feedback/new']">Contact Us</a>
           </li>
-          <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" [routerLink]="['help']">Help</a>
+          <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" [routerLink]="['/help']">Help</a>
           </li>
+          <!-- 
           <li class="list-inline-item g-px-10">
             <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" href="#!">Work with Us</a>
           </li>
-          <!-- 
           <li class="list-inline-item g-px-10">
             <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" href="#!">Advertise</a>
           </li>
@@ -113,7 +119,7 @@
             <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" [routerLink]="['/terms']">Terms of Use</a>
           </li>
           <li class="list-inline-item g-px-10">
-            <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" href="#!">Send Feedback</a>
+            <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-12" [routerLink]="['/feedback/new']">Send Feedback</a>
           </li>
           <li class="list-inline-item g-px-10">
             <a class="u-link-v5 g-color-secondary-light-v1 g-font-size-24" href="https://github.com/Tonterias/JhipsterPress">
