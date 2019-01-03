@@ -71,8 +71,13 @@ export class PostUpdateComponent implements OnInit {
             this.currentAccount = account;
             this.loggeUserdId = this.currentAccount.id;
             console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ', this.currentAccount);
+            this.userService.findById(this.currentAccount.id).subscribe(
+                (res: HttpResponse<IUser>) => {
+                    this.post.userId = res.body.id;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
             this.myCommunities(this.currentAccount);
-            this.myUser();
         });
         this.tagService.query().subscribe(
             (res: HttpResponse<ITag[]>) => {
@@ -150,27 +155,6 @@ export class PostUpdateComponent implements OnInit {
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
-    }
-
-    private myUser() {
-        console.log('CONSOLOG: M:myUser & ENTRANDO A MY USER!!!!!!!!!!!!! : ', this.post.userId);
-        if (typeof this.post.userId === 'undefined' || this.loggeUserdId === null) {
-            this.userService.findById(this.loggeUserdId).subscribe(
-                (res: HttpResponse<IUser>) => {
-                    this.users.push(res.body);
-                    console.log('CONSOLOG: M:myUser & O: this.user : ', this.user);
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
-        } else {
-            this.userService.findById(this.post.userId).subscribe(
-                (res: HttpResponse<IUser>) => {
-                    this.users.push(res.body);
-                    console.log('CONSOLOG: M:myUser & O: this.user : ', this.user);
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
-        }
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IPost>>) {

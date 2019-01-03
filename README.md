@@ -38,10 +38,10 @@ STARTERS:
 * [How to import your project in STS Maven - Gradle:](ReadMe/Solution12.md)
 * [How to import a template like UNIFY for your project:](ReadMe/Solution14.md)
 * [How to allow HTML code inside a text field:](ReadMe/Solution15.md)
-* [How to allow access to content for visitors in some pages like the home:](ReadMe/Solution29.md)
+* [How to allow access to content for visitors in some static pages like the home:](ReadMe/Solution29.md)
+* [How to add static pages to the project:](ReadMe/Solution27.md)
 * [How to show/hide information in the frontend depending on the user Role:](ReadMe/Solution16.md)
 * [How to open access to the REST Api:](ReadMe/Solution1.md)
-* [How to add static pages to the project:](ReadMe/Solution27.md)
 * [List screen shows only user’s data:](ReadMe/Solution2.md)
 * [Create a new Authority:](ReadMe/Solution9.md)
 * [How to connect PGAdmin4 to Heroku:](ReadMe/Solution10.md)
@@ -59,21 +59,22 @@ BEGINNERS:
 * [Translations: Text and Enums:](ReadMe/Solution7.md)
 * [Entity with double relation to another entity:](ReadMe/Solution8.md)
 * [How to put logic inside an observable:](ReadMe/Solution23.md)
+* [How to omit a dropbox when not needed in the forms:](ReadMe/Solution32.md)
 
 INTERMEDIATE:
 * [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
 * [How to use Filtering to show user's data only:](ReadMe/Solution3.md)
-* [How to use create new component pages on the frontend: Follows and BlockedUser case:](ReadMe/Solution21.md)
-* [How to create the FrontPage:](ReadMe/Solution22.md)
+* [How to create completely new component pages on the frontend: Follows and BlockedUser case:](ReadMe/Solution21.md)
+* [How to create the FrontPage for JHipsterPress:](ReadMe/Solution22.md)
 * [How to combine two entities together: Post and Comments:](ReadMe/Solution24.md)
-* [Cascade deletion:](ReadMe/Solution28.md)* 
+* [Cascade deletion:](ReadMe/Solution28.md)
 * [How to enable scrollPositionRestoration:](ReadMe/Solution31.md)
 * Different ways to block un-authorized code
-* And more that will appear.
 
 ADVANCED:
 
 * [How to manually add relationships to the User Entity:](ReadMe/Solution30.md)
+* More will be added.... (if you ask for any)
 
 # DOWNLOAD & DATA INSERTIONS:
 

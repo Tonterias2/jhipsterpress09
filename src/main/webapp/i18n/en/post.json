@@ -25,7 +25,7 @@
             "quote": "Quote",
             "conclusion": "Conclusion",
             "linkText": "Link Text",
-            "linkURL": "Link URL",
+            "linkURL": "Link URL: https://example.com/",
             "image": "Image",
             "comment": "Comment",
             "user": "User",
