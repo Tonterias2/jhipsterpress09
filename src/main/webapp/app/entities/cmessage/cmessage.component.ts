@@ -172,6 +172,7 @@ export class CmessageComponent implements OnInit, OnDestroy {
                 this.cmessageService.query(query2).subscribe(
                     (res2: HttpResponse<ICmessage[]>) => {
                         this.cmessages = res2.body;
+                        this.paginateCmessages(res2.body, res2.headers);
                         console.log('CONSOLOG: M:myUserMessages & O: this.cmessages : ', this.cmessages);
                         this.isDeliveredUpdate(this.cmessages);
                     },
@@ -231,6 +232,10 @@ export class CmessageComponent implements OnInit, OnDestroy {
 
     private paginateCmessages(data: ICmessage[], headers: HttpHeaders) {
         this.links = this.parseLinks.parse(headers.get('link'));
+        console.log(
+            'CONSOLOG: M:paginateCmessages & O: parseInt(headers.get(X-Total-Count), 10) : ',
+            parseInt(headers.get('X-Total-Count'), 10)
+        );
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.cmessages = data;
