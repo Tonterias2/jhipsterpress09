@@ -10,6 +10,8 @@ import { IVtopic } from 'app/shared/model/vtopic.model';
 import { VtopicService } from './vtopic.service';
 import { IUser, UserService } from 'app/core';
 
+import { Principal } from 'app/core';
+
 @Component({
     selector: 'jhi-vtopic-update',
     templateUrl: './vtopic-update.component.html'
@@ -20,16 +22,28 @@ export class VtopicUpdateComponent implements OnInit {
 
     users: IUser[];
     creationDate: string;
+    currentAccount: any;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private vtopicService: VtopicService,
         private userService: UserService,
+        private principal: Principal,
         private activatedRoute: ActivatedRoute
     ) {}
 
     ngOnInit() {
         this.isSaving = false;
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount.id : ', this.currentAccount.id);
+            this.userService.findById(this.currentAccount.id).subscribe(
+                (res: HttpResponse<IUser>) => {
+                    this.vtopic.userId = res.body.id;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        });
         this.activatedRoute.data.subscribe(({ vtopic }) => {
             this.vtopic = vtopic;
             this.creationDate = this.vtopic.creationDate != null ? this.vtopic.creationDate.format(DATE_TIME_FORMAT) : null;

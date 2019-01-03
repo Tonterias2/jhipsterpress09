@@ -31,3 +31,6 @@ Then, you will have to add in your .ts file the user Id you need to use: this.co
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
         });
+
+There are plenty of examples in the site. Take a look around. For example: VtopicUpdateComponent
+        
