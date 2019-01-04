@@ -50,7 +50,7 @@
                     <label class="form-control-label" jhiTranslate="jhipsterpressApp.calbum.community" for="field_community">Community</label>
                     <select class="form-control" id="field_community" name="community" [(ngModel)]="calbum.communityId"  required>
                         <option *ngIf="!editForm.value.community" [ngValue]="null" selected></option>
-                        <option [ngValue]="communityOption.id" *ngFor="let communityOption of communities; trackBy: trackCommunityById">{{communityOption.id}}</option>
+                        <option [ngValue]="communityOption.id" *ngFor="let communityOption of communities; trackBy: trackCommunityById">{{communityOption.communityname}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.community?.dirty && editForm.controls.community?.invalid)">
