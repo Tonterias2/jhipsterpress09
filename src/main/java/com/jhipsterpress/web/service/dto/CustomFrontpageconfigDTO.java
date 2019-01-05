@@ -3,6 +3,7 @@ package com.jhipsterpress.web.service.dto;
 import javax.validation.constraints.NotNull;
 
 import com.jhipsterpress.web.domain.Post;
+import com.jhipsterpress.web.domain.Urllink;
 
 import java.io.Serializable;
 import java.time.Instant;
@@ -104,29 +105,29 @@ public class CustomFrontpageconfigDTO implements Serializable {
 
     private Post newsFeeds6;
 
-    private Post usefulLinks1;
+    private Urllink usefulLinks1;
 
-    private Post usefulLinks2;
+    private Urllink usefulLinks2;
 
-    private Post usefulLinks3;
+    private Urllink usefulLinks3;
 
-    private Post usefulLinks4;
+    private Urllink usefulLinks4;
 
-    private Post usefulLinks5;
+    private Urllink usefulLinks5;
 
-    private Post usefulLinks6;
+    private Urllink usefulLinks6;
 
-    private Post recentVideos1;
+    private Urllink recentVideos1;
 
-    private Post recentVideos2;
+    private Urllink recentVideos2;
 
-    private Post recentVideos3;
+    private Urllink recentVideos3;
 
-    private Post recentVideos4;
+    private Urllink recentVideos4;
 
-    private Post recentVideos5;
+    private Urllink recentVideos5;
 
-    private Post recentVideos6;
+    private Urllink recentVideos6;
 
     public Long getId() {
         return id;
@@ -488,103 +489,199 @@ public class CustomFrontpageconfigDTO implements Serializable {
         this.newsFeeds6 = newsFeeds6;
     }
 
-    public Post getUsefulLinks1() {
-        return usefulLinks1;
-    }
+//    public Post getUsefulLinks1() {
+//        return usefulLinks1;
+//    }
+//
+//    public void setUsefulLinks1(Post usefulLinks1) {
+//        this.usefulLinks1 = usefulLinks1;
+//    }
+//
+//    public Post getUsefulLinks2() {
+//        return usefulLinks2;
+//    }
+//
+//    public void setUsefulLinks2(Post usefulLinks2) {
+//        this.usefulLinks2 = usefulLinks2;
+//    }
+//
+//    public Post getUsefulLinks3() {
+//        return usefulLinks3;
+//    }
+//
+//    public void setUsefulLinks3(Post usefulLinks3) {
+//        this.usefulLinks3 = usefulLinks3;
+//    }
+//
+//    public Post getUsefulLinks4() {
+//        return usefulLinks4;
+//    }
+//
+//    public void setUsefulLinks4(Post usefulLinks4) {
+//        this.usefulLinks4 = usefulLinks4;
+//    }
+//
+//    public Post getUsefulLinks5() {
+//        return usefulLinks5;
+//    }
+//
+//    public void setUsefulLinks5(Post usefulLinks5) {
+//        this.usefulLinks5 = usefulLinks5;
+//    }
+//
+//    public Post getUsefulLinks6() {
+//        return usefulLinks6;
+//    }
+//
+//    public void setUsefulLinks6(Post usefulLinks6) {
+//        this.usefulLinks6 = usefulLinks6;
+//    }
+//
+//    public Post getRecentVideos1() {
+//        return recentVideos1;
+//    }
+//
+//    public void setRecentVideos1(Post recentVideos1) {
+//        this.recentVideos1 = recentVideos1;
+//    }
+//
+//    public Post getRecentVideos2() {
+//        return recentVideos2;
+//    }
+//
+//    public void setRecentVideos2(Post recentVideos2) {
+//        this.recentVideos2 = recentVideos2;
+//    }
+//
+//    public Post getRecentVideos3() {
+//        return recentVideos3;
+//    }
+//
+//    public void setRecentVideos3(Post recentVideos3) {
+//        this.recentVideos3 = recentVideos3;
+//    }
+//
+//    public Post getRecentVideos4() {
+//        return recentVideos4;
+//    }
+//
+//    public void setRecentVideos4(Post recentVideos4) {
+//        this.recentVideos4 = recentVideos4;
+//    }
+//
+//    public Post getRecentVideos5() {
+//        return recentVideos5;
+//    }
+//
+//    public void setRecentVideos5(Post recentVideos5) {
+//        this.recentVideos5 = recentVideos5;
+//    }
+//
+//    public Post getRecentVideos6() {
+//        return recentVideos6;
+//    }
+//
+//    public void setRecentVideos6(Post recentVideos6) {
+//        this.recentVideos6 = recentVideos6;
+//    }
 
-    public void setUsefulLinks1(Post usefulLinks1) {
-        this.usefulLinks1 = usefulLinks1;
-    }
+    public Urllink getUsefulLinks1() {
+		return usefulLinks1;
+	}
 
-    public Post getUsefulLinks2() {
-        return usefulLinks2;
-    }
+	public void setUsefulLinks1(Urllink usefulLinks1) {
+		this.usefulLinks1 = usefulLinks1;
+	}
 
-    public void setUsefulLinks2(Post usefulLinks2) {
-        this.usefulLinks2 = usefulLinks2;
-    }
+	public Urllink getUsefulLinks2() {
+		return usefulLinks2;
+	}
 
-    public Post getUsefulLinks3() {
-        return usefulLinks3;
-    }
+	public void setUsefulLinks2(Urllink usefulLinks2) {
+		this.usefulLinks2 = usefulLinks2;
+	}
 
-    public void setUsefulLinks3(Post usefulLinks3) {
-        this.usefulLinks3 = usefulLinks3;
-    }
+	public Urllink getUsefulLinks3() {
+		return usefulLinks3;
+	}
 
-    public Post getUsefulLinks4() {
-        return usefulLinks4;
-    }
+	public void setUsefulLinks3(Urllink usefulLinks3) {
+		this.usefulLinks3 = usefulLinks3;
+	}
 
-    public void setUsefulLinks4(Post usefulLinks4) {
-        this.usefulLinks4 = usefulLinks4;
-    }
+	public Urllink getUsefulLinks4() {
+		return usefulLinks4;
+	}
 
-    public Post getUsefulLinks5() {
-        return usefulLinks5;
-    }
+	public void setUsefulLinks4(Urllink usefulLinks4) {
+		this.usefulLinks4 = usefulLinks4;
+	}
 
-    public void setUsefulLinks5(Post usefulLinks5) {
-        this.usefulLinks5 = usefulLinks5;
-    }
+	public Urllink getUsefulLinks5() {
+		return usefulLinks5;
+	}
 
-    public Post getUsefulLinks6() {
-        return usefulLinks6;
-    }
+	public void setUsefulLinks5(Urllink usefulLinks5) {
+		this.usefulLinks5 = usefulLinks5;
+	}
 
-    public void setUsefulLinks6(Post usefulLinks6) {
-        this.usefulLinks6 = usefulLinks6;
-    }
+	public Urllink getUsefulLinks6() {
+		return usefulLinks6;
+	}
 
-    public Post getRecentVideos1() {
-        return recentVideos1;
-    }
+	public void setUsefulLinks6(Urllink usefulLinks6) {
+		this.usefulLinks6 = usefulLinks6;
+	}
 
-    public void setRecentVideos1(Post recentVideos1) {
-        this.recentVideos1 = recentVideos1;
-    }
+	public Urllink getRecentVideos1() {
+		return recentVideos1;
+	}
 
-    public Post getRecentVideos2() {
-        return recentVideos2;
-    }
+	public void setRecentVideos1(Urllink recentVideos1) {
+		this.recentVideos1 = recentVideos1;
+	}
 
-    public void setRecentVideos2(Post recentVideos2) {
-        this.recentVideos2 = recentVideos2;
-    }
+	public Urllink getRecentVideos2() {
+		return recentVideos2;
+	}
 
-    public Post getRecentVideos3() {
-        return recentVideos3;
-    }
+	public void setRecentVideos2(Urllink recentVideos2) {
+		this.recentVideos2 = recentVideos2;
+	}
 
-    public void setRecentVideos3(Post recentVideos3) {
-        this.recentVideos3 = recentVideos3;
-    }
+	public Urllink getRecentVideos3() {
+		return recentVideos3;
+	}
 
-    public Post getRecentVideos4() {
-        return recentVideos4;
-    }
+	public void setRecentVideos3(Urllink recentVideos3) {
+		this.recentVideos3 = recentVideos3;
+	}
 
-    public void setRecentVideos4(Post recentVideos4) {
-        this.recentVideos4 = recentVideos4;
-    }
+	public Urllink getRecentVideos4() {
+		return recentVideos4;
+	}
 
-    public Post getRecentVideos5() {
-        return recentVideos5;
-    }
+	public void setRecentVideos4(Urllink recentVideos4) {
+		this.recentVideos4 = recentVideos4;
+	}
 
-    public void setRecentVideos5(Post recentVideos5) {
-        this.recentVideos5 = recentVideos5;
-    }
+	public Urllink getRecentVideos5() {
+		return recentVideos5;
+	}
 
-    public Post getRecentVideos6() {
-        return recentVideos6;
-    }
+	public void setRecentVideos5(Urllink recentVideos5) {
+		this.recentVideos5 = recentVideos5;
+	}
 
-    public void setRecentVideos6(Post recentVideos6) {
-        this.recentVideos6 = recentVideos6;
-    }
+	public Urllink getRecentVideos6() {
+		return recentVideos6;
+	}
 
-    @Override
+	public void setRecentVideos6(Urllink recentVideos6) {
+		this.recentVideos6 = recentVideos6;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -605,66 +702,92 @@ public class CustomFrontpageconfigDTO implements Serializable {
         return Objects.hashCode(getId());
     }
 
-    @Override
-    public String toString() {
-        return "FrontpageconfigDTO{" +
-            "id=" + getId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", topNews1=" + getTopNews1() +
-            ", topNews2=" + getTopNews2() +
-            ", topNews3=" + getTopNews3() +
-            ", topNews4=" + getTopNews4() +
-            ", topNews5=" + getTopNews5() +
-            ", latestNews1=" + getLatestNews1() +
-            ", latestNews2=" + getLatestNews2() +
-            ", latestNews3=" + getLatestNews3() +
-            ", latestNews4=" + getLatestNews4() +
-            ", latestNews5=" + getLatestNews5() +
-            ", breakingNews1=" + getBreakingNews1() +
-            ", recentPosts1=" + getRecentPosts1() +
-            ", recentPosts2=" + getRecentPosts2() +
-            ", recentPosts3=" + getRecentPosts3() +
-            ", recentPosts4=" + getRecentPosts4() +
-            ", featuredArticles1=" + getFeaturedArticles1() +
-            ", featuredArticles2=" + getFeaturedArticles2() +
-            ", featuredArticles3=" + getFeaturedArticles3() +
-            ", featuredArticles4=" + getFeaturedArticles4() +
-            ", featuredArticles5=" + getFeaturedArticles5() +
-            ", featuredArticles6=" + getFeaturedArticles6() +
-            ", featuredArticles7=" + getFeaturedArticles7() +
-            ", featuredArticles8=" + getFeaturedArticles8() +
-            ", featuredArticles9=" + getFeaturedArticles9() +
-            ", featuredArticles10=" + getFeaturedArticles10() +
-            ", popularNews1=" + getPopularNews1() +
-            ", popularNews2=" + getPopularNews2() +
-            ", popularNews3=" + getPopularNews3() +
-            ", popularNews4=" + getPopularNews4() +
-            ", popularNews5=" + getPopularNews5() +
-            ", popularNews6=" + getPopularNews6() +
-            ", popularNews7=" + getPopularNews7() +
-            ", popularNews8=" + getPopularNews8() +
-            ", weeklyNews1=" + getWeeklyNews1() +
-            ", weeklyNews2=" + getWeeklyNews2() +
-            ", weeklyNews3=" + getWeeklyNews3() +
-            ", weeklyNews4=" + getWeeklyNews4() +
-            ", newsFeeds1=" + getNewsFeeds1() +
-            ", newsFeeds2=" + getNewsFeeds2() +
-            ", newsFeeds3=" + getNewsFeeds3() +
-            ", newsFeeds4=" + getNewsFeeds4() +
-            ", newsFeeds5=" + getNewsFeeds5() +
-            ", newsFeeds6=" + getNewsFeeds6() +
-            ", usefulLinks1=" + getUsefulLinks1() +
-            ", usefulLinks2=" + getUsefulLinks2() +
-            ", usefulLinks3=" + getUsefulLinks3() +
-            ", usefulLinks4=" + getUsefulLinks4() +
-            ", usefulLinks5=" + getUsefulLinks5() +
-            ", usefulLinks6=" + getUsefulLinks6() +
-            ", recentVideos1=" + getRecentVideos1() +
-            ", recentVideos2=" + getRecentVideos2() +
-            ", recentVideos3=" + getRecentVideos3() +
-            ", recentVideos4=" + getRecentVideos4() +
-            ", recentVideos5=" + getRecentVideos5() +
-            ", recentVideos6=" + getRecentVideos6() +
-            "}";
-    }
+	@Override
+	public String toString() {
+		return "CustomFrontpageconfigDTO [id=" + id + ", creationDate=" + creationDate + ", topNews1=" + topNews1
+				+ ", topNews2=" + topNews2 + ", topNews3=" + topNews3 + ", topNews4=" + topNews4 + ", topNews5="
+				+ topNews5 + ", latestNews1=" + latestNews1 + ", latestNews2=" + latestNews2 + ", latestNews3="
+				+ latestNews3 + ", latestNews4=" + latestNews4 + ", latestNews5=" + latestNews5 + ", breakingNews1="
+				+ breakingNews1 + ", recentPosts1=" + recentPosts1 + ", recentPosts2=" + recentPosts2
+				+ ", recentPosts3=" + recentPosts3 + ", recentPosts4=" + recentPosts4 + ", featuredArticles1="
+				+ featuredArticles1 + ", featuredArticles2=" + featuredArticles2 + ", featuredArticles3="
+				+ featuredArticles3 + ", featuredArticles4=" + featuredArticles4 + ", featuredArticles5="
+				+ featuredArticles5 + ", featuredArticles6=" + featuredArticles6 + ", featuredArticles7="
+				+ featuredArticles7 + ", featuredArticles8=" + featuredArticles8 + ", featuredArticles9="
+				+ featuredArticles9 + ", featuredArticles10=" + featuredArticles10 + ", popularNews1=" + popularNews1
+				+ ", popularNews2=" + popularNews2 + ", popularNews3=" + popularNews3 + ", popularNews4=" + popularNews4
+				+ ", popularNews5=" + popularNews5 + ", popularNews6=" + popularNews6 + ", popularNews7=" + popularNews7
+				+ ", popularNews8=" + popularNews8 + ", weeklyNews1=" + weeklyNews1 + ", weeklyNews2=" + weeklyNews2
+				+ ", weeklyNews3=" + weeklyNews3 + ", weeklyNews4=" + weeklyNews4 + ", newsFeeds1=" + newsFeeds1
+				+ ", newsFeeds2=" + newsFeeds2 + ", newsFeeds3=" + newsFeeds3 + ", newsFeeds4=" + newsFeeds4
+				+ ", newsFeeds5=" + newsFeeds5 + ", newsFeeds6=" + newsFeeds6 + ", usefulLinks1=" + usefulLinks1
+				+ ", usefulLinks2=" + usefulLinks2 + ", usefulLinks3=" + usefulLinks3 + ", usefulLinks4=" + usefulLinks4
+				+ ", usefulLinks5=" + usefulLinks5 + ", usefulLinks6=" + usefulLinks6 + ", recentVideos1="
+				+ recentVideos1 + ", recentVideos2=" + recentVideos2 + ", recentVideos3=" + recentVideos3
+				+ ", recentVideos4=" + recentVideos4 + ", recentVideos5=" + recentVideos5 + ", recentVideos6="
+				+ recentVideos6 + "]";
+	}
+    
+//    @Override
+//    public String toString() {
+//        return "FrontpageconfigDTO{" +
+//            "id=" + getId() +
+//            ", creationDate='" + getCreationDate() + "'" +
+//            ", topNews1=" + getTopNews1() +
+//            ", topNews2=" + getTopNews2() +
+//            ", topNews3=" + getTopNews3() +
+//            ", topNews4=" + getTopNews4() +
+//            ", topNews5=" + getTopNews5() +
+//            ", latestNews1=" + getLatestNews1() +
+//            ", latestNews2=" + getLatestNews2() +
+//            ", latestNews3=" + getLatestNews3() +
+//            ", latestNews4=" + getLatestNews4() +
+//            ", latestNews5=" + getLatestNews5() +
+//            ", breakingNews1=" + getBreakingNews1() +
+//            ", recentPosts1=" + getRecentPosts1() +
+//            ", recentPosts2=" + getRecentPosts2() +
+//            ", recentPosts3=" + getRecentPosts3() +
+//            ", recentPosts4=" + getRecentPosts4() +
+//            ", featuredArticles1=" + getFeaturedArticles1() +
+//            ", featuredArticles2=" + getFeaturedArticles2() +
+//            ", featuredArticles3=" + getFeaturedArticles3() +
+//            ", featuredArticles4=" + getFeaturedArticles4() +
+//            ", featuredArticles5=" + getFeaturedArticles5() +
+//            ", featuredArticles6=" + getFeaturedArticles6() +
+//            ", featuredArticles7=" + getFeaturedArticles7() +
+//            ", featuredArticles8=" + getFeaturedArticles8() +
+//            ", featuredArticles9=" + getFeaturedArticles9() +
+//            ", featuredArticles10=" + getFeaturedArticles10() +
+//            ", popularNews1=" + getPopularNews1() +
+//            ", popularNews2=" + getPopularNews2() +
+//            ", popularNews3=" + getPopularNews3() +
+//            ", popularNews4=" + getPopularNews4() +
+//            ", popularNews5=" + getPopularNews5() +
+//            ", popularNews6=" + getPopularNews6() +
+//            ", popularNews7=" + getPopularNews7() +
+//            ", popularNews8=" + getPopularNews8() +
+//            ", weeklyNews1=" + getWeeklyNews1() +
+//            ", weeklyNews2=" + getWeeklyNews2() +
+//            ", weeklyNews3=" + getWeeklyNews3() +
+//            ", weeklyNews4=" + getWeeklyNews4() +
+//            ", newsFeeds1=" + getNewsFeeds1() +
+//            ", newsFeeds2=" + getNewsFeeds2() +
+//            ", newsFeeds3=" + getNewsFeeds3() +
+//            ", newsFeeds4=" + getNewsFeeds4() +
+//            ", newsFeeds5=" + getNewsFeeds5() +
+//            ", newsFeeds6=" + getNewsFeeds6() +
+//            ", usefulLinks1=" + getUsefulLinks1() +
+//            ", usefulLinks2=" + getUsefulLinks2() +
+//            ", usefulLinks3=" + getUsefulLinks3() +
+//            ", usefulLinks4=" + getUsefulLinks4() +
+//            ", usefulLinks5=" + getUsefulLinks5() +
+//            ", usefulLinks6=" + getUsefulLinks6() +
+//            ", recentVideos1=" + getRecentVideos1() +
+//            ", recentVideos2=" + getRecentVideos2() +
+//            ", recentVideos3=" + getRecentVideos3() +
+//            ", recentVideos4=" + getRecentVideos4() +
+//            ", recentVideos5=" + getRecentVideos5() +
+//            ", recentVideos6=" + getRecentVideos6() +
+//            "}";
+//    }
 }

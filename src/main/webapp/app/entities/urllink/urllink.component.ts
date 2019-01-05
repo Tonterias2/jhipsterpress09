@@ -162,6 +162,7 @@ export class UrllinkComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.urllinks = data;
+        console.log('CONSOLOG: M:ngOnInit & O: this.urllinks:', this.urllinks);
     }
 
     private onError(errorMessage: string) {
