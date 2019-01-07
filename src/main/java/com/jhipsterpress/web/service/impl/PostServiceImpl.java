@@ -2,6 +2,8 @@ package com.jhipsterpress.web.service.impl;
 
 import com.jhipsterpress.web.service.PostService;
 import com.jhipsterpress.web.domain.Post;
+import com.jhipsterpress.web.domain.Tag;
+import com.jhipsterpress.web.domain.Topic;
 import com.jhipsterpress.web.repository.PostRepository;
 import com.jhipsterpress.web.repository.search.PostSearchRepository;
 import com.jhipsterpress.web.service.dto.PostDTO;
@@ -14,7 +16,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -93,6 +98,21 @@ public class PostServiceImpl implements PostService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Post : {}", id);
+        Optional<Post> postOpt = postRepository.findById(id);
+        Post post = postOpt.get();
+        
+        Set<Tag> copyOfTags = new HashSet<Tag>(post.getTags());
+        for (Tag tag : copyOfTags) {
+               post.removeTag(tag);
+           }
+        
+        Set<Topic> copyOfTopics = new HashSet<Topic>(post.getTopics());
+        for (Topic topic : copyOfTopics) {
+               post.removeTopic(topic);
+           }
+        
+        postRepository.save(post);
+        
         postRepository.deleteById(id);
         postSearchRepository.deleteById(id);
     }
