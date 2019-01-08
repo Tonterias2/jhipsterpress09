@@ -1,6 +1,12 @@
 package com.jhipsterpress.web.service.impl;
 
 import com.jhipsterpress.web.service.UprofileService;
+import com.jhipsterpress.web.domain.Activity;
+import com.jhipsterpress.web.domain.Cactivity;
+import com.jhipsterpress.web.domain.Cceleb;
+import com.jhipsterpress.web.domain.Celeb;
+import com.jhipsterpress.web.domain.Cinterest;
+import com.jhipsterpress.web.domain.Interest;
 import com.jhipsterpress.web.domain.Uprofile;
 import com.jhipsterpress.web.repository.UprofileRepository;
 import com.jhipsterpress.web.repository.search.UprofileSearchRepository;
@@ -14,7 +20,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -88,11 +98,40 @@ public class UprofileServiceImpl implements UprofileService {
     /**
      * Delete the uprofile by id.
      *
-     * @param id the id of the entity
+     * @param id the id of the entity, but deleting Many2Many relationships ans saving the entity before deleting it.
      */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Uprofile : {}", id);
+        Optional<Uprofile> uprofileOpt = uprofileRepository.findById(id);
+        Uprofile uprofile = uprofileOpt.get();
+
+		ArrayList<Interest> arrayInterests = new ArrayList<Interest>();
+		arrayInterests.addAll(uprofile.getInterests());
+		Iterator<Interest> copyOfInterests = arrayInterests.iterator();
+		while (copyOfInterests.hasNext()) {
+			Interest interest = copyOfInterests.next();
+			interest.removeUprofile(uprofile);
+		}
+		
+		ArrayList<Activity> arrayActivities = new ArrayList<Activity>();
+		arrayActivities.addAll(uprofile.getActivities());
+		Iterator<Activity> copyOfActivities = arrayActivities.iterator();
+		while (copyOfActivities.hasNext()) {
+			Activity activity = copyOfActivities.next();
+			activity.removeUprofile(uprofile);
+		}
+		
+		ArrayList<Celeb> arrayCelebs = new ArrayList<Celeb>();
+		arrayCelebs.addAll(uprofile.getCelebs());
+		Iterator<Celeb> copyOfCelebs = arrayCelebs.iterator();
+		while (copyOfCelebs.hasNext()) {
+			Celeb celeb = copyOfCelebs.next();
+			celeb.removeUprofile(uprofile);
+		}
+        
+		uprofileRepository.save(uprofile);        
+        
         uprofileRepository.deleteById(id);
         uprofileSearchRepository.deleteById(id);
     }

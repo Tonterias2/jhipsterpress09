@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
@@ -91,30 +92,37 @@ public class PostServiceImpl implements PostService {
     }
 
     /**
-     * Delete the post by id.
+     * Delete the post by id, but deleting Many2Many relationships ans saving the entity before deleting it.
      *
      * @param id the id of the entity
      */
-    @Override
-    public void delete(Long id) {
-        log.debug("Request to delete Post : {}", id);
-        Optional<Post> postOpt = postRepository.findById(id);
-        Post post = postOpt.get();
-        
-        Set<Tag> copyOfTags = new HashSet<Tag>(post.getTags());
-        for (Tag tag : copyOfTags) {
-               post.removeTag(tag);
-           }
-        
-        Set<Topic> copyOfTopics = new HashSet<Topic>(post.getTopics());
-        for (Topic topic : copyOfTopics) {
-               post.removeTopic(topic);
-           }
-        
-        postRepository.save(post);
-        
-        postRepository.deleteById(id);
-        postSearchRepository.deleteById(id);
+	@Override
+	public void delete(Long id) {
+		log.debug("Request to delete Post : {}", id);
+		
+		Optional<Post> postOpt = postRepository.findById(id);
+		Post post = postOpt.get();
+		
+		ArrayList<Tag> arrayTags = new ArrayList<Tag>();
+		arrayTags.addAll(post.getTags());
+		Iterator<Tag> copyOfTags = arrayTags.iterator();
+		while (copyOfTags.hasNext()) {
+			Tag tag = copyOfTags.next();
+			tag.removePost(post);
+		}
+		
+		ArrayList<Topic> arrayTopics = new ArrayList<Topic>();
+		arrayTopics.addAll(post.getTopics());
+		Iterator<Topic> copyOfTopics = arrayTopics.iterator();
+		while (copyOfTopics.hasNext()) {
+			Topic topic = copyOfTopics.next();
+			topic.removePost(post);
+		}
+
+		postRepository.save(post);
+
+		postRepository.deleteById(id);
+		postSearchRepository.deleteById(id);
     }
 
     /**

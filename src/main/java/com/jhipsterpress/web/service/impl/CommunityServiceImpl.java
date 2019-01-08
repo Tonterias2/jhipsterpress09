@@ -1,6 +1,9 @@
 package com.jhipsterpress.web.service.impl;
 
 import com.jhipsterpress.web.service.CommunityService;
+import com.jhipsterpress.web.domain.Cactivity;
+import com.jhipsterpress.web.domain.Cceleb;
+import com.jhipsterpress.web.domain.Cinterest;
 import com.jhipsterpress.web.domain.Community;
 import com.jhipsterpress.web.repository.CommunityRepository;
 import com.jhipsterpress.web.repository.search.CommunitySearchRepository;
@@ -14,7 +17,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -86,13 +93,42 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     /**
-     * Delete the community by id.
+     * Delete the community by id, but deleting Many2Many relationships ans saving the entity before deleting it.
      *
      * @param id the id of the entity
      */
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Community : {}", id);
+        Optional<Community> communityOpt = communityRepository.findById(id);
+        Community community = communityOpt.get();
+
+		ArrayList<Cinterest> arrayCinterests = new ArrayList<Cinterest>();
+		arrayCinterests.addAll(community.getCinterests());
+		Iterator<Cinterest> copyOfCinterests = arrayCinterests.iterator();
+		while (copyOfCinterests.hasNext()) {
+			Cinterest cinterest = copyOfCinterests.next();
+			cinterest.removeCommunity(community);
+		}
+
+		ArrayList<Cactivity> arrayCactivities = new ArrayList<Cactivity>();
+		arrayCactivities.addAll(community.getCactivities());
+		Iterator<Cactivity> copyOfCactivities = arrayCactivities.iterator();
+		while (copyOfCactivities.hasNext()) {
+			Cactivity cactivity = copyOfCactivities.next();
+			cactivity.removeCommunity(community);
+		}
+
+		ArrayList<Cceleb> arrayCcelebs = new ArrayList<Cceleb>();
+		arrayCcelebs.addAll(community.getCcelebs());
+		Iterator<Cceleb> copyOfCcelebs = arrayCcelebs.iterator();
+		while (copyOfCcelebs.hasNext()) {
+			Cceleb cceleb = copyOfCcelebs.next();
+			cceleb.removeCommunity(community);
+		}
+        
+		communityRepository.save(community);
+		
         communityRepository.deleteById(id);
         communitySearchRepository.deleteById(id);
     }
