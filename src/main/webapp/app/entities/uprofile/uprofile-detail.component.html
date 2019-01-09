@@ -41,7 +41,7 @@
 
               <!-- User Info -->
               <span class="g-pos-abs g-top-20 g-left-0">
-                  <a class="btn btn-sm u-btn-primary rounded-0" href="#!">{{uprofile.userFirstName}} {{uprofile.userLastName}}</a>
+                  <a class="btn btn-sm u-btn-primary rounded-0">{{uprofile.userFirstName}} {{uprofile.userLastName}}</a>
                   <!--  <small class="d-block g-bg-black g-color-white g-pa-5">Project Manager</small> -->
                 </span>
               <!-- End User Info -->
@@ -150,12 +150,12 @@
 								</button>
 							</span> 
 				            <span jhiTranslate="jhipsterpressApp.uprofile.detail.title">Profile</span> 
-				           	 {{uprofile.firstName}} {{uprofile.lastName}}
 				            </h2>
+				            <h2>{{uprofile.userFirstName}} {{uprofile.userLastName}}</h2>
 				            <hr>
 				            <jhi-alert-error></jhi-alert-error>
 				            <dl class="row-md jh-entity-details">
-				            				                
+
 				                <!-- Interests -->
 								<div class="g-mb-30">
 								  <h6 class="g-color-gray-dark-v1">

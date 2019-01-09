@@ -68,6 +68,7 @@ INTERMEDIATE:
 * [How to create the FrontPage for JHipsterPress:](ReadMe/Solution22.md)
 * [How to combine two entities together: Post and Comments:](ReadMe/Solution24.md)
 * [Cascade deletion:](ReadMe/Solution28.md)
+* [Cascade deletion in Many2Many relationships:](ReadMe/Solution33.md)
 * [How to enable scrollPositionRestoration:](ReadMe/Solution31.md)
 * Different ways to block un-authorized code
 

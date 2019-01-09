@@ -166,14 +166,16 @@ export class MessageComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort()
         };
+        console.log('CONSOLOG: M:myMessages & O: query : ', query, this.itemsPerPage);
         if (this.currentAccount.id != null) {
             query['receiverId.equals'] = this.currentAccount.id;
         }
         this.messageService.query(query).subscribe(
             (res: HttpResponse<IMessage[]>) => {
                 this.messages = res.body;
-                console.log('CONSOLOG: M:myUserMessages & O: this.messages : ', this.messages);
+                console.log('CONSOLOG: M:myMessages & O: this.messages : ', this.messages);
                 this.isDeliveredUpdate(this.messages);
+                this.paginateMessages(res.body, res.headers);
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -182,15 +184,15 @@ export class MessageComponent implements OnInit, OnDestroy {
     isDeliveredUpdate(messages: IMessage[]) {
         this.isSaving = true;
         this.messages.forEach(message => {
-            console.log('CONSOLOG: M:isDeliveredUpdate & O: messages PRE-Date : ', messages);
+            //            console.log('CONSOLOG: M:isDeliveredUpdate & O: messages PRE-Date : ', message);
             this.creationDate = moment(message.creationDate).format(DATE_TIME_FORMAT);
-            console.log('CONSOLOG: M:isDeliveredUpdate & O: this.creationDate : ', this.creationDate);
-            console.log('CONSOLOG: M:isDeliveredUpdate & O: messages POST-Date : ', messages);
+            //            console.log('CONSOLOG: M:isDeliveredUpdate & O: this.creationDate : ', this.creationDate);
+            //            console.log('CONSOLOG: M:isDeliveredUpdate & O: messages POST-Date : ', message);
             message.isDelivered = true;
             //            this.notificationService.update(notification);
             this.subscribeToSaveResponse(this.messageService.update(message));
             //            this.subscribeToSaveResponse(this.notificationService.update(notification));
-            console.log('CONSOLOG: M:isDeliveredUpdate & O: message : ', message);
+            //            console.log('CONSOLOG: M:isDeliveredUpdate & O: message : ', message);
         });
     }
 
@@ -233,6 +235,7 @@ export class MessageComponent implements OnInit, OnDestroy {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.messages = data;
+        console.log('CONSOLOG: M:paginateMessages & O: this.messages : ', this.messages);
     }
 
     private onError(errorMessage: string) {

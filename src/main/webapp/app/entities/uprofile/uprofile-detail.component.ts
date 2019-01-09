@@ -53,7 +53,7 @@ export class UprofileDetailComponent implements OnInit {
     currentAccount: any;
     isFollowing: boolean;
     isBlocked: boolean;
-    loggedProfileId: number;
+    loggedUserId: number;
     creationDate: string;
     isSaving: boolean;
     owner: any;
@@ -171,8 +171,9 @@ export class UprofileDetailComponent implements OnInit {
         this.uprofileService.query(query).subscribe(
             (res: HttpResponse<IUprofile[]>) => {
                 this.loggedProfile = res.body;
+                console.log('CONSOLOG: M:currentLoggedProfile & O: this.loggedProfile : ', this.loggedProfile);
                 this.loggedProfile.forEach(profile => {
-                    this.loggedProfileId = profile.id;
+                    this.loggedUserId = profile.userId;
                 });
                 this.isFollower().subscribe(
                     (res2: HttpResponse<IFollow[]>) => {
@@ -203,8 +204,8 @@ export class UprofileDetailComponent implements OnInit {
         this.isFollowing = false;
         const query2 = {};
         if (this.currentAccount.id != null) {
-            query2['followedId.in'] = this.loggedProfileId;
-            query2['followingId.in'] = this.uprofile.id;
+            query2['followedId.in'] = this.loggedUserId;
+            query2['followingId.in'] = this.uprofile.userId;
         }
         return this.followService.query(query2);
         /*.subscribe(
@@ -222,8 +223,8 @@ export class UprofileDetailComponent implements OnInit {
     following() {
         this.isSaving = true;
         this.follow.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
-        this.follow.followingId = this.uprofile.id;
-        this.follow.followedId = this.loggedProfileId;
+        this.follow.followingId = this.uprofile.userId;
+        this.follow.followedId = this.loggedUserId;
         if (this.isFollowing === false) {
             console.log('CONSOLOG: M:following & O: this.follow : ', this.follow);
             this.subscribeToSaveResponse(this.followService.create(this.follow));
@@ -280,8 +281,8 @@ export class UprofileDetailComponent implements OnInit {
         this.isBlocked = false;
         const query = {};
         if (this.currentAccount.id != null) {
-            query['blockeduserId.in'] = this.loggedProfileId;
-            query['blockinguserId.in'] = this.uprofile.id;
+            query['blockeduserId.in'] = this.uprofile.userId;
+            query['blockinguserId.in'] = this.loggedUserId;
         }
         return this.blockuserService.query(query);
         //        .subscribe(
@@ -299,8 +300,10 @@ export class UprofileDetailComponent implements OnInit {
     blocking() {
         this.isSaving = true;
         this.blockuser.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
-        this.blockuser.blockeduserId = this.loggedProfileId;
-        this.blockuser.blockinguserId = this.uprofile.id;
+        //        this.blockuser.blockeduserId = this.loggedUserId;
+        //        this.blockuser.blockinguserId = this.uprofile.userId;
+        this.blockuser.blockeduserId = this.uprofile.userId;
+        this.blockuser.blockinguserId = this.loggedUserId;
         if (this.isBlocked === false) {
             this.subscribeToSaveResponse(this.blockuserService.create(this.blockuser));
             this.isBlocked = true;

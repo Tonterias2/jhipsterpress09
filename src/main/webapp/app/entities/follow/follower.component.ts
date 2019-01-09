@@ -31,6 +31,7 @@ export class FollowerComponent implements OnInit, OnDestroy {
     reverse: any;
     nameParamFollows: any;
     valueParamFollows: any;
+    zipZeroResults: any;
 
     constructor(
         private followService: FollowService,

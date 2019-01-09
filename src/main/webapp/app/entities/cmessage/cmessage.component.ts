@@ -142,6 +142,7 @@ export class CmessageComponent implements OnInit, OnDestroy {
         //        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            console.log('CONSOLOG: M:ngOnInit & O: this.currentAccount : ', this.currentAccount);
             this.myCmessages();
         });
         this.registerChangeInCmessages();
