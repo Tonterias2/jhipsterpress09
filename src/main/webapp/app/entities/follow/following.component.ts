@@ -5,10 +5,12 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IFollow } from 'app/shared/model/follow.model';
-import { Principal } from 'app/core';
+import { FollowService } from './follow.service';
+import { IUprofile } from 'app/shared/model/uprofile.model';
+import { UprofileService } from '../uprofile/uprofile.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { FollowService } from './follow.service';
+import { Principal } from 'app/core';
 
 @Component({
     selector: 'jhi-follow',
@@ -17,6 +19,7 @@ import { FollowService } from './follow.service';
 export class FollowingComponent implements OnInit, OnDestroy {
     currentAccount: any;
     follows: IFollow[];
+    uprofiles: IUprofile[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -32,9 +35,11 @@ export class FollowingComponent implements OnInit, OnDestroy {
     nameParamFollows: any;
     valueParamFollows: any;
     zipZeroResults: any;
+    followedUserId: number;
 
     constructor(
         private followService: FollowService,
+        private uprofileService: UprofileService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -67,13 +72,15 @@ export class FollowingComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort()
         };
-        query[this.nameParamFollows] = this.valueParamFollows;
+        console.log('CONSOLOG: M:loadAll & O: this.followedUserId : ', this.followedUserId);
+        query[this.nameParamFollows] = this.followedUserId;
         this.followService
             .query(query)
             .subscribe(
                 (res: HttpResponse<IFollow[]>) => this.paginateFollows(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        console.log('CONSOLOG: M:loadAll & O: this.query : ', query);
     }
 
     loadPage(page: number) {
@@ -107,9 +114,24 @@ export class FollowingComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
+            const query = {};
+            if (this.currentAccount.id != null) {
+                query['id.equals'] = this.valueParamFollows;
+            }
+            this.uprofileService.query(query).subscribe(
+                (res: HttpResponse<IUprofile[]>) => {
+                    this.uprofiles = res.body;
+                    console.log('CONSOLOG: M:ngOnInit & O: this.uprofiles : ', this.uprofiles);
+                    this.uprofiles.forEach(profile => {
+                        this.followedUserId = profile.userId;
+                        console.log('CONSOLOG: M:ngOnInit & O: this.followedUserId : ', this.followedUserId);
+                        this.loadAll();
+                    });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         });
         this.registerChangeInFollows();
     }

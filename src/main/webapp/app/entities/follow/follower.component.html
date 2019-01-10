@@ -14,7 +14,7 @@
     <br/>
          
     <!-- Profile Content -->
-	<div class="col-lg-9" *ngIf="follows">
+	<div class="col-lg-9" *ngIf="follows?.length; else zipZeroResults"> 
 	  <!-- User Contacts -->
 	  <div class="row g-mb-40">
 	    <div class="col-md-4 g-mb-30 g-mb-0--md" *ngFor="let follow of follows ;trackBy: trackId">
@@ -33,10 +33,10 @@
 	          <!-- Figure Info -->
 
 			  <a *ngIf="follow.cfollowedId" [routerLink]="['/community', follow.cfollowedId, 'view' ]">
-	          	<h4 class="h5 g-mb-5">{{follow.id}}{{follow.cfollowedCommunityname}}</h4>
+	          	<h4 class="h5 g-mb-5">{{follow.cfollowedCommunityname}}</h4>
 	          </a>
 	          <a *ngIf="follow.followedId" [routerLink]="['/uprofile', follow.followedId, 'view' ]">
-	          	<h4 class="h5 g-mb-5">{{follow.id}}{{follow.followedUserFirstName}} {{follow.followedUserLastName}}</h4>
+	          	<h4 class="h5 g-mb-5">{{follow.followedUserFirstName}} {{follow.followedUserLastName}}</h4>
 	          </a>
 	          
 	          <!--

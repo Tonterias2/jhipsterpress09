@@ -5,10 +5,12 @@ import { Subscription } from 'rxjs';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IBlockuser } from 'app/shared/model/blockuser.model';
-import { Principal } from 'app/core';
+import { BlockuserService } from './blockuser.service';
+import { IUprofile } from 'app/shared/model/uprofile.model';
+import { UprofileService } from '../uprofile/uprofile.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { BlockuserService } from './blockuser.service';
+import { Principal } from 'app/core';
 
 @Component({
     selector: 'jhi-blockuser',
@@ -17,6 +19,7 @@ import { BlockuserService } from './blockuser.service';
 export class BlockinguserComponent implements OnInit, OnDestroy {
     currentAccount: any;
     blockusers: IBlockuser[];
+    uprofiles: IUprofile[];
     error: any;
     success: any;
     eventSubscriber: Subscription;
@@ -34,9 +37,11 @@ export class BlockinguserComponent implements OnInit, OnDestroy {
     owner: any;
     isAdmin: boolean;
     zipZeroResults: any;
+    blockedUserId: number;
 
     constructor(
         private blockuserService: BlockuserService,
+        private uprofileService: UprofileService,
         private parseLinks: JhiParseLinks,
         private jhiAlertService: JhiAlertService,
         private principal: Principal,
@@ -69,13 +74,14 @@ export class BlockinguserComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort()
         };
-        query[this.nameParamBlockUser] = this.valueParamBlockUser;
+        query[this.nameParamBlockUser] = this.blockedUserId;
         this.blockuserService
             .query(query)
             .subscribe(
                 (res: HttpResponse<IBlockuser[]>) => this.paginateBlockusers(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+        console.log('CONSOLOG: M:loadAll & O: this.query : ', query);
     }
 
     loadPage(page: number) {
@@ -109,12 +115,27 @@ export class BlockinguserComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.owner = account.id;
             this.principal.hasAnyAuthority(['ROLE_ADMIN']).then(result => {
                 this.isAdmin = result;
+                const query = {};
+                if (this.currentAccount.id != null) {
+                    query['id.equals'] = this.valueParamBlockUser;
+                }
+                this.uprofileService.query(query).subscribe(
+                    (res: HttpResponse<IUprofile[]>) => {
+                        this.uprofiles = res.body;
+                        console.log('CONSOLOG: M:ngOnInit & O: this.uprofiles : ', this.uprofiles);
+                        this.uprofiles.forEach(profile => {
+                            this.blockedUserId = profile.userId;
+                            console.log('CONSOLOG: M:ngOnInit & O: this.blockingUserId : ', this.blockedUserId);
+                            this.loadAll();
+                        });
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
             });
         });
         this.registerChangeInBlockusers();
