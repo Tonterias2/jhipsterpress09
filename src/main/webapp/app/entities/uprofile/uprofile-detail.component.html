@@ -6,7 +6,7 @@
             <!-- User Image -->
             <div class="u-block-hover g-pos-rel">
               <figure>
-              	<div *ngIf="uprofile.image">
+              	<div *ngIf="uprofile?.image">
                      <a (click)="openFile(uprofile.imageContentType, uprofile.image)">
                          <img [src]="'data:' + uprofile.imageContentType + ';base64,' + uprofile.image" style="max-width: 100%;" alt="uprofile image"/>
                      </a>

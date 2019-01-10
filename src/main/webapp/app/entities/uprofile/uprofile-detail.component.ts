@@ -57,6 +57,9 @@ export class UprofileDetailComponent implements OnInit {
     creationDate: string;
     isSaving: boolean;
     owner: any;
+    nameParamUserId: any;
+    valueParamUserId: any;
+    uprofileUserId: any;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -71,19 +74,88 @@ export class UprofileDetailComponent implements OnInit {
         private notificationService: NotificationService,
         private jhiAlertService: JhiAlertService,
         private activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+        //        this.itemsPerPage = ITEMS_PER_PAGE;
+        //        this.routeData = this.activatedRoute.data.subscribe(data => {
+        //            this.page = data.pagingParams.page;
+        //            this.previousPage = data.pagingParams.page;
+        //            this.reverse = data.pagingParams.ascending;
+        //            this.predicate = data.pagingParams.predicate;
+        //        });
+        this.activatedRoute.queryParams.subscribe(params => {
+            if (params.userIdEquals != null) {
+                this.nameParamUserId = 'userId.equals';
+                this.valueParamUserId = params.userIdEquals;
+                console.log('CONSOLOG: M:activatedRoute & O: this.nameParamUserId : ', this.nameParamUserId);
+                console.log('CONSOLOG: M:activatedRoute & O: this.valueParamUserId : ', this.valueParamUserId);
+            }
+            //            if (params.cblockinguserIdEquals != null) {
+            //                this.nameParamBlockUser = 'cblockinguserId.equals';
+            //                this.valueParamBlockUser = params.cblockinguserIdEquals;
+            //            }
+        });
+    }
 
     ngOnInit() {
-        this.activatedRoute.data.subscribe(({ uprofile }) => {
-            this.uprofile = uprofile;
-            this.consultedUserId = uprofile.userId;
-            console.log('CONSOLOG: M:ngOnInit & O: this.uprofile : ', this.uprofile);
-        });
+        if (this.valueParamUserId != null) {
+            console.log('CONSOLOG: TENGO DATO DE UPROFILE VIA this.valueParamUserId consultedUserId');
+            console.log('CONSOLOG: M:ngOnInit & O: this.valueParamUserId : ', this.valueParamUserId);
+            this.consultedUserId = this.valueParamUserId;
+            const query = {};
+            //          if (this.valueParamUserId != null) {
+            query['userId.equals'] = this.valueParamUserId;
+            //          }
+            this.uprofileService.query(query).subscribe(
+                (res: HttpResponse<IUprofile[]>) => {
+                    this.uprofile = res.body[0];
+                    console.log('CONSOLOG: M:ngOnInit & O: this.uprofile1 : ', this.uprofile);
+                    //                  this.uprofiles.forEach(profile => {
+                    //                      this.uprofileUserId = profile.userId;
+                    //                      console.log('CONSOLOG: M:ngOnInit & O: this.uprofileUserId : ', this.uprofileUserId);
+                    //                  });
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        } else {
+            this.activatedRoute.data.subscribe(({ uprofile }) => {
+                this.uprofile = uprofile;
+                this.consultedUserId = uprofile.userId;
+                console.log('CONSOLOG: M:ngOnInit & O: this.uprofile2 : ', this.uprofile);
+            });
+        }
+        //        this.activatedRoute.data.subscribe(({ uprofile }) => {
+        //            this.uprofile = uprofile;
+        //            this.consultedUserId = uprofile.userId;
+        //            if ( uprofile.userId != null) {
+        //                console.log('CONSOLOG: TENGO DATO DE UPROFILE VIA ROUTE consultedUserId');
+        //                console.log('CONSOLOG: M:ngOnInit & O: uprofile.userId : ', uprofile.userId);
+        //            }
+        //            if ( this.valueParamUserId != null) {
+        //                console.log('CONSOLOG: TENGO DATO DE UPROFILE VIA this.valueParamUserId consultedUserId');
+        //                console.log('CONSOLOG: M:ngOnInit & O: this.valueParamUserId : ', this.valueParamUserId);
+        //            }
+        //            console.log('CONSOLOG: M:ngOnInit & O: this.uprofile : ', this.uprofile);
+        //        });
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.owner = account.id;
             console.log('CONSOLOG: M:paginateProfiles & O: this.owner : ', this.owner);
             this.currentLoggedProfile();
+            //            const query = {};
+            //            if (this.valueParamUserId != null) {
+            //                query['userId.equals'] = this.valueParamUserId;
+            //            }
+            //            this.uprofileService.query(query).subscribe(
+            //                (res: HttpResponse<IUprofile[]>) => {
+            //                    this.uprofiles = res.body;
+            //                    console.log('CONSOLOG: M:ngOnInit & O: this.uprofiles : ', this.uprofiles);
+            //                    this.uprofiles.forEach(profile => {
+            //                        this.uprofileUserId = profile.userId;
+            //                        console.log('CONSOLOG: M:ngOnInit & O: this.uprofileUserId : ', this.uprofileUserId);
+            //                    });
+            //                },
+            //                (res: HttpErrorResponse) => this.onError(res.message)
+            //            );
         });
         this.fillProfile();
         //        this.consultUmxm();
@@ -100,7 +172,7 @@ export class UprofileDetailComponent implements OnInit {
         this.consultProfile().subscribe(
             (res: HttpResponse<IUser>) => {
                 this.consultedUser = res.body;
-                console.log('CONSOLOG: M:ngOnInit & O: this.consultedUser : ', this.consultedUser);
+                console.log('CONSOLOG: M:fillProfile & O: this.consultedUser : ', this.consultedUser);
                 console.log('CONSOLOG: M:fillProfile!!!!!!!!!!!!!!!!!!!!!!!!!! en fillProfile2');
                 //                this.consultUmxm().subscribe(
                 //                    (res2: HttpResponse<IUmxm>) => {
