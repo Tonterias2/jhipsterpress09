@@ -133,7 +133,9 @@ export class PostDetailComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.reload();
+        this.loadAll();
+        this.comment.commentText = '';
+        //        this.reload();
     }
 
     private onSaveError() {

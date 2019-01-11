@@ -621,7 +621,7 @@
           <div class="col-lg-4 col-sm-6 g-mb-30">
             <article>
               <figure class="u-shadow-v25 g-pos-rel g-mb-20">"{{frontPageConfig.recentVideos2.linkURL}}"
-                <iframe class="img-fluid w-100" width="560" height="315" src="frontPageConfig.recentVideos2.linkURL"
+                <iframe class="img-fluid w-100" width="560" height="315" src="https://www.youtube.com/embed/videoseries?list=PLx0sYbCqOb8TBPRdmBHs5Iftvv9TPboYG"
                 frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
               </figure>
             </article>
@@ -632,7 +632,7 @@
           <div class="col-lg-4 col-sm-6 g-mb-30">
             <article>
               <figure class="u-shadow-v25 g-pos-rel g-mb-20">{{frontPageConfig.recentVideos1.linkURL}}
-                <iframe class="img-fluid w-100" src=frontPageConfig.recentVideos1.linkURL width="560" height="315" frameborder="0" allowfullscreen></iframe>
+                <iframe class="img-fluid w-100" [src]="saveUrl(frontPageConfig.recentVideos1.linkURL)" width="560" height="315" frameborder="0" allowfullscreen></iframe>
               </figure>
             </article>
 

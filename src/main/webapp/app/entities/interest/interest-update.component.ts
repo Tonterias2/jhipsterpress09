@@ -31,10 +31,11 @@ export class InterestUpdateComponent implements OnInit {
     totalItems: any;
     queryCount: any;
     itemsPerPage: any;
-    page: any;
-    predicate: any = 'asc';
-    previousPage: any;
-    reverse: any;
+    page: any = 1;
+    predicate: any = 'id';
+    previousPage: any = 0;
+    reverse: any = 'asc';
+    id: any;
 
     constructor(
         private interestService: InterestService,
@@ -46,18 +47,19 @@ export class InterestUpdateComponent implements OnInit {
         private router: Router,
         private eventManager: JhiEventManager
     ) {
-        this.itemsPerPage = ITEMS_PER_PAGE;
-        this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data.pagingParams.page;
-            this.previousPage = data.pagingParams.page;
-            this.reverse = data.pagingParams.ascending;
-            this.predicate = data.pagingParams.predicate;
-        });
-        this.currentSearch =
-            this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
-                ? this.activatedRoute.snapshot.params['search']
-                : '';
+        //        this.itemsPerPage = ITEMS_PER_PAGE;
+        //        this.routeData = this.activatedRoute.data.subscribe(data => {
+        //            this.page = data.pagingParams.page;
+        //            this.previousPage = data.pagingParams.page;
+        //            this.reverse = data.pagingParams.ascending;
+        //            this.predicate = data.pagingParams.predicate;
+        //        });
+        //        this.currentSearch =
+        //            this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
+        //                ? this.activatedRoute.snapshot.params['search']
+        //                : '';
     }
+
     ngOnInit() {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ interest }) => {
@@ -125,6 +127,25 @@ export class InterestUpdateComponent implements OnInit {
                 (res: HttpResponse<IInterest[]>) => this.paginateInterests(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+
+    loadPage(page: number) {
+        if (page !== this.previousPage) {
+            this.previousPage = page;
+            this.transition();
+        }
+    }
+
+    transition() {
+        this.router.navigate(['/interest/new'], {
+            queryParams: {
+                page: this.page,
+                size: this.itemsPerPage,
+                search: this.currentSearch,
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+            }
+        });
+        this.loadAll();
     }
 
     sort() {

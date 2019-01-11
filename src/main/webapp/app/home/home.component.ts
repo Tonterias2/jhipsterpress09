@@ -15,6 +15,8 @@ import { TopicService } from '../entities/topic/topic.service';
 import { ITEMS_PER_PAGE } from 'app/shared';
 
 import { LoginModalService, Principal, Account } from 'app/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
     selector: 'jhi-home',
@@ -22,6 +24,7 @@ import { LoginModalService, Principal, Account } from 'app/core';
     styleUrls: ['home.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
+    safeURL: SafeResourceUrl;
     account: Account;
     modalRef: NgbModalRef;
 
@@ -48,7 +51,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         private parseLinks: JhiParseLinks,
         private activatedRoute: ActivatedRoute,
         private principal: Principal,
-        private loginModalService: LoginModalService
+        private loginModalService: LoginModalService,
+        private _sanitizer: DomSanitizer
     ) {
         this.frontpageconfigs = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
@@ -62,6 +66,10 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
                 ? this.activatedRoute.snapshot.params['search']
                 : '';
+    }
+
+    saveUrl(url) {
+        return this._sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
     loadAll() {
