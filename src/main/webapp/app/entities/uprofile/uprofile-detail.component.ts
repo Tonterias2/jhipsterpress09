@@ -75,13 +75,6 @@ export class UprofileDetailComponent implements OnInit {
         private jhiAlertService: JhiAlertService,
         private activatedRoute: ActivatedRoute
     ) {
-        //        this.itemsPerPage = ITEMS_PER_PAGE;
-        //        this.routeData = this.activatedRoute.data.subscribe(data => {
-        //            this.page = data.pagingParams.page;
-        //            this.previousPage = data.pagingParams.page;
-        //            this.reverse = data.pagingParams.ascending;
-        //            this.predicate = data.pagingParams.predicate;
-        //        });
         this.activatedRoute.queryParams.subscribe(params => {
             if (params.userIdEquals != null) {
                 this.nameParamUserId = 'userId.equals';
@@ -89,30 +82,26 @@ export class UprofileDetailComponent implements OnInit {
                 console.log('CONSOLOG: M:activatedRoute & O: this.nameParamUserId : ', this.nameParamUserId);
                 console.log('CONSOLOG: M:activatedRoute & O: this.valueParamUserId : ', this.valueParamUserId);
             }
-            //            if (params.cblockinguserIdEquals != null) {
-            //                this.nameParamBlockUser = 'cblockinguserId.equals';
-            //                this.valueParamBlockUser = params.cblockinguserIdEquals;
-            //            }
         });
     }
 
     ngOnInit() {
+        this.principal.identity().then(account => {
+            this.currentAccount = account;
+            this.owner = account.id;
+            console.log('CONSOLOG: M:paginateProfiles & O: this.owner : ', this.owner);
+            this.currentLoggedProfile();
+        });
         if (this.valueParamUserId != null) {
             console.log('CONSOLOG: TENGO DATO DE UPROFILE VIA this.valueParamUserId consultedUserId');
             console.log('CONSOLOG: M:ngOnInit & O: this.valueParamUserId : ', this.valueParamUserId);
             this.consultedUserId = this.valueParamUserId;
             const query = {};
-            //          if (this.valueParamUserId != null) {
             query['userId.equals'] = this.valueParamUserId;
-            //          }
             this.uprofileService.query(query).subscribe(
                 (res: HttpResponse<IUprofile[]>) => {
                     this.uprofile = res.body[0];
                     console.log('CONSOLOG: M:ngOnInit & O: this.uprofile1 : ', this.uprofile);
-                    //                  this.uprofiles.forEach(profile => {
-                    //                      this.uprofileUserId = profile.userId;
-                    //                      console.log('CONSOLOG: M:ngOnInit & O: this.uprofileUserId : ', this.uprofileUserId);
-                    //                  });
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
@@ -123,48 +112,10 @@ export class UprofileDetailComponent implements OnInit {
                 console.log('CONSOLOG: M:ngOnInit & O: this.uprofile2 : ', this.uprofile);
             });
         }
-        //        this.activatedRoute.data.subscribe(({ uprofile }) => {
-        //            this.uprofile = uprofile;
-        //            this.consultedUserId = uprofile.userId;
-        //            if ( uprofile.userId != null) {
-        //                console.log('CONSOLOG: TENGO DATO DE UPROFILE VIA ROUTE consultedUserId');
-        //                console.log('CONSOLOG: M:ngOnInit & O: uprofile.userId : ', uprofile.userId);
-        //            }
-        //            if ( this.valueParamUserId != null) {
-        //                console.log('CONSOLOG: TENGO DATO DE UPROFILE VIA this.valueParamUserId consultedUserId');
-        //                console.log('CONSOLOG: M:ngOnInit & O: this.valueParamUserId : ', this.valueParamUserId);
-        //            }
-        //            console.log('CONSOLOG: M:ngOnInit & O: this.uprofile : ', this.uprofile);
-        //        });
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-            this.owner = account.id;
-            console.log('CONSOLOG: M:paginateProfiles & O: this.owner : ', this.owner);
-            this.currentLoggedProfile();
-            //            const query = {};
-            //            if (this.valueParamUserId != null) {
-            //                query['userId.equals'] = this.valueParamUserId;
-            //            }
-            //            this.uprofileService.query(query).subscribe(
-            //                (res: HttpResponse<IUprofile[]>) => {
-            //                    this.uprofiles = res.body;
-            //                    console.log('CONSOLOG: M:ngOnInit & O: this.uprofiles : ', this.uprofiles);
-            //                    this.uprofiles.forEach(profile => {
-            //                        this.uprofileUserId = profile.userId;
-            //                        console.log('CONSOLOG: M:ngOnInit & O: this.uprofileUserId : ', this.uprofileUserId);
-            //                    });
-            //                },
-            //                (res: HttpErrorResponse) => this.onError(res.message)
-            //            );
-        });
         this.fillProfile();
-        //        this.consultUmxm();
         this.isSaving = false;
         this.follow = new Object();
         this.blockuser = new Object();
-        //        this.umxmInterests();
-        //        this.umxmActivities();
-        //        this.umxmCelebs();
     }
 
     private fillProfile() {
@@ -174,16 +125,9 @@ export class UprofileDetailComponent implements OnInit {
                 this.consultedUser = res.body;
                 console.log('CONSOLOG: M:fillProfile & O: this.consultedUser : ', this.consultedUser);
                 console.log('CONSOLOG: M:fillProfile!!!!!!!!!!!!!!!!!!!!!!!!!! en fillProfile2');
-                //                this.consultUmxm().subscribe(
-                //                    (res2: HttpResponse<IUmxm>) => {
-                //                        this.umxm = res2.body;
-                //                        console.log('CONSOLOG: M:fillProfile & O: this.umxm : ', this.umxm);
                 this.uprofileInterests();
                 this.uprofileActivities();
                 this.uprofileCelebs();
-                //                    },
-                //                    (res2: HttpErrorResponse) => this.onError(res2.message)
-                //                );
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -193,11 +137,6 @@ export class UprofileDetailComponent implements OnInit {
         console.log('CONSOLOG: M:consultProfile!!!!!!!!!!!!!!!!!!!!!!!!!! en consultedUserId', this.consultedUserId);
         return this.userService.findById(this.consultedUserId);
     }
-
-    //    private consultUmxm() {
-    //        console.log('CONSOLOG: M:consultUmxm!!!!!!!!!!!!!!!!!!!!!!!!!! en consultUmxm', this.consultedUser.id);
-    //        return this.umxmService.find(this.consultedUser.id);
-    //    }
 
     private uprofileInterests() {
         const query2 = {};
@@ -280,16 +219,6 @@ export class UprofileDetailComponent implements OnInit {
             query2['followingId.in'] = this.uprofile.userId;
         }
         return this.followService.query(query2);
-        /*.subscribe(
-            ( res: HttpResponse<IFollow[]> ) => {
-                this.follows = res.body;
-                if ( this.follows.length > 0) {
-                    this.isFollowing = true;
-                    return this.follows[0];
-                }
-            },
-            ( res: HttpErrorResponse ) => this.onError( res.message )
-        );*/
     }
 
     following() {
@@ -336,7 +265,6 @@ export class UprofileDetailComponent implements OnInit {
         this.notification.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         this.notification.notificationDate = moment(this.creationDate, DATE_TIME_FORMAT);
         this.notification.notificationReason = notificationReason;
-        //        this.notification.notificationText = notificationReason + ': ' + this.profile.lastName + ' ' + profile.lastName;
         this.notification.notificationText = notificationReason;
         this.notification.isDelivered = false;
         this.notification.userId = this.consultedUserId;
@@ -347,7 +275,6 @@ export class UprofileDetailComponent implements OnInit {
             this.subscribeToSaveResponse2(this.notificationService.create(this.notification));
         }
     }
-    // BOTONES DE BLOCK Y UNBLOCK USER que más tarde pasaremos a los mensajes, pero ahora se quedan en el PROFILE
 
     private isBlockUser() {
         this.isBlocked = false;
@@ -357,23 +284,11 @@ export class UprofileDetailComponent implements OnInit {
             query['blockinguserId.in'] = this.loggedUserId;
         }
         return this.blockuserService.query(query);
-        //        .subscribe(
-        //            ( res: HttpResponse<IBlockuser[]> ) => {
-        //                this.blockusers = res.body;
-        //                if ( this.blockusers.length > 0) {
-        //                    this.isBlocked = true;
-        //                    return this.blockusers[0];
-        //                }
-        //            },
-        //            ( res: HttpErrorResponse ) => this.onError( res.message )
-        //        );
     }
 
     blocking() {
         this.isSaving = true;
         this.blockuser.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
-        //        this.blockuser.blockeduserId = this.loggedUserId;
-        //        this.blockuser.blockinguserId = this.uprofile.userId;
         this.blockuser.blockeduserId = this.uprofile.userId;
         this.blockuser.blockinguserId = this.loggedUserId;
         if (this.isBlocked === false) {

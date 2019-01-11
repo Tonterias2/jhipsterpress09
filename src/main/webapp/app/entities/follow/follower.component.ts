@@ -35,7 +35,9 @@ export class FollowerComponent implements OnInit, OnDestroy {
     nameParamFollows: any;
     valueParamFollows: any;
     zipZeroResults: any;
-    followingUserId: number;
+    followingId: number;
+    userQuery: boolean;
+    communityQuery: boolean;
 
     constructor(
         private followService: FollowService,
@@ -58,10 +60,12 @@ export class FollowerComponent implements OnInit, OnDestroy {
             if (params.followingIdEquals != null) {
                 this.nameParamFollows = 'followingId.equals';
                 this.valueParamFollows = params.followingIdEquals;
+                this.userQuery = true;
             }
             if (params.cfollowingIdEquals != null) {
                 this.nameParamFollows = 'cfollowingId.equals';
                 this.valueParamFollows = params.cfollowingIdEquals;
+                this.communityQuery = true;
             }
         });
     }
@@ -72,7 +76,7 @@ export class FollowerComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort()
         };
-        query[this.nameParamFollows] = this.followingUserId;
+        query[this.nameParamFollows] = this.followingId;
         this.followService
             .query(query)
             .subscribe(
@@ -113,25 +117,34 @@ export class FollowerComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.principal.identity().then(account => {
-            this.currentAccount = account;
-            const query = {};
-            if (this.currentAccount.id != null) {
-                query['id.equals'] = this.valueParamFollows;
-            }
-            this.uprofileService.query(query).subscribe(
-                (res: HttpResponse<IUprofile[]>) => {
-                    this.uprofiles = res.body;
-                    console.log('CONSOLOG: M:ngOnInit & O: this.uprofiles : ', this.uprofiles);
-                    this.uprofiles.forEach(profile => {
-                        this.followingUserId = profile.userId;
-                        console.log('CONSOLOG: M:ngOnInit & O: this.followedUserId : ', this.followingUserId);
-                        this.loadAll();
-                    });
-                },
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
-        });
+        if (this.userQuery === true) {
+            console.log('CONSOLOG: M:ngOnInit & O: ENTRO EN this.userQuery === true');
+            this.principal.identity().then(account => {
+                this.currentAccount = account;
+                const query = {};
+                if (this.currentAccount.id != null) {
+                    query['id.equals'] = this.valueParamFollows;
+                }
+                this.uprofileService.query(query).subscribe(
+                    (res: HttpResponse<IUprofile[]>) => {
+                        this.uprofiles = res.body;
+                        console.log('CONSOLOG: M:ngOnInit & O: this.uprofiles : ', this.uprofiles);
+                        this.uprofiles.forEach(profile => {
+                            this.followingId = profile.userId;
+                            console.log('CONSOLOG: M:ngOnInit & O: this.followingId : ', this.followingId);
+                            this.loadAll();
+                        });
+                    },
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+            });
+        }
+        if (this.communityQuery === true) {
+            console.log('CONSOLOG: M:ngOnInit & O: ENTRO EN this.communityQuery === true');
+            this.followingId = this.valueParamFollows;
+            console.log('CONSOLOG: M:ngOnInit & O: this.valueParamFollows : ', this.valueParamFollows);
+            this.loadAll();
+        }
         this.registerChangeInFollows();
     }
 
