@@ -24,6 +24,9 @@ export class InterestUpdateComponent implements OnInit {
 
     uprofiles: IUprofile[];
 
+    nameParamUprofileId: any;
+    valueParamUprofileId: any;
+
     currentAccount: any;
     currentSearch: string;
     routeData: any;
@@ -47,17 +50,14 @@ export class InterestUpdateComponent implements OnInit {
         private router: Router,
         private eventManager: JhiEventManager
     ) {
-        //        this.itemsPerPage = ITEMS_PER_PAGE;
-        //        this.routeData = this.activatedRoute.data.subscribe(data => {
-        //            this.page = data.pagingParams.page;
-        //            this.previousPage = data.pagingParams.page;
-        //            this.reverse = data.pagingParams.ascending;
-        //            this.predicate = data.pagingParams.predicate;
-        //        });
-        //        this.currentSearch =
-        //            this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search']
-        //                ? this.activatedRoute.snapshot.params['search']
-        //                : '';
+        this.activatedRoute.queryParams.subscribe(params => {
+            if (params.uprofileIdEquals != null) {
+                this.nameParamUprofileId = 'uprofile.userId';
+                this.valueParamUprofileId = params.uprofileIdEquals;
+                console.log('CONSOLOG: M:constructor & O: this.nameParamUprofileId : ', this.nameParamUprofileId);
+                console.log('CONSOLOG: M:constructor & O: this.valueParamUprofileId : ', this.valueParamUprofileId);
+            }
+        });
     }
 
     ngOnInit() {
@@ -127,6 +127,45 @@ export class InterestUpdateComponent implements OnInit {
                 (res: HttpResponse<IInterest[]>) => this.paginateInterests(res.body, res.headers),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
+    }
+
+    addExistingProfileInterest(interestId) {
+        console.log(
+            'CONSOLOG: M:addExistingProfileInterest & interestId: ',
+            interestId,
+            ', uprofileId : ',
+            this.nameParamUprofileId,
+            ' &:',
+            this.valueParamUprofileId
+        );
+        this.isSaving = true;
+        if (interestId !== undefined) {
+            const query = {};
+            query['id.equals'] = interestId;
+            console.log('CONSOLOG: M:addExistingProfileInterest & O: query : ', query);
+            this.interestService.query(query).subscribe(
+                (res: HttpResponse<IInterest[]>) => {
+                    this.interests = res.body;
+                    console.log('CONSOLOG: M:addExistingProfileInterest & O: res.body : ', res.body);
+                    console.log('CONSOLOG: M:addExistingProfileInterest & O: this.interestss : ', this.interests);
+                    const query2 = {};
+                    if (this.valueParamUprofileId != null) {
+                        query2['id.equals'] = this.valueParamUprofileId;
+                    }
+                    console.log('CONSOLOG: M:addExistingProfileInterest & O: query2 : ', query2);
+                    this.uprofileService.query(query2).subscribe(
+                        (res2: HttpResponse<IUprofile[]>) => {
+                            this.interests[0].uprofiles.push(res2.body[0]);
+                            console.log('CONSOLOG: M:addExistingProfileInterest & O: res2.body : ', res2.body);
+                            console.log('CONSOLOG: M:addExistingProfileInterest & O: this.interests : ', this.interests);
+                            this.subscribeToSaveResponse(this.interestService.update(this.interests[0]));
+                        },
+                        (res2: HttpErrorResponse) => this.onError(res2.message)
+                    );
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        }
     }
 
     loadPage(page: number) {

@@ -162,7 +162,7 @@
    								    <button id="jh-create-entity" 
    								    		*ngIf="owner === uprofile.userId" 
 									        class="btn btn-primary float-right jh-create-entity create-interest" 
-									        [routerLink]="['/interest/new']">
+									        [routerLink]="['/interest/new']" [queryParams]="{ 'uprofileIdEquals': uprofile.userId }">
 										<fa-icon [icon]="'plus'"></fa-icon>
 									</button>
 								    <strong class="g-mr-5">Interests:</strong>
