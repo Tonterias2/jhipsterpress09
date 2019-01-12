@@ -62,6 +62,7 @@ BEGINNERS:
 * [How to omit a dropbox when not needed in the forms:](ReadMe/Solution32.md)
 
 INTERMEDIATE:
+
 * [How to change DTOs with MapStruct:](ReadMe/Solution6.md)
 * [How to use Filtering to show user's data only:](ReadMe/Solution3.md)
 * [How to create completely new component pages on the frontend: Follows and BlockedUser case:](ReadMe/Solution21.md)
@@ -76,6 +77,12 @@ ADVANCED:
 
 * [How to manually add relationships to the User Entity:](ReadMe/Solution30.md)
 * More will be added.... (if you ask for any)
+
+SPECIFIC or not so general questions:
+
+* [How to sanitize YouTube links in Angular 7: DomSanitizer](ReadMe/Solution34.md)
+
+Do you already use this simple tool:https://www.diffchecker.com/diff?
 
 # DOWNLOAD & DATA INSERTIONS:
 

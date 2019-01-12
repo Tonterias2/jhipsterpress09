@@ -239,7 +239,7 @@ export class InterestUpdateComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.previousState();
+        this.router.navigate(['/uprofile/', this.valueParamUprofileId, 'view']);
     }
 
     private onSaveError() {
