@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
 	    <div class="col-sm-12">
-	    	<h2 id="jhi-interest-heading" jhiTranslate="jhipsterpressApp.interest.home.search">Search for an Interest</h2>
+	    	<h2 id="jhi-cinterest-heading" jhiTranslate="jhipsterpressApp.cinterest.home.search">Search for an Cinterest</h2>
 	            <form name="searchForm" class="form-inline">
 	                <div class="input-group w-100 mt-3">
 	                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'jhipsterpressApp.cinterest.home.search' | translate }}">
@@ -25,34 +25,17 @@
 	            <th></th>
 	            </tr>
 	            </thead>
-	            <tbody>
+                <tbody>
 	            <tr *ngFor="let cinterest of cinterests ;trackBy: trackId">
 	                <td><a [routerLink]="['/cinterest', cinterest.id, 'view' ]">{{cinterest.id}}</a></td>
 	                <td>{{cinterest.interestName}}</td>
 	                <td class="text-right">
 	                    <div class="btn-group flex-btn-group-container">
-	                        <button type="submit"
-	                                [routerLink]="['/cinterest', cinterest.id, 'view' ]"
-	                                class="btn btn-info btn-sm">
-	                            <fa-icon [icon]="'eye'"></fa-icon>
-	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-	                        </button>
-	                        <button *ngIf="owner === cinterest?.userId || owner === cinterest?.userId || isAdmin == true"
-	                        		type="submit"
-	                                [routerLink]="['/cinterest', cinterest.id, 'edit']"
-	                                class="btn btn-primary btn-sm">
-	                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-	                        </button>
-	                        <button *ngIf="owner === cinterest?.userId || owner === cinterest?.userId || isAdmin == true"
-	                        		type="submit"
-	                                [routerLink]="['/', { outlets: { popup: 'cinterest/'+ cinterest.id + '/delete'} }]"
-	                                replaceUrl="true"
-	                                queryParamsHandling="merge"
-	                                class="btn btn-danger btn-sm">
-	                            <fa-icon [icon]="'times'"></fa-icon>
-	                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-	                        </button>
+	                    	<button id="jh-create-entity" 
+							        class="btn btn-primary float-right jh-create-entity create-cinterest"
+							        (click)="addExistingProfileCinterest(cinterest.id)">
+								<fa-icon [icon]="'plus'"></fa-icon>
+							</button>
 	                    </div>
 	                </td>
 	            </tr>

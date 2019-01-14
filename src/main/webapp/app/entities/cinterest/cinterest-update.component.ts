@@ -77,8 +77,11 @@ export class CinterestUpdateComponent implements OnInit {
 
     private myCommunityCinterests(currentAccount) {
         const query = {};
-        if (this.currentAccount.id != null) {
-            query['userId.equals'] = this.currentAccount.id;
+        //        if (this.currentAccount.id != null) {
+        //            query['userId.equals'] = this.currentAccount.id;
+        //        }
+        if (this.valueParamCommunityId != null) {
+            query['id.equals'] = this.valueParamCommunityId;
         }
         this.communityService.query(query).subscribe(
             (res: HttpResponse<ICommunity[]>) => {
@@ -132,19 +135,19 @@ export class CinterestUpdateComponent implements OnInit {
             );
     }
 
-    addExistingProfileInterest(interestId) {
+    addExistingProfileCinterest(cinterestId) {
         console.log(
             'CONSOLOG: M:addExistingProfileInterest & interestId: ',
-            interestId,
+            cinterestId,
             ', uprofileId : ',
             this.nameParamCommunityId,
             ' &:',
             this.valueParamCommunityId
         );
         this.isSaving = true;
-        if (interestId !== undefined) {
+        if (cinterestId !== undefined) {
             const query = {};
-            query['id.equals'] = interestId;
+            query['id.equals'] = cinterestId;
             console.log('CONSOLOG: M:addExistingProfileInterest & O: query : ', query);
             this.cinterestService.query(query).subscribe(
                 (res: HttpResponse<ICinterest[]>) => {
