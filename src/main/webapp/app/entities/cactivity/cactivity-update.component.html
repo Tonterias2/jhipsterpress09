@@ -51,7 +51,7 @@
         </div>
     </div>
 </div>
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" *ngIf="isCreateDisabled">
             <h2 id="jhi-cactivity-heading" jhiTranslate="jhipsterpressApp.cactivity.home.createOrEditLabel">Create or edit a Cactivity</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>

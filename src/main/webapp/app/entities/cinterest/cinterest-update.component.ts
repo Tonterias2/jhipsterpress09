@@ -71,15 +71,12 @@ export class CinterestUpdateComponent implements OnInit {
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;
-            this.myCommunityCinterests(this.currentAccount);
+            this.myCommunityCinterests();
         });
     }
 
-    private myCommunityCinterests(currentAccount) {
+    private myCommunityCinterests() {
         const query = {};
-        //        if (this.currentAccount.id != null) {
-        //            query['userId.equals'] = this.currentAccount.id;
-        //        }
         if (this.valueParamCommunityId != null) {
             query['id.equals'] = this.valueParamCommunityId;
         }
