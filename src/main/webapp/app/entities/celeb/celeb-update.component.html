@@ -50,7 +50,7 @@
         </div>
     </div>
     
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" *ngIf="isCreateDisabled">
             <h2 id="jhi-celeb-heading" jhiTranslate="jhipsterpressApp.celeb.home.createOrEditLabel">Create or edit a Celeb</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>

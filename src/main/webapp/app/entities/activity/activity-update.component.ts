@@ -21,6 +21,7 @@ export class ActivityUpdateComponent implements OnInit {
     activity: IActivity;
     activities: IActivity[];
     isSaving: boolean;
+    isCreateDisabled = false;
 
     uprofiles: IUprofile[];
 
@@ -196,6 +197,7 @@ export class ActivityUpdateComponent implements OnInit {
     }
 
     search(query) {
+        this.isCreateDisabled = true;
         if (!query) {
             return this.clear();
         }

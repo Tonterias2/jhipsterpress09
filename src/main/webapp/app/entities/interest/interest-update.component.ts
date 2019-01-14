@@ -21,6 +21,7 @@ export class InterestUpdateComponent implements OnInit {
     interest: IInterest;
     interests: IInterest[];
     isSaving: boolean;
+    isCreateDisabled = false;
 
     uprofiles: IUprofile[];
 
@@ -196,6 +197,7 @@ export class InterestUpdateComponent implements OnInit {
     }
 
     search(query) {
+        this.isCreateDisabled = true;
         if (!query) {
             return this.clear();
         }

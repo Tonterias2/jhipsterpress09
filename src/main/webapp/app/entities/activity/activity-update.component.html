@@ -49,7 +49,7 @@
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" *ngIf="isCreateDisabled">
             <h2 id="jhi-activity-heading" jhiTranslate="jhipsterpressApp.activity.home.createOrEditLabel">Create or edit a Activity</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>

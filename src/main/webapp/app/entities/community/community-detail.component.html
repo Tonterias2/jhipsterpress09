@@ -52,7 +52,7 @@
 						<button id="jh-create-entity"
 							*ngIf="owner === community.userId" 
 							class="btn btn-primary float-right jh-create-entity create-interest"
-							[routerLink]="['/cinterest/new']">
+							[routerLink]="['/cinterest/new']" [queryParams]="{ 'communityIdEquals': community.id }">
 							<fa-icon [icon]="'plus'"></fa-icon>
 						</button>
 						<strong class="g-mr-5">Interests:</strong> 
@@ -74,7 +74,7 @@
 				            <button id="jh-create-entity" 
 				            	*ngIf="owner === community.userId" 
 				                class="btn btn-primary float-right jh-create-entity create-interest" 
-				                [routerLink]="['/cactivity/new']">
+				                [routerLink]="['/cactivity/new']" [queryParams]="{ 'communityIdEquals': community.id }">
 				            <fa-icon [icon]="'plus'"></fa-icon>
 				        </button>
 					    <strong class="g-mr-5">Activities:</strong>
@@ -96,7 +96,7 @@
 				            <button id="jh-create-entity" 
 				           		*ngIf="owner === community.userId" 
 				                class="btn btn-primary float-right jh-create-entity create-interest" 
-				                [routerLink]="['/cceleb/new']">
+				                [routerLink]="['/cceleb/new']" [queryParams]="{ 'communityIdEquals': community.id }">
 				            <fa-icon [icon]="'plus'"></fa-icon>
 				        </button>
 					    <strong class="g-mr-5">Celebs:</strong>

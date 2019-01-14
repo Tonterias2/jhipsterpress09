@@ -21,6 +21,7 @@ export class CelebUpdateComponent implements OnInit {
     celeb: ICeleb;
     celebs: ICeleb[];
     isSaving: boolean;
+    isCreateDisabled = false;
 
     uprofiles: IUprofile[];
 
@@ -196,6 +197,7 @@ export class CelebUpdateComponent implements OnInit {
     }
 
     search(query) {
+        this.isCreateDisabled = true;
         if (!query) {
             return this.clear();
         }
