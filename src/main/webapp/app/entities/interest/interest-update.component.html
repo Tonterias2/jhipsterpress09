@@ -48,7 +48,7 @@
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
-    </div>
+    </div *ngIf="!isSearched">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
             <h2 id="jhi-interest-heading" jhiTranslate="jhipsterpressApp.interest.home.createOrEditLabel">Create or edit a Interest</h2>
             <div>

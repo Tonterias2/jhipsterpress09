@@ -230,6 +230,12 @@ export class ActivityUpdateComponent implements OnInit {
         this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
         this.queryCount = this.totalItems;
         this.activities = data;
+        this.queryCount = this.totalItems;
+        if (this.queryCount === 0) {
+            this.activity.activityName = this.currentSearch;
+        }
+        console.log('CONSOLOG: M:paginateActivities & O: this.totalItems : ', this.totalItems);
+        console.log('CONSOLOG: M:paginateActivities & O: this.queryCount : ', this.queryCount);
         console.log('CONSOLOG: M:paginateActivities & O: this.activities : ', this.activities);
     }
 
