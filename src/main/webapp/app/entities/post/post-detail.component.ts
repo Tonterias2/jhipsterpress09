@@ -46,6 +46,8 @@ export class PostDetailComponent implements OnInit {
     currentAccount: any;
     creationDate: string;
     owner: any;
+    postUserFirstName: string;
+    postUserLastName: string;
 
     error: any;
     success: any;
@@ -217,6 +219,8 @@ export class PostDetailComponent implements OnInit {
         this.userService.findById(this.post.userId).subscribe(
             (res: HttpResponse<IUser>) => {
                 this.user = res.body;
+                this.postUserFirstName = res.body.firstName;
+                this.postUserLastName = res.body.lastName;
                 console.log('CONSOLOG: M:ngOnInit & O: this.user : ', this.user);
             },
             (res: HttpErrorResponse) => this.onError(res.message)

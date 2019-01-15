@@ -46,6 +46,7 @@ export class UprofileDetailComponent implements OnInit {
 
     consultedUser: IUser;
     consultedUserId: number;
+    loggedProfileId: number;
     private _notification: INotification;
     notificationDate: string;
     notificationReason: any;
@@ -60,6 +61,8 @@ export class UprofileDetailComponent implements OnInit {
     nameParamUserId: any;
     valueParamUserId: any;
     uprofileUserId: any;
+    uprofileUserFirstName: string;
+    uprofileUserLastName: string;
 
     constructor(
         private dataUtils: JhiDataUtils,
@@ -123,6 +126,8 @@ export class UprofileDetailComponent implements OnInit {
         this.consultProfile().subscribe(
             (res: HttpResponse<IUser>) => {
                 this.consultedUser = res.body;
+                this.uprofileUserFirstName = res.body.firstName;
+                this.uprofileUserLastName = res.body.lastName;
                 console.log('CONSOLOG: M:fillProfile & O: this.consultedUser : ', this.consultedUser);
                 console.log('CONSOLOG: M:fillProfile!!!!!!!!!!!!!!!!!!!!!!!!!! en fillProfile2');
                 this.uprofileInterests();
@@ -182,6 +187,7 @@ export class UprofileDetailComponent implements OnInit {
         this.uprofileService.query(query).subscribe(
             (res: HttpResponse<IUprofile[]>) => {
                 this.loggedProfile = res.body;
+                this.loggedProfileId = res.body[0].id;
                 console.log('CONSOLOG: M:currentLoggedProfile & O: this.loggedProfile : ', this.loggedProfile);
                 this.loggedProfile.forEach(profile => {
                     this.loggedUserId = profile.userId;

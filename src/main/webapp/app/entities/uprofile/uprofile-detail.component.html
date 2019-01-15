@@ -41,7 +41,7 @@
 
               <!-- User Info -->
               <span class="g-pos-abs g-top-20 g-left-0">
-                  <a class="btn btn-sm u-btn-primary rounded-0">{{uprofile.userFirstName}} {{uprofile.userLastName}}</a>
+                  <a class="btn btn-sm u-btn-primary rounded-0">{{uprofileUserFirstName}} {{uprofileUserLastName}}</a>
                   <!--  <small class="d-block g-bg-black g-color-white g-pa-5">Project Manager</small> -->
                 </span>
               <!-- End User Info -->
@@ -120,8 +120,6 @@
           <!-- Profile Content -->
           <div class="col-lg-9">
 
-
-
 			 <div class="row justify-content-center">
 				    <div class="col-8">
 				        <div *ngIf="uprofile">
@@ -151,7 +149,7 @@
 							</span> 
 				            <span jhiTranslate="jhipsterpressApp.uprofile.detail.title">Profile</span> 
 				            </h2>
-				            <h2>{{uprofile.userFirstName}} {{uprofile.userLastName}}</h2>
+				            <h2>{{uprofileUserFirstName}} {{uprofileUserLastName}}</h2>
 				            <hr>
 				            <jhi-alert-error></jhi-alert-error>
 				            <dl class="row-md jh-entity-details">

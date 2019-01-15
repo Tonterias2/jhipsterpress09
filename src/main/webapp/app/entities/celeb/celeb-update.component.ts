@@ -261,6 +261,10 @@ export class CelebUpdateComponent implements OnInit {
         return item.id;
     }
 
+    trackId(index: number, item: ICeleb) {
+        return item.id;
+    }
+
     getSelected(selectedVals: Array<any>, option: any) {
         if (selectedVals) {
             for (let i = 0; i < selectedVals.length; i++) {

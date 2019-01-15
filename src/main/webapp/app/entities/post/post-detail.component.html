@@ -12,7 +12,7 @@
 		
 		                  <ul class="list-inline d-sm-flex g-color-gray-dark-v4 mb-0">
 		                    <li class="list-inline-item" *ngIf="post && uprofile">
-		                      <a [routerLink]="['/uprofile', uprofile.id, 'view']" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">{{post.userFirstName}} {{post.userLastName}}</a>
+		                      <a [routerLink]="['/uprofile', uprofile.id, 'view']" class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover">{{postUserFirstName}} {{postUserLastName}}</a>
 		                    </li>
 		                    <li class="list-inline-item g-mx-10">/</li>
 		                    <li class="list-inline-item">
@@ -166,7 +166,7 @@
 
 		                    <div class="media-body" *ngIf="uprofile">
 		                      <h4 class="g-color-gray-dark-v1 g-mb-15">
-		                        <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/uprofile', uprofile.id, 'view']">{{post.userFirstName}} {{post.userLastName}}</a>
+		                        <a class="u-link-v5 g-color-gray-dark-v1 g-color-primary--hover" [routerLink]="['/uprofile', uprofile.id, 'view']">{{postUserFirstName}} {{postUserLastName}}</a>
 		                      </h4>
 		
 		                      <div class="g-mb-15">

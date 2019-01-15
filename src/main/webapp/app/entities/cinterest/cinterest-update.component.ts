@@ -263,6 +263,10 @@ export class CinterestUpdateComponent implements OnInit {
         return item.id;
     }
 
+    trackId(index: number, item: ICinterest) {
+        return item.id;
+    }
+
     getSelected(selectedVals: Array<any>, option: any) {
         if (selectedVals) {
             for (let i = 0; i < selectedVals.length; i++) {

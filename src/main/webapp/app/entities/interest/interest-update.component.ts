@@ -261,6 +261,10 @@ export class InterestUpdateComponent implements OnInit {
         return item.id;
     }
 
+    trackId(index: number, item: IInterest) {
+        return item.id;
+    }
+
     getSelected(selectedVals: Array<any>, option: any) {
         if (selectedVals) {
             for (let i = 0; i < selectedVals.length; i++) {
