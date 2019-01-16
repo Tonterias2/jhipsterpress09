@@ -76,6 +76,7 @@ INTERMEDIATE:
 ADVANCED:
 
 * [How to manually add relationships to the User Entity:](ReadMe/Solution30.md)
+* [Many-to-Many: How the order of factors does alter the product:](ReadMe/Solution35.md)
 * More will be added.... (if you ask for any)
 
 SPECIFIC or not so general questions:
