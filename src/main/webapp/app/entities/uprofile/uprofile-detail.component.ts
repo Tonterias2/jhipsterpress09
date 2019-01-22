@@ -334,6 +334,7 @@ export class UprofileDetailComponent implements OnInit {
                         console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', interest.uprofiles.indexOf(uprofile));
                         interest.uprofiles.splice(interest.uprofiles.indexOf(uprofile), 1);
                         this.subscribeToSaveResponse3(this.interestService.update(interest));
+                        this.interests.splice(interest.uprofiles.indexOf(uprofile), 1);
                     }
                 });
             }
@@ -349,6 +350,7 @@ export class UprofileDetailComponent implements OnInit {
                     if (uprofile.id === uprofileId) {
                         activity.uprofiles.splice(activity.uprofiles.indexOf(uprofile), 1);
                         this.subscribeToSaveResponse4(this.activityService.update(activity));
+                        this.activities.splice(activity.uprofiles.indexOf(uprofile), 1);
                     }
                 });
             }
@@ -365,6 +367,7 @@ export class UprofileDetailComponent implements OnInit {
                         console.log('CONSOLOG: M:removeProfileceleb; INDEX!!!!!: ', celeb.uprofiles.indexOf(uprofile));
                         celeb.uprofiles.splice(celeb.uprofiles.indexOf(uprofile), 1);
                         this.subscribeToSaveResponse5(this.celebService.update(celeb));
+                        this.celebs.splice(celeb.uprofiles.indexOf(uprofile), 1);
                     }
                 });
             }

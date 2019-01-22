@@ -252,6 +252,7 @@ export class CommunityDetailComponent implements OnInit {
                         console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', cinterest.communities.indexOf(community));
                         cinterest.communities.splice(cinterest.communities.indexOf(community), 1);
                         this.subscribeToSaveResponse3(this.cinterestService.update(cinterest));
+                        this.cinterests.splice(cinterest.communities.indexOf(community), 1);
                     }
                 });
             }
@@ -271,6 +272,7 @@ export class CommunityDetailComponent implements OnInit {
                         console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', cactivity.communities.indexOf(community));
                         cactivity.communities.splice(cactivity.communities.indexOf(community), 1);
                         this.subscribeToSaveResponse3(this.cactivityService.update(cactivity));
+                        this.cactivities.splice(cactivity.communities.indexOf(community), 1);
                     }
                 });
             }
@@ -290,6 +292,7 @@ export class CommunityDetailComponent implements OnInit {
                         console.log('CONSOLOG: M:removeProfileInterest; INDEX!!!!!: ', cceleb.communities.indexOf(community));
                         cceleb.communities.splice(cceleb.communities.indexOf(community), 1);
                         this.subscribeToSaveResponse3(this.ccelebService.update(cceleb));
+                        this.ccelebs.splice(cceleb.communities.indexOf(community), 1);
                     }
                 });
             }
@@ -323,7 +326,7 @@ export class CommunityDetailComponent implements OnInit {
 
     private onSaveSuccess2() {
         this.isSaving = false;
-        this.reload();
+        //        this.reload();
     }
 
     private onSaveError() {
