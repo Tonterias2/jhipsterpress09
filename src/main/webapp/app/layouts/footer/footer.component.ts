@@ -14,26 +14,23 @@ import { NewsletterService } from '../../entities/newsletter/newsletter.service'
 })
 export class FooterComponent implements OnInit {
     newsletter: INewsletter;
+    //    private _newsletter: INewsletter;
     isSaving: boolean;
     creationDate: string;
 
     constructor(private newsletterService: NewsletterService, private activatedRoute: ActivatedRoute) {}
 
     ngOnInit() {
+        this.creationDate = '';
         this.isSaving = false;
-        //        this.activatedRoute.data.subscribe(({ newsletter }) => {
-        //            this.newsletter = newsletter;
-        //            console.log('CONSOLOG: M:ngOnInit & O: this.newsletter : ', this.newsletter);
-        //            this.creationDate = this.newsletter.creationDate != null ? this.newsletter.creationDate.format(DATE_TIME_FORMAT) : null;
-        //        });
+        this.creationDate = moment().format(DATE_TIME_FORMAT);
         this.newsletter = new Object();
+        this.newsletter.creationDate = moment(this.creationDate);
+        this.newsletter.email = '';
     }
 
     save() {
         this.isSaving = true;
-        console.log('CONSOLOG: M:saveNewsletter & O: this.newsletter : ', this.newsletter);
-        this.newsletter.creationDate = moment(this.creationDate, DATE_TIME_FORMAT);
-        //        this.newsletter.creationDate = this.creationDate != null ? moment( this.creationDate, DATE_TIME_FORMAT ) : null;
         if (this.newsletter.id !== undefined) {
             this.subscribeToSaveResponse(this.newsletterService.update(this.newsletter));
         } else {
@@ -47,10 +44,25 @@ export class FooterComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
+        //        this.newsletter.email = '';
+        //        this.newsletterForm.reset();
         //        this.previousState(); poenemos un alert que diga que lo hemos recibido LLAMANDO al sistema de jhiAlert? o CUPEN solucion
     }
 
     private onSaveError() {
         this.isSaving = false;
     }
+
+    //    get newsletter() {
+    //        return this._newsletter;
+    //    }
+    //
+    //    set newsletter(newsletter: INewsletter) {
+    //        this.newsletter = newsletter;
+    //        console.log('CONSOLOG: M:set newsletter & O: DATE_TIME_FORMAT : ', DATE_TIME_FORMAT);
+    //        this.creationDate = moment([]).format(DATE_TIME_FORMAT);
+    //        console.log('CONSOLOG: M:set newsletter & O: this.newsletter : ', this.creationDate);
+    ////        this.newsletter.creationDate = this.creationDate;
+    //        this.newsletter.email = '';
+    //    }
 }
