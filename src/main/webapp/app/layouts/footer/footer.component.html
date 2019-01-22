@@ -72,12 +72,31 @@
 
         <div class="col-md-4 text-center text-md-right g-mb-30">
           <!-- Subscribe Form -->
-          <form class="input-group rounded">
+          <!--<form class="input-group rounded">
             <input class="form-control g-brd-secondary-light-v2 g-color-secondary-dark-v1 g-placeholder-secondary-dark-v1 g-bg-secondary-light-v3 g-font-weight-400 g-font-size-13 rounded g-px-20 g-py-12" type="email" placeholder="Enter your email address">
             <span class="input-group-addon g-brd-none g-py-0 g-pr-0">
-              <button class="btn u-btn-white g-color-primary--hover g-font-weight-600 g-font-size-13 text-uppercase rounded g-py-12 g-px-20" type="submit">Subscribe</button>
+              <button class="btn u-btn-white g-color-primary--hover g-font-weight-600 g-font-size-13 text-uppercase rounded g-py-12 g-px-20" (click)="saveNewsletter(email)">Subscribe</button>
             </span>
-          </form>
+          </form>-->
+			<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+			    <div>
+			        <jhi-alert-error></jhi-alert-error>
+			        <div class="form-group">
+			            <input type="text" class="form-control" name="email" id="field_email"
+			                [(ngModel)]="newsletter.email" required/>
+			            <div [hidden]="!(editForm.controls.email?.dirty && editForm.controls.email?.invalid)">
+			                <small class="form-text text-danger"
+			                [hidden]="!editForm.controls.email?.errors?.required" jhiTranslate="entity.validation.required">
+			                This field is required.
+			                </small>
+			            </div>
+			        </div>
+			    <div>
+			        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+			            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+			        </button>
+			    </div>
+			</form>
           <!-- End Subscribe Form -->
         </div>
       </div>
