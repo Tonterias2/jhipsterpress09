@@ -57,7 +57,8 @@ export class VquestionUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ vquestion }) => {
             this.vquestion = vquestion;
-            this.creationDate = this.vquestion.creationDate != null ? this.vquestion.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.vquestion.creationDate = moment(this.creationDate);
         });
         if (this.valueParamVtopic != null) {
             this.vquestion.vtopicId = this.valueParamVtopic;

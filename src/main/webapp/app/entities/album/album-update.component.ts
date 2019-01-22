@@ -38,7 +38,8 @@ export class AlbumUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ album }) => {
             this.album = album;
-            this.creationDate = this.album.creationDate != null ? this.album.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.album.creationDate = moment(this.creationDate);
         });
         console.log('CONSOLOG: M:ngOnInit & O: this.isSaving : ', this.isSaving);
         this.principal.identity().then(account => {

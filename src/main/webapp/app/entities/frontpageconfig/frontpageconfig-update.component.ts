@@ -23,8 +23,8 @@ export class FrontpageconfigUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ frontpageconfig }) => {
             this.frontpageconfig = frontpageconfig;
-            this.creationDate =
-                this.frontpageconfig.creationDate != null ? this.frontpageconfig.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.frontpageconfig.creationDate = moment(this.creationDate);
         });
     }
 

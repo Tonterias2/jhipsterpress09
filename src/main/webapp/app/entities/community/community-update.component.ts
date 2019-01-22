@@ -63,7 +63,8 @@ export class CommunityUpdateComponent implements OnInit {
         });
         this.activatedRoute.data.subscribe(({ community }) => {
             this.community = community;
-            this.creationDate = this.community.creationDate != null ? this.community.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.community.creationDate = moment(this.creationDate);
             console.log('CONSOLOG: M:ngOnInit & O: this.community : ', this.community);
         });
         this.myUser();

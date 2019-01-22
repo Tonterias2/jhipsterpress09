@@ -60,6 +60,7 @@ BEGINNERS:
 * [Entity with double relation to another entity:](ReadMe/Solution8.md)
 * [How to put logic inside an observable:](ReadMe/Solution23.md)
 * [How to omit a dropbox when not needed in the forms:](ReadMe/Solution32.md)
+* [How to get dates automatically inserted in your forms:](ReadMe/Solution36.md)
 
 INTERMEDIATE:
 

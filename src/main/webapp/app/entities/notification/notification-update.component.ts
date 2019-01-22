@@ -33,7 +33,8 @@ export class NotificationUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ notification }) => {
             this.notification = notification;
-            this.creationDate = this.notification.creationDate != null ? this.notification.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.notification.creationDate = moment(this.creationDate);
             this.notificationDate =
                 this.notification.notificationDate != null ? this.notification.notificationDate.format(DATE_TIME_FORMAT) : null;
         });

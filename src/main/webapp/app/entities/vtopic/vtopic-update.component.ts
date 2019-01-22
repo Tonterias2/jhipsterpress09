@@ -46,7 +46,8 @@ export class VtopicUpdateComponent implements OnInit {
         });
         this.activatedRoute.data.subscribe(({ vtopic }) => {
             this.vtopic = vtopic;
-            this.creationDate = this.vtopic.creationDate != null ? this.vtopic.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.vtopic.creationDate = moment(this.creationDate);
         });
         this.userService.query().subscribe(
             (res: HttpResponse<IUser[]>) => {

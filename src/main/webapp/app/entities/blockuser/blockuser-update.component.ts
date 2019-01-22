@@ -37,7 +37,8 @@ export class BlockuserUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ blockuser }) => {
             this.blockuser = blockuser;
-            this.creationDate = this.blockuser.creationDate != null ? this.blockuser.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.blockuser.creationDate = moment(this.creationDate);
         });
         this.userService.query().subscribe(
             (res: HttpResponse<IUser[]>) => {

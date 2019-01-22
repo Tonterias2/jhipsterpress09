@@ -75,7 +75,8 @@ export class MessageUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ message }) => {
             this.message = message;
-            this.creationDate = this.message.creationDate != null ? this.message.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.message.creationDate = moment(this.creationDate);
             const query = {};
             if (this.valueParamFollows != null) {
                 query['id.equals'] = Number(this.valueParamFollows);

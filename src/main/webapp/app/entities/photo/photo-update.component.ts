@@ -47,7 +47,8 @@ export class PhotoUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ photo }) => {
             this.photo = photo;
-            this.creationDate = this.photo.creationDate != null ? this.photo.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.photo.creationDate = moment(this.creationDate);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;

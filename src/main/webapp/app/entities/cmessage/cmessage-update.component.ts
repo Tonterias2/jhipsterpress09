@@ -73,16 +73,11 @@ export class CmessageUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ cmessage }) => {
             this.cmessage = cmessage;
-            this.creationDate = this.cmessage.creationDate != null ? this.cmessage.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.cmessage.creationDate = moment(this.creationDate);
             console.log('CONSOLOG: M:ngOnInit & O: this.cmessage : ', this.cmessage);
             this.cmessage.creceiverId = Number(this.valueParamFollows);
         });
-        //        this.communityService.query().subscribe(
-        //            (res: HttpResponse<ICommunity[]>) => {
-        //                this.communities = res.body;
-        //            },
-        //            (res: HttpErrorResponse) => this.onError(res.message)
-        //        );
         this.principal.identity().then(account => {
             this.currentAccount = account;
             this.cmessage.csenderId = this.currentAccount.id;

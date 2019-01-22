@@ -55,7 +55,8 @@ export class VanswerUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ vanswer }) => {
             this.vanswer = vanswer;
-            this.creationDate = this.vanswer.creationDate != null ? this.vanswer.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.vanswer.creationDate = moment(this.creationDate);
         });
         if (this.nameParamVquestion != null) {
             this.vanswer.vquestionId = this.valueParamVquestion;

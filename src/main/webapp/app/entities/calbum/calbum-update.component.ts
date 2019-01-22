@@ -38,7 +38,8 @@ export class CalbumUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ calbum }) => {
             this.calbum = calbum;
-            this.creationDate = this.calbum.creationDate != null ? this.calbum.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.calbum.creationDate = moment(this.creationDate);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;

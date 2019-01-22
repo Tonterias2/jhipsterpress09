@@ -57,7 +57,8 @@ export class UprofileUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ uprofile }) => {
             this.uprofile = uprofile;
             console.log('CONSOLOG: M:ngOnInit & O: this.uprofile : ', this.uprofile);
-            this.creationDate = this.uprofile.creationDate != null ? this.uprofile.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.uprofile.creationDate = moment(this.creationDate);
             this.birthdate = this.uprofile.birthdate != null ? this.uprofile.birthdate.format(DATE_TIME_FORMAT) : null;
             this.principal.identity().then(account => {
                 this.currentAccount = account;

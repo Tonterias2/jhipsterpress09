@@ -37,7 +37,8 @@ export class FollowUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ follow }) => {
             this.follow = follow;
-            this.creationDate = this.follow.creationDate != null ? this.follow.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.follow.creationDate = moment(this.creationDate);
         });
         this.userService.query().subscribe(
             (res: HttpResponse<IUser[]>) => {

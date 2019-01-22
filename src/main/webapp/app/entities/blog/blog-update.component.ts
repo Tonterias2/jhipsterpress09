@@ -40,7 +40,8 @@ export class BlogUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ blog }) => {
             this.blog = blog;
-            this.creationDate = this.blog.creationDate != null ? this.blog.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.blog.creationDate = moment(this.creationDate);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;

@@ -64,8 +64,9 @@ export class PostUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ post }) => {
             this.post = post;
             console.log('CONSOLOG: M:ngOnInit & O: this.post : ', this.post);
-            this.creationDate = this.post.creationDate != null ? this.post.creationDate.format(DATE_TIME_FORMAT) : null;
-            this.publicationDate = this.post.publicationDate != null ? this.post.publicationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.post.creationDate = moment(this.creationDate);
+            this.post.publicationDate = moment(this.creationDate);
         });
         this.principal.identity().then(account => {
             this.currentAccount = account;

@@ -42,7 +42,8 @@ export class VthumbUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({ vthumb }) => {
             this.vthumb = vthumb;
-            this.creationDate = this.vthumb.creationDate != null ? this.vthumb.creationDate.format(DATE_TIME_FORMAT) : null;
+            this.creationDate = moment().format(DATE_TIME_FORMAT);
+            this.vthumb.creationDate = moment(this.creationDate);
         });
         this.userService.query().subscribe(
             (res: HttpResponse<IUser[]>) => {
