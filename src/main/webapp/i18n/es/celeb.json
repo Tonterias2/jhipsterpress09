@@ -4,8 +4,9 @@
             "home": {
                 "title": "Celebridad",
                 "createLabel": "Crear nueva Celebridad",
-                "createOrEditLabel": "Crear o editar Celebridades",
                 "myLabel": "Mis Celebridades",
+                "noticeLabel": "Escoge un interés existente o corre el riesgo de estar solo en una nueva categoría de Interés!",
+                "createOrEditLabel": "Crear o editar Celebridades",
                 "search": "Buscar una Celebridad"
             },
             "created": "Una nueva Celebridad ha sido creada con el identificador {{ param }}",

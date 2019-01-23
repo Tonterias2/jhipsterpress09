@@ -4,6 +4,7 @@
             "home": {
                 "title": "Tags",
                 "createLabel": "Create a new Tag",
+                "noticeLabel": "Choose one of the following or risk to be alone in a new Tag category!",
                 "createOrEditLabel": "Create or edit a Tag",
                 "search": "Search for Tag"
             },

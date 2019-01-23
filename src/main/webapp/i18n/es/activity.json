@@ -4,8 +4,9 @@
             "home": {
                 "title": "Actividades",
                 "createLabel": "Crear una nueva Actividad",
-                "createOrEditLabel": "Crear o editar Actividad",
                 "myLabel": "Mi Actividades",
+                "noticeLabel": "Escoge un interés existente o corre el riesgo de estar solo en una nueva categoría de Actividad!",
+                "createOrEditLabel": "Crear o editar Actividad",
                 "search": "Buscar una Actividad"
             },
             "created": "Una nueva Actividad ha sido creada con el identificador {{ param }}",

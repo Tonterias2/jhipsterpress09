@@ -41,6 +41,7 @@
 	            </tr>
 	            </tbody>
 	        </table>
+	        <h4 *ngIf="cinterests.length>0; else zipZeroResults" jhiTranslate="jhipsterpressApp.cinterest.home.noticeLabel">Choose one of the following or risk to be alone in a new category!!</h4>
 	    </div>
 	    <div *ngIf="cinterests && cinterests.length">
 	        <div class="row justify-content-center">
@@ -52,7 +53,7 @@
 	    </div>
 	</div>
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" *ngIf="isCreateDisabled">
-            <h2 id="jhi-cinterest-heading" jhiTranslate="jhipsterpressApp.cinterest.home.createOrEditLabel">Create or edit a Cinterest</h2>
+            <h2 id="jhi-cinterest-heading" jhiTranslate="jhipsterpressApp.cinterest.home.createLabel">Create or edit a Cinterest</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!cinterest.id">
@@ -97,4 +98,7 @@
             </div>
         </form>
     </div>
+    <ng-template #zipZeroResults>
+	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
+	</ng-template>
 </div>

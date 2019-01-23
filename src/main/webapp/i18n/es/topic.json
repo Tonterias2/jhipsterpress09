@@ -4,6 +4,7 @@
             "home": {
                 "title": "Temas",
                 "createLabel": "Crear nuevo Tema",
+                "noticeLabel": "Escoge un interés existente o corre el riesgo de estar solo en una nueva categoría de Tema!",
                 "createOrEditLabel": "Crear o editar Tema",
                 "search": "Buscar un Tema"
             },

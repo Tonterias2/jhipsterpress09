@@ -4,6 +4,7 @@
             "home": {
                 "title": "Etiquetas",
                 "createLabel": "Crear nueva Etiqueta",
+                "noticeLabel": "Escoge un interés existente o corre el riesgo de estar solo en una nueva categoría de Etiqueta!",
                 "createOrEditLabel": "Crear o editar Etiqueta",
                 "search": "Buscar una Etiqueta"
             },

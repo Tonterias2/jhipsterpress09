@@ -41,6 +41,7 @@
 	            </tr>
 	            </tbody>
 	        </table>
+	        <h4 *ngIf="ccelebs.length>0; else zipZeroResults" jhiTranslate="jhipsterpressApp.cceleb.home.noticeLabel">Choose one of the following or risk to be alone in a new category!!</h4>
 	    </div>
 	    <div *ngIf="ccelebs && ccelebs.length">
 	        <div class="row justify-content-center">
@@ -53,7 +54,7 @@
 	</div>
     
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm" *ngIf="isCreateDisabled">
-            <h2 id="jhi-cceleb-heading" jhiTranslate="jhipsterpressApp.cceleb.home.createOrEditLabel">Create or edit a Cceleb</h2>
+            <h2 id="jhi-cceleb-heading" jhiTranslate="jhipsterpressApp.cceleb.home.createLabel">Create or edit a Cceleb</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!cceleb.id">
@@ -98,4 +99,7 @@
             </div>
         </form>
     </div>
+    <ng-template #zipZeroResults>
+	  <h2 id="page-heading">Nought, nil, nada, nothing, zero, zilch, zip...</h2>
+	</ng-template>
 </div>
