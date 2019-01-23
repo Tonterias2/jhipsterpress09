@@ -235,9 +235,9 @@ export class InterestUpdateComponent implements OnInit {
         if (this.queryCount === 0) {
             this.interest.interestName = this.currentSearch;
         }
-        console.log('CONSOLOG: M:paginateActivities & O: this.totalItems : ', this.totalItems);
-        console.log('CONSOLOG: M:paginateActivities & O: this.queryCount : ', this.queryCount);
-        console.log('CONSOLOG: M:paginateActivities & O: this.interests : ', this.interests);
+        console.log('CONSOLOG: M:paginateInterests & O: this.totalItems : ', this.totalItems);
+        console.log('CONSOLOG: M:paginateInterests & O: this.queryCount : ', this.queryCount);
+        console.log('CONSOLOG: M:paginateInterests & O: this.interests : ', this.interests);
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IInterest>>) {
