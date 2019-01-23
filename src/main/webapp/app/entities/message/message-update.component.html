@@ -1,5 +1,5 @@
 <div class="row justify-content-center">
-    <div class="col-8">
+    <div class="col-8" *ngIf="isAllowedUser; else blockedResults">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
             <h2 id="jhi-message-heading" jhiTranslate="jhipsterpressApp.message.home.createOrEditLabel">Create or edit a Message</h2>
             <div>
@@ -87,4 +87,7 @@
             </div>
         </form>
     </div>
+    <ng-template #blockedResults>
+	  <h2 id="page-heading" jhiTranslate="jhipsterpressApp.message.home.blockedByuser">Your messages are blocked by this user</h2>
+	</ng-template>
 </div>

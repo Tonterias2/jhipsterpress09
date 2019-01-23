@@ -4,6 +4,7 @@
             "home": {
                 "title": "Messages",
                 "createLabel": "Create a new Message",
+                "blockedByuser": "Your messages are blocked by this user",
                 "myLabel": "My Messages",
                 "createOrEditLabel": "Create or edit a Message",
                 "search": "Search for Message"
