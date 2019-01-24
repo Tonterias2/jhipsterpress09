@@ -154,7 +154,7 @@ export class VtopicDetailComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.reload();
+        //        this.reload();
     }
 
     private onSaveError() {

@@ -96,7 +96,7 @@
 		                    </span>
 		                  </h6>
 		                  
-		                  <!-- 
+		                  
 		                  <h6 class="g-color-gray-dark-v1">
 			                  	<button id="jh-create-entity"
 									*ngIf="owner === post.userId" 
@@ -105,6 +105,7 @@
 							        <fa-icon [icon]="'plus'"></fa-icon>
 							    </button>
 							    <strong class="g-mr-5">Tags:</strong>
+							    <section style="display: flex; justify-content: space-around;">
 							    <span  *ngFor="let tag of post.tags">
 							        <a [routerLink]="['/tag', tag.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
 							        <span>
@@ -115,8 +116,9 @@
 							            {{tag.tagName}}
 							        </a>
 							    </span>
+							    </section>
 							</h6>
-		                   -->
+		                   
 		                  
 		                  <h6 class="g-color-gray-dark-v1">
 			                  	<button id="jh-create-entity"

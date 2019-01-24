@@ -238,7 +238,7 @@ export class UprofileDetailComponent implements OnInit {
             this.notificationReason = 'FOLLOWING';
             this.createNotification(this.notificationReason);
             this.isFollowing = true;
-            this.reload();
+            //            this.reload();
         }
     }
 
@@ -254,8 +254,9 @@ export class UprofileDetailComponent implements OnInit {
                         this.followService.delete(this.follows[0].id).subscribe(response => {
                             this.notificationReason = 'UNFOLLOWING';
                             this.createNotification(this.notificationReason);
+                            this.isFollowing = false;
                         });
-                        this.reload();
+                        //                        this.reload();
                     }
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
@@ -300,7 +301,7 @@ export class UprofileDetailComponent implements OnInit {
         if (this.isBlocked === false) {
             this.subscribeToSaveResponse(this.blockuserService.create(this.blockuser));
             this.isBlocked = true;
-            this.reload();
+            //            this.reload();
         }
     }
 
@@ -313,7 +314,8 @@ export class UprofileDetailComponent implements OnInit {
                         this.isBlocked = true;
                         console.log('CONSOLOG: M:unBlocking & O2: this.blockusers[0].id : ', this.blockusers[0].id);
                         this.blockuserService.delete(this.blockusers[0].id).subscribe(response => {});
-                        this.reload();
+                        this.isBlocked = false;
+                        //                        this.reload();
                     }
                 },
                 (res4: HttpErrorResponse) => this.onError(res4.message)
@@ -375,11 +377,11 @@ export class UprofileDetailComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IFollow>>) {
-        result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private subscribeToSaveResponse2(result: Observable<HttpResponse<INotification>>) {
-        result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private subscribeToSaveResponse3(result: Observable<HttpResponse<IInterest>>) {

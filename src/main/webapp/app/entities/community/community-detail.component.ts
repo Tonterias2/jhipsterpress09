@@ -174,18 +174,7 @@ export class CommunityDetailComponent implements OnInit {
             query['followedId.in'] = this.currentAccount.id;
             query['cfollowingId.in'] = this.community.id;
         }
-        this.followService.query(query).subscribe(
-            (res: HttpResponse<IFollow[]>) => {
-                this.follows = res.body;
-                console.log('CONSOLOG: M:isFollower & O: this.follows : ', this.follows);
-                if (this.follows.length > 0) {
-                    this.isFollowing = true;
-                    return this.follows[0];
-                }
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        console.log('CONSOLOG: M:isFollower & O: this.isFollowing : ', this.isFollowing);
+        return this.followService.query(query);
     }
 
     following() {
@@ -199,19 +188,27 @@ export class CommunityDetailComponent implements OnInit {
             this.notificationReason = 'FOLLOWING';
             this.createNotification(this.notificationReason);
             this.isFollowing = true;
-            this.reload();
         }
     }
 
     unFollowing() {
         if (this.isFollowing === true) {
-            this.isFollower();
-            console.log('CONSOLOG: M:unFollowing & O: this.follows[0].id : ', this.follows[0].id);
-            this.followService.delete(this.follows[0].id).subscribe(response => {
-                this.notificationReason = 'UNFOLLOWING';
-                this.createNotification(this.notificationReason);
-            });
-            this.reload();
+            this.isFollower().subscribe(
+                (res: HttpResponse<IFollow[]>) => {
+                    this.follows = res.body;
+                    if (this.follows.length > 0) {
+                        this.isFollowing = true;
+                        // return this.follows[0];
+                        console.log('CONSOLOG: M:unFollowing & O: this.follows[0].id : ', this.follows[0].id);
+                        this.followService.delete(this.follows[0].id).subscribe(response => {
+                            this.notificationReason = 'UNFOLLOWING';
+                            this.createNotification(this.notificationReason);
+                            this.isFollowing = false;
+                        });
+                    }
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         }
     }
 
@@ -300,11 +297,11 @@ export class CommunityDetailComponent implements OnInit {
     }
 
     private subscribeToSaveResponse(result: Observable<HttpResponse<IFollow>>) {
-        result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<IFollow>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private subscribeToSaveResponse2(result: Observable<HttpResponse<INotification>>) {
-        result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess(), (res: HttpErrorResponse) => this.onSaveError());
+        result.subscribe((res: HttpResponse<INotification>) => this.onSaveSuccess2(), (res: HttpErrorResponse) => this.onSaveError());
     }
 
     private subscribeToSaveResponse3(result: Observable<HttpResponse<ICinterest>>) {
