@@ -87,7 +87,7 @@
 								</button>
 		                    <strong class="g-mr-5">Tags:</strong>
 		                    <span  *ngFor="let tag of post.tags">
-							    <a (click)="removePostTag(tag.id, post.id)">
+							    <a (click)="removePostTag(tag.id, post.id)" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-red-opacity-0_8 g-color-red--hover rounded g-py-6 g-px-15 g-mr-5">
 									<fa-icon [icon]="'times'"></fa-icon>
 								</a>
 		                    	<a [routerLink]="['/tag', tag.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
@@ -95,31 +95,7 @@
 		                    	</a>
 		                    </span>
 		                  </h6>
-		                  
-		                  
-		                  <h6 class="g-color-gray-dark-v1">
-			                  	<button id="jh-create-entity"
-									*ngIf="owner === post.userId" 
-									class="btn btn-primary float-right jh-create-entity create-tag"
-									[routerLink]="['/tag/new']" [queryParams]="{ 'postIdEquals': post.id }">
-							        <fa-icon [icon]="'plus'"></fa-icon>
-							    </button>
-							    <strong class="g-mr-5">Tags:</strong>
-							    <section style="display: flex; justify-content: space-around;">
-							    <span  *ngFor="let tag of post.tags">
-							        <a [routerLink]="['/tag', tag.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
-							        <span>
-									    <a (click)="removePostTag(tag.id, post.id)">
-											<fa-icon [icon]="'times'"></fa-icon>
-										</a>
-							        </span>    
-							            {{tag.tagName}}
-							        </a>
-							    </span>
-							    </section>
-							</h6>
-		                   
-		                  
+ 
 		                  <h6 class="g-color-gray-dark-v1">
 			                  	<button id="jh-create-entity"
 									*ngIf="owner === post.userId" 
@@ -129,7 +105,7 @@
 								</button>
 		                    <strong class="g-mr-5">Topics:</strong>
 		                    <span  *ngFor="let topic of post.topics">
-		                		<a (click)="removePostTopic(topic.id, post.id)">
+		                		<a (click)="removePostTopic(topic.id, post.id)" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-red-opacity-0_8 g-color-red--hover rounded g-py-6 g-px-15 g-mr-5">
 									<fa-icon [icon]="'times'"></fa-icon>
 								</a>
 		                    	<a [routerLink]="['/topic', topic.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">

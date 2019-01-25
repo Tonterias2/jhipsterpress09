@@ -165,7 +165,7 @@
 									</button>
 								    <strong class="g-mr-5">Interests:</strong>
 								    <span *ngFor="let interest of interests">								    
-									    <a (click)="removeProfileInterest(interest.id, uprofile.id)">
+									    <a (click)="removeProfileInterest(interest.id, uprofile.id)" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-red-opacity-0_8 g-color-red--hover rounded g-py-6 g-px-15 g-mr-5">
 											<fa-icon [icon]="'times'"></fa-icon>
 										</a>
 								    	<a [routerLink]="['/interest', interest.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
@@ -187,7 +187,7 @@
 									</button>
 								    <strong class="g-mr-5">Activities:</strong>
 								    <span *ngFor="let activity of activities">
-									    <a (click)="removeProfileActivity(activity.id, uprofile.id)">
+									    <a (click)="removeProfileActivity(activity.id, uprofile.id)" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-red-opacity-0_8 g-color-red--hover rounded g-py-6 g-px-15 g-mr-5">
 											<fa-icon [icon]="'times'"></fa-icon>
 										</a>
 								    	<a [routerLink]="['/activity', activity.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
@@ -209,7 +209,7 @@
 										</button>
 								    <strong class="g-mr-5">Celebs:</strong>
 								    <span *ngFor="let celeb of celebs">
-									    <a (click)="removeProfileCeleb(celeb.id, uprofile.id)">
+									    <a (click)="removeProfileCeleb(celeb.id, uprofile.id)" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-red-opacity-0_8 g-color-red--hover rounded g-py-6 g-px-15 g-mr-5">
 											<fa-icon [icon]="'times'"></fa-icon>
 										</a>
 								    	<a [routerLink]="['/celeb', celeb.id, 'view' ]" class="u-tags-v1 g-font-size-12 g-brd-around g-brd-gray-light-v4 g-bg-primary--hover g-brd-primary--hover g-color-black-opacity-0_8 g-color-white--hover rounded g-py-6 g-px-15 g-mr-5">
