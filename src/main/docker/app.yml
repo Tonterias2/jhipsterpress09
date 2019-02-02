@@ -14,7 +14,7 @@ services:
         extends:
             file: postgresql.yml
             service: jhipsterpress-postgresql
-    jhipsterpress-elasticsearch:
-        extends:
-            file: elasticsearch.yml
-            service: jhipsterpress-elasticsearch
+    # jhipsterpress-elasticsearch:
+        # extends:
+            # file: elasticsearch.yml
+            # service: jhipsterpress-elasticsearch

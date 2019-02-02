@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: testk8s-postgresql
+  namespace: default
+  labels:
+    app: testk8s-postgresql
+type: Opaque
+data:
+  postgres-password: amNlbXVtcmE=
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: testk8s-postgresql
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: testk8s-postgresql
+    spec:
+      volumes:
+      - name: data
+        emptyDir: {}
+      containers:
+      - name: postgres
+        image: postgres:10.4
+        env:
+        - name: POSTGRES_USER
+          value: testk8s
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: testk8s-postgresql
+              key: postgres-password
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/postgresql/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: testk8s-postgresql
+  namespace: default
+spec:
+  selector:
+    app: testk8s-postgresql
+  ports:
+  - port: 5432

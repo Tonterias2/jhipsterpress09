@@ -1,0 +1,17 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "testk8s"
+    ],
+    "directoryPath": "D:\\BasuraTemporal\\Jhipster/",
+    "serviceDiscoveryType": false,
+    "jwtSecretKey": "N2E5NGZmYjZmNDk4YjlkYjM2YmI3NTA0NTJiZjRiODU3MjEyMjRhNWFjYTM5MmM4MmExNDA0NTIxNjdlMjk1ZjcwMWM5OWExOTkyMjQwYzExNjJhNGZjYTc1MjA1ZmVhZmU4MQ==",
+    "dockerRepositoryName": "galore",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "default",
+    "kubernetesServiceType": "NodePort",
+    "monitoring": "no",
+    "istio": "no",
+    "istioRoute": false
+  }
+}

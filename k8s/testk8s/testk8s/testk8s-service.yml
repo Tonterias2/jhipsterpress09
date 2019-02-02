@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: testk8s
+  namespace: default
+  labels:
+    app: testk8s
+spec:
+  selector:
+    app: testk8s
+  type: NodePort
+  ports:
+  - name: http
+    port: 8080

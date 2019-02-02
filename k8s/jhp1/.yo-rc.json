@@ -1,0 +1,17 @@
+{
+  "generator-jhipster": {
+    "appsFolders": [
+      "jhipsterpress"
+    ],
+    "directoryPath": "../",
+    "serviceDiscoveryType": false,
+    "jwtSecretKey": "ZWNjMTIyMjhmMTU4NzgzNTczYjFhOWFmNzc0NTRlMjQ5M2QzNzBkMDRhZTdhNTI1Njg3MmE0ZjFmOTM1ZmU5ZjRiMzM3NDM4YzFjODIyZTczM2VmNWUzYzY1NDQyODQ3ZTc4OA==",
+    "dockerRepositoryName": "galore",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "default",
+    "kubernetesServiceType": "NodePort",
+    "monitoring": "no",
+    "istio": "no",
+    "istioRoute": false
+  }
+}
