@@ -8,7 +8,7 @@ metadata:
 spec:
   selector:
     app: testk8s
-  type: NodePort
+  type: LoadBalancer
   ports:
   - name: http
     port: 8080

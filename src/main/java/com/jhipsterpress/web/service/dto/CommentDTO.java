@@ -34,6 +34,8 @@ public class CommentDTO implements Serializable {
     private byte[] commenterImage;
     private String commenterImageContentType;
 
+    private Long uprofileId;
+    
     private Long postId;
 
     public Long getId() {
@@ -116,6 +118,14 @@ public class CommentDTO implements Serializable {
 		this.commenterImageContentType = commenterImageContentType;
 	}
 
+	public Long getUprofileId() {
+		return uprofileId;
+	}
+
+	public void setUprofileId(Long uprofileId) {
+		this.uprofileId = uprofileId;
+	}
+
 	@Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -141,8 +151,17 @@ public class CommentDTO implements Serializable {
 	public String toString() {
 		return "CommentDTO [id=" + id + ", creationDate=" + creationDate + ", commentText=" + commentText
 				+ ", isOffensive=" + isOffensive + ", userId=" + userId + ", commenterFirstName=" + commenterFirstName
-				+ ", commenterLastName=" + commenterLastName + ", postId=" + postId + "]";
+				+ ", commenterLastName=" + commenterLastName + ", commenterImage=" + Arrays.toString(commenterImage)
+				+ ", commenterImageContentType=" + commenterImageContentType + ", uprofileId=" + uprofileId
+				+ ", postId=" + postId + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "CommentDTO [id=" + id + ", creationDate=" + creationDate + ", commentText=" + commentText
+//				+ ", isOffensive=" + isOffensive + ", userId=" + userId + ", commenterFirstName=" + commenterFirstName
+//				+ ", commenterLastName=" + commenterLastName + ", postId=" + postId + "]";
+//	}
 //    @Override
 //    public String toString() {
 //        return "CommentDTO{" +
