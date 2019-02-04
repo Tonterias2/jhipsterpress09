@@ -44,7 +44,7 @@ public class Vanswer implements Serializable {
     private Boolean accepted;
 
     @OneToMany(mappedBy = "vanswer", cascade = CascadeType.REMOVE)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    @Cache(usage = CacheConcurrencyStrategy.NONE)
     private Set<Vthumb> vthumbs = new HashSet<>();
     
     @ManyToOne(optional = false)
